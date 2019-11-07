@@ -1,0 +1,134 @@
+<!-- Just a blog template I found online -->
+<% include ../partials/header %>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+  <header class="jumbotron">
+    <h1><span class="glyphicon glyphicon-tent align-bottom" aria-hidden="true"></span> All Posts in DooleyEats!</h1>
+    <a class="pull-right" href="/posts/">
+      View All Posts
+    </a>
+    <hr>
+    <form class="form-inline" action="/posts" method="GET">
+      <div class="form-group has-feedback">
+        <label for="search"></label>
+        <input class="form-control" type="search" name="search" placeholder="Search Posts" autocomplete="off" />
+        <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+      </div>
+    </form>
+    <hr>
+    <a class="pull-right" href="/Posts/new_post">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      + Create New Posts
+    </a >
+  </header>
+
+  <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+    <% if (noPost == "") {%>
+      <div class="col-md-12">
+        <h4><%= noPost %></h4>
+      </div>
+    <% } %>
+    <% if (searched == true) {%>
+      <div class="col-md-12">
+        <h3>Search results: <span><%= searchQuery %></span></h3>
+        <% if (numPost <= 1) {%>
+        <h4><%= numPost %> post found in the posts:</h4>
+        <% } else{%>
+          <h4><%= numPost %> posts found in the posts:</h4><% } %>
+      </div>
+    <% } %>
+    <% posts.forEach(Post => {%>
+      <div class="col-md-3 col-sm-6">
+        <div class="thumbnail card">
+          <img src="<%= Post.image %>" class="gallery-image" alt="" style="width:100%">
+          <div class="caption">
+            <h4 class="caption"><%= Post.title %></h4>
+          </div>
+          <p>
+            <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= Post._id %>">
+              More Info
+            </a >
+          </p >
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% include ../partials/footer %>
+
+</body>
+</html>

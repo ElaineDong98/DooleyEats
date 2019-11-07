@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="icon" href="https://v4.bootcss.com/favicon.ico">-->
+
+    <title>Activate Your Account</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://qiaolin22.github.io/login/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://qiaolin22.github.io/login/static/css/signin.css" rel="stylesheet">
+    </head>
+
+<body class="text-center">
+  <div class="row">
+    <div class="col-md-12">
+    <form class="form-signin" action="/users/activate" method="POST">
+      <img class="mb-4" src="https://qiaolin22.github.io/login/static/image/logo.png" alt="" width="172" height="172"> 
+      <h2 class="form-signin-heading">Verify Your Email</h2>
+      <% include ./partials/messages %>
+      <label for="secretToken" class="sr-only">Secret Token</label>
+      <input type="secretToken" id="secretToken" name="secretToken" class="form-control" placeholder="Enter your secret token" required = "" autofocus class="form-control"><br/>
+      <button class="btn btn-lg btn-default btn-block" type="submit">Verify</button>
+    </form>
+  </div>
+</div>
+</html>

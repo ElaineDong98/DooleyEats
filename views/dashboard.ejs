@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<title>Dooley Eats Homepage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+
+</style>
+<body>
+<% include ./partials/messages %>
+
+<!-- Sidebar (hidden by default) -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-large w3-animate-left" style="display:none;z-index:2;width:30%;min-width:300px" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-hide-large"
+    onclick="w3_close()">Close &times;</button>
+  <a href="#Menu" onclick="w3_close()" class="w3-bar-item w3-button">Menu</a>
+  <a href="#Trending_Restaurants" onclick="w3_close()" class="w3-bar-item w3-button">Trending Restaurants</a>
+  <a href="#About_Us" onclick="w3_close()" class="w3-bar-item w3-button">About Us</a>
+</nav>
+
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1100px;margin:left">
+    <div class="w3-large w3-button w3-padding-16  w3-left" onclick="w3_open()">☰</div>
+    <div class="w3-right w3-padding-16 ">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        <a class="lead mb-3" href="/posts/new_post">+ create new post</a>
+      </button>
+      
+      <form action="/posts" method="GET" class="form-inline">
+      <input class="form-control mr-sm-2" type="search" name = "search" placeholder="Search" aria-label="Search" />
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Search
+      </button>
+      </form>
+      </div>
+    
+    <div class="w3-left w3-padding-16 ">
+        <p class="lead mb-3"><a href = "/users/<%= currUser._id %>" >Welcome <%= username%>!  </a>
+        </p>
+        <a href="/users/logout" class="btn btn-outline-secondary btn-sm">Sign Out</a>
+        
+    </div>
+    <!-- <div class="w3-left w3-padding-16"><a href = "login.html" >Login/ </a></div>
+    <div class="w3-left w3-padding-16"><a href = "register.html" > Register</a></div> -->
+    <div class="w3-center w3-padding-16"><img src="https://qiaolin22.github.io/login/static/image/logo.png" alt="Logo" style="width:8%"></div>
+  </div>
+</div>
+
+<hr id="Menu">
+<hr id="Trending Restaurants">
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+  <h2>Trending Posts</h2>
+
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding w3-padding-16 w3-center" id="Trending_Restaurants">
+    <div class="w3-quarter">
+      <img alt="#New Discovery" style="width:100%">
+      <h3><a href="https://qiaolin22.github.io/main.html" target="_blank">The Best Chinese restaurant in Atlanta!</a></h3>
+      <p>Add Descriptions: Yesterday, I went to XXX restaurant. I want to recommend this dish... They are offering discounts now!</p>
+    </div>
+    <div class="w3-quarter">
+      <img alt="#Food Recipe" style="width:100%">
+      <h3><a href="https://qiaolin22.github.io/main.html" target="_blank">My Unique Recipe for Meat Sauce Pasta</a></h3>
+      <p>Add Descriptions: Take a look at this wonderful recipe for meat sauce pasta! First, you need to...</p>
+    </div>
+    <div class="w3-quarter">
+      <img alt="#Trending Restaurants" style="width:100%">
+      <h3><a href="https://qiaolin22.github.io/main.html" target="_blank">Check Out This Popular Restaurant!</a></h3>
+      <p>Add Descriptions:</p>
+    </div>
+    <div class="w3-quarter">
+      <img alt="#Foodie Story" style="width:100%">
+      <h3><a href="https://qiaolin22.github.io/main.html" target="_blank">Some Funny Foodie Stories</a></h3>
+      <p>Add Descriptions:</p>
+    </div>
+    
+  </div>
+
+
+  <h2>Newest Posts</h2>
+  <!-- Second Photo Grid-->
+  <div class="w3-row-padding w3-padding-16 w3-center">
+    <div class="w3-quarter">
+      <img alt="#Discount Activities" style="width:100%">
+      <h3><a href="https://qiaolin22.github.io/main.html" target="_blank">Check Out This Discount!</a></h3>
+      <p>Add descriptions:</p>
+    </div>
+    <div class="w3-quarter">
+      <img alt="#American Food" style="width:100%">
+      <h3><a href="https://qiaolin22.github.io/main.html" target="_blank">Greatest Pizza I Every Had!</a></h3>
+      <p>Add descriptions:</p>
+    </div>
+    <div class="w3-quarter">
+      <img alt="#Dessert" style="width:100%">
+      <h3><a href="https://qiaolin22.github.io/main.html" target="_blank">Desserts You Cannot Miss in Atlanta</a></h3>
+      <p>Add descriptions:</p>
+    </div>
+    <div class="w3-quarter">
+      <img alt="#Delivery Available" style="width:100%">
+      <h3><a href="https://qiaolin22.github.io/main.html" target="_blank">This Restaurant Is On GitHub Right Now!</a></h3>
+      <p>Add descriptions:</p>
+    </div>
+  </div>
+  <div>
+    <span><a href="/posts/">View all posts here</a></span>
+  </div>
+  <hr id="About_Us">
+
+  <!-- About Us Section -->
+  <div class="w3-container w3-padding-32 w3-center">
+
+    <h3><a href = "/dashboard" >Live Events</a></h3><br>
+    <img src="https://qiaolin22.github.io/login/static/image/Chef.png" alt="Chef" class="w3-image" style="display:block;margin:auto" width="300" height="233">
+    <div class="w3-padding-32">
+      <h4><b>What We Do</b></h4>
+      <h6><i>Dooley Eats is a platform for Emory students to share their opinions about popular restaurants in Atlanta and food in general.</i></h6>
+      <p><i>As members of Team 0100.0, we strive for utmost user-friendliness and reliability. As such, Dooley Eats will become THE website bookmarked by every Emory food enthusiast.</i></p>
+    </div>
+  </div>
+  <hr>
+
+  <!-- Social Networks -->
+  <footer class="w3-row-padding w3-padding-32">
+    <div class="w3-third">
+      <h3>FOLLOW US</h3>
+      <ul class="w3-ul w3-hoverable">
+        <li class="w3-padding-16">
+          <img src="https://qiaolin22.github.io/login/static/image/facebook-icon.svg" alt="Facebook" style="width:10%">
+          <span class="w3-large"><a href="https://Facebook.com" target="_blank">Facebook</a></span><br>
+        </li>
+        <li class="w3-padding-16">
+          <img src="https://qiaolin22.github.io/login/static/image/Twitter.png" alt="Twitter" style="width:10%">
+          <span class="w3-large"><a href="https://Twitter.com" target="_blank">Twitter</a></span><br>
+        </li>
+        <li class="w3-padding-16">
+          <img src="https://qiaolin22.github.io/login/static/image/instagram_icon.jpeg" alt="Instagram" style="width:10%">
+          <span class="w3-large"><a href="https://Instagram.com" target="_blank">Instagram</a></span><br>
+        </li>
+      </ul>
+      <p>Powered by <a href=/dashboard>Team 0100.0</a></p>
+    </div>
+
+    <div class="w3-third">
+      <h3>BLOG POSTS</h3>
+      <ul class="w3-ul w3-hoverable">
+        <li class="w3-padding-16">
+          <img src="https://qiaolin22.github.io/login/static/image/blog-icon.png" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Food Posts</span><br>
+          <span><a href = "/posts" >View All Posts Here</a></span>
+        </li>
+        <li class="w3-padding-16">
+          <img src="https://qiaolin22.github.io/login/static/image/blog_icon2.png" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Discussions</span><br>
+          <span><a href = "/forum" >Discussions go here:</a></span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w3-third w3-serif">
+      <h3>POPULAR TAGS</h3>
+      <p>
+        <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dinner</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Salmon</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">France</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Drinks</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Flavors</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Cuisine</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Chicken</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dressing</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fried</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fish</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Duck</span>
+      </p>
+    </div>
+
+    
+  </footer>
+
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+
+</body>
+</html>

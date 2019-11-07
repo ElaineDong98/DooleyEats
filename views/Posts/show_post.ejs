@@ -1,0 +1,57 @@
+<% include ../partials/header %>
+<html>
+<div class="row">
+  <div class="col-md-3">
+    <p class="lead">Restaurant Name: </p>
+    <div class="list-group">
+      <li class="list-group-item">Rating is: <%= post.rating %></li>
+      <li class="list-group-item">Tags: <%= post.tags %></li>
+      <li class="list-group-item">Address is: <%= post.location %></li>
+      <li class="list-group-item">Business hours is:<%= post.hours %></li>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <div class="thumbnail">
+      <div class="caption">
+        <div class="fakeimg center">
+          <img src="<%= post.image %>" class="gallery-image" alt=""
+          style="margin-left: auto; display: block;
+          margin-right: auto;
+          width: 50%;"></div>
+
+        <h2><%= post.title %></h2>
+        <hr>
+        <p><b>Description:</b></p>
+        <p><%= post.description %> </p>
+        <hr>
+        <p>
+          <em>Submitted By: <a href="/users/<%= post.author.id %>"><%= post.author.username %></a></em>
+        </p
+        <p>
+          <em><%= post.createdAt %></em>
+        </p
+      </div>
+      </div>
+    </div>
+
+    <div class="well">
+      <div class="text-right">
+        <a class="btn btn-success btn-sm pull-right" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new comment
+        </a>
+      </div>
+      <!--Comment section title-->
+      <h4><span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span> <strong>Comments Section</strong></h4>
+      <!--Collapse Add a comment form START-->
+      <div class="collapse" id="collapseComment">
+        <div class="well" style="border-left: 3px solid #00A546;">
+          
+        </div>
+      </div>
+      <!--Collapse Add a comment form END-->
+      <hr>
+    </div>
+  </div>
+</div>
+</html>
