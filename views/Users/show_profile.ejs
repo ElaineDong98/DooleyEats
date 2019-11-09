@@ -412,17 +412,6 @@ Remove or comment-out the code block below to see how the browser will fall-back
   
     <div class="container">
       <h3><%= user.username %>'s posts</h3>
-      <!-- <div class="gallery">
-        <div class="gallery-item" tabindex="0">
-            <div class="gallery-item-info">
-                <ul>
-                    <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart"
-                            aria-hidden="true"></i> 0</li>
-                    <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment"
-                            aria-hidden="true"></i> 0</li>
-                </ul>
-            </div>
-        </div> -->
         <% posts.forEach(post => { %>
             <div class="gallery-item" tabindex="0">
                 <a href="/posts/<%= post.id %>"><font color="black"><%= post.title %></font>

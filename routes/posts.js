@@ -171,7 +171,7 @@ router.get("/:id", (req, res) => {
       res.redirect("/");
     } else {
       User.find()
-        .where("username")
+        .where("_id")
         .equals(foundPosts.author.id)
         .exec((err, user) => {
           if (err) {
@@ -179,7 +179,8 @@ router.get("/:id", (req, res) => {
             res.redirect("/dashboard");
           } else {
             res.render("Posts/show_post", {
-              post: foundPosts
+              post: foundPosts,
+              author: user
             });
           }
         });
