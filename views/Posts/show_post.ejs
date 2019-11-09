@@ -1,13 +1,173 @@
+
 <% include ../partials/header %>
+<link href="//s.xiaohongshu.com/formula-static/@xhs/launcher@1.5.1/dist/Launcher.css" rel="stylesheet">
+<style>
+  .card-note .bottom-gap[data-v-f71fb898] {
+    margin: 0 0 20px;
+}
+.author-item .card-info .inner span[data-v-0d757e92] {
+    display: block;
+    line-height: 20px;
+}
+.author-item .card-info .inner .collect[data-v-0d757e92], .author-item .card-info .inner .fans[data-v-0d757e92], .author-item .card-info .inner .note[data-v-0d757e92] {
+    color: #4f4f4f;
+    font-weight: 500;
+}
+.author-item .title[data-v-0d757e92] {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 10px 0 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+}
+.author-item .card-info .inner[data-v-0d757e92] {
+    float: left;
+    color: #999;
+    width: 86px;
+    font-size: 14px;
+    margin: 0 3px;
+}
+* {
+    box-sizing: border-box;
+}
+.left[data-v-534aa174] {
+    position: relative;
+    float: left;
+}
+.author-item[data-v-0d757e92] {
+    width: 320px;
+    height: 176px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    color: #000;
+    font-size: 14px;
+    background: #fff;
+}
+.author-info[data-v-534aa174] {
+    margin: 9px 11px 0;
+    padding: 0 0 10px;
+    overflow: hidden;
+    font-size: 12px;
+    cursor: pointer;
+    color: #333;
+    display: block;
+}
+.right[data-v-534aa174] {
+    float: left;
+    margin: 2px 0 0 15px;
+}
+.name[data-v-534aa174] {
+    margin: 3px 0 0;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+}
+.name .name-detail[data-v-534aa174] {
+    height: 16px;
+    line-height: 16px;
+}
+* {
+    box-sizing: border-box;
+}
+div {
+    display: block;
+}
+body {
+    font-size: 14px;
+    font-family: -apple-system,SF UI Text,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: #333;
+    background-color: #fbfbfb;
+}
+.left-img img[data-v-534aa174] {
+    border-radius: 50%;
+}
+.left-img .border-img[data-v-534aa174] {
+    border: 1px solid rgba(0,0,0,.15);
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.author-item .card-info[data-v-0d757e92] {
+    overflow: hidden;
+    margin: 8px 20px;
+}
+.author-item .author-info[data-v-0d757e92] {
+    margin: 10px 20px 0;
+    padding: 0 0 10px;
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+}
+.left-card[data-v-f71fb898] {
+    float: left;
+    margin-top: 20px;
+    width: 200px;
+}
+.right-card[data-v-f71fb898] {
+    float: right;
+    width: 1000px;
+    margin-top: 20px;
+}
+.card-note[data-v-f71fb898] {
+    width: 1350px;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 50px auto 50px;
+    margin-top: 50px;
+    margin-right: auto;
+    margin-bottom: 150px;
+    margin-left: auto;
+    padding-bottom: 36px;
+}
+</style>
+
 <html>
-<div class="row">
-  <div class="col-md-3">
-    <div class="list-group">
-      <li class="list-group-item">Rating is: <%= post.rating %></li>
-      <li class="list-group-item">Tags: <%= post.tags %></li>
+  <div data-v-f71fb898 data-v-70f39e76 class="card-note">
+  <div data-v-f71fb898="" class = "left-card">
+    <div data-v-0d757e92="" data-v-f71fb898="" class="author-item bottom-gap">
+      <h3 data-v-0d757e92="" class="title">Post's Author</h3> <span data-v-534aa174="" data-v-0d757e92="" class="author-info">
+        <div data-v-534aa174="" class="left">
+          <div data-v-534aa174="" class="left-img"><img data-v-534aa174=""
+              src= "https://scontent.fatl1-2.fna.fbcdn.net/v/t1.0-9/69794322_2418981958342192_871629764085940224_o.jpg?_nc_cat=108&_nc_oc=AQlNs5Ii74DwG4Q3FYXtCxSFGGTaDT7e1-bRWkXGg20ZsZrk9vLj_kSsKY7a13bCXWJYAzbO1n1uoUV-XIOSpalu&_nc_ht=scontent.fatl1-2.fna&oh=2c9b6bfb7c8b6571da278c5c1e6d133b&oe=5E465109"
+              style="width: 50px; height: 50px;"> </div> 
+        </div>
+        <div data-v-534aa174="" class="right" style="width: 190px;">
+          <h6 data-v-534aa174="" class="name" style="font-size: 16px;"><span data-v-534aa174=""
+              class="name-detail"><%= post.author.username %></span> <i data-v-534aa174="" class="level-detail"
+              style="background-image: url(&quot;https://s4.xiaohongshu.com/static/throne/property/f11_v2.png&quot;);"></i>
+          </h6>
+          <p data-v-534aa174="" class="brief" style="font-size: 14px;color: #999;">Member of binary 4.0</p>
+        </div>
+        <!---->
+      </span>
+      <div data-v-0d757e92="" class="card-info">
+        <div data-v-0d757e92="" class="inner"><span data-v-0d757e92="">Posts</span> <span data-v-0d757e92=""
+            class="note">1</span></div>
+        <div data-v-0d757e92="" class="inner"><span data-v-0d757e92="">Likes</span> <span data-v-0d757e92=""
+            class="fans">2</span></div>
+        <div data-v-0d757e92="" class="inner"><span data-v-0d757e92="">Contact</span> <span data-v-0d757e92=""
+            class="fans">+</span></div>
+      </div>
+        <div class="list-group">
+          <li class="list-group-item">Rating: <%= post.rating %></li>
+          <li class="list-group-item">Tags: <%= post.tags %></li>
+          <li class="list-group-item">Address: <%= post.location %></li>
+          <li class="list-group-item">Business hours:<%= post.hours %></li>
+        </div>
     </div>
   </div>
 
+
+<div data-v-f71fb898="" class="right-card">
   <div class="col-md-9">
     <div class="thumbnail">
       <div class="caption">
@@ -15,9 +175,11 @@
           <img src="<%= post.image %>" class="gallery-image" alt=""
           style="margin-left: auto; display: block;
           margin-right: auto;
-          width: 50%;"></div>
-
+          width: auto;">
+          </div>
+          <div><p></p></div>
         <h2><%= post.title %></h2>
+        <button class="btn profile-edit-btn btn-success"><a href="/posts/edit/<%= post.id%>">Edit Post</a></button>
         <hr>
         <p><b>Description:</b></p>
         <p><%= post.description %> </p>
@@ -49,6 +211,7 @@
       <!--Collapse Add a comment form END-->
       <hr>
     </div>
+  </div>
   </div>
 </div>
 </html>
