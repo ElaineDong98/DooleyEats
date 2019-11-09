@@ -142,7 +142,7 @@ body {
         </div>
         <div data-v-534aa174="" class="right" style="width: 190px;">
           <h6 data-v-534aa174="" class="name" style="font-size: 16px;"><span data-v-534aa174=""
-              class="name-detail"><%= post.author.username %></span> <i data-v-534aa174="" class="level-detail"
+              class="name-detail"><a href="/users/<%= post.author.id %>"><%= post.author.username %></a></span> <i data-v-534aa174="" class="level-detail"
               style="background-image: url(&quot;https://s4.xiaohongshu.com/static/throne/property/f11_v2.png&quot;);"></i>
           </h6>
           <p data-v-534aa174="" class="brief" style="font-size: 14px;color: #999;">Member of binary 4.0</p>
@@ -178,23 +178,51 @@ body {
           <img src="<%= post.image %>" class="gallery-image" alt=""
           style="margin-left: auto; display: block;
           margin-right: auto;
-          width: auto;">
+          width: 100%;">
           </div>
           <div><p></p></div>
         <h2><%= post.title %></h2>
+        <hr>
+        <div class="pull-right">
+          <span>Total likes: <i class="fas fa-heart" style="color: red"></i> <%= post.likes.length %></span>
+        </div>
         <hr>
         <p><b>Description:</b></p>
         <p><%= post.description %> </p>
         <hr>
         <p>
           <em>Submitted By: <a href="/users/<%= post.author.id %>"><%= post.author.username %></a></em>
-        </p
+        </p>
         <p>
           <em><%= post.createdAt %></em>
-        </p
-      </div>
+        </p>
       </div>
     </div>
+
+
+
+    <div style="padding-bottom: 10px;" class="text-right">
+      <form action="/posts/<%= post._id %>/like" method="POST">
+        <div class="btn-group">
+          <% if (post.likes.some(function (like) {
+                                        return like.equals(currUser._id)
+                                    })) { %>
+          <button class="btn btn-sm btn-primary">
+            <i class="fas fa-heart" style = "color: white"></i> Liked 
+          </button>
+          <% } else { %>
+          <button class="btn btn-sm btn-secondary">
+            <i class="fas fa-heart"></i> Like 
+          </button>
+          <% } %>
+
+        </div>
+      </form>
+    </div>
+
+
+
+
 
     <div class="well">
       <div class="text-right">
@@ -215,5 +243,10 @@ body {
     </div>
   </div>
   </div>
+
+
+
+
+
 </div>
 </html>

@@ -162,10 +162,10 @@ router.put("/:id", ensureAuthenticated, (req, res) => {
   );
 });
 // Edit Posts Page
-// SHOW - shows more info about one campground
+// SHOW - shows more info about one Post
 
-router.get("/:id", (req, res) => {
-  Post.findById(req.params.id, (err, foundPosts)=> {
+router.get("/:id", ensureAuthenticated,function (req, res) {
+  Post.findById(req.params.id,  (err, foundPosts) => {
     if (err) {
       req.flash("error", "Something went wrong.");
       res.redirect("/");
@@ -184,8 +184,38 @@ router.get("/:id", (req, res) => {
             });
           }
         });
+      }
+    });
+});
+
+// Post Like Route
+router.post("/:id/like", function (req, res) {
+  Post.findById(req.params.id, function (err, foundPost) {
+    if (err) {
+      console.log(err);
+      res.redirect("back");
     }
+    // check if req.user._id exists in foundPost.likes
+    var foundUserLike = foundPost.likes.some(function (like) {
+      return like.equals(req.user._id);
+    });
+
+    if (foundUserLike) {
+      // user already liked, removing like
+      foundPost.likes.pull(req.user._id);
+    } else {
+      // adding the new user like
+      foundPost.likes.push(req.user);
+    }
+    foundPost.save(function (err) {
+      if (err) {
+        console.log(err);
+        return res.redirect("back");
+      }
+      return res.redirect("/posts/" + foundPost._id);
+    });
   });
 });
+
 
 module.exports = router;
