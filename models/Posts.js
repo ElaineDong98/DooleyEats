@@ -22,6 +22,13 @@ var PostSchema = new mongoose.Schema({
     required: true,
     //default: 'description'
   },
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      username: String
+    },
+  ],
   location: {
     type: String
   },
