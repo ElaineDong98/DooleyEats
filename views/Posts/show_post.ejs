@@ -157,12 +157,15 @@ body {
         <div data-v-0d757e92="" class="inner"><span data-v-0d757e92="">Contact</span> <span data-v-0d757e92=""
             class="fans">+</span></div>
       </div>
+      <br>
         <div class="list-group">
           <li class="list-group-item">Rating: <%= post.rating %></li>
           <li class="list-group-item">Tags: <%= post.tags %></li>
-          <li class="list-group-item">Address: <%= post.location %></li>
-          <li class="list-group-item">Business hours:<%= post.hours %></li>
+          
         </div>
+        <br>
+        <button class="btn profile-edit-btn btn-success"><a href="/posts/edit/<%= post.id%>">Edit Post</a></button>
+
     </div>
   </div>
 
@@ -179,7 +182,6 @@ body {
           </div>
           <div><p></p></div>
         <h2><%= post.title %></h2>
-        <button class="btn profile-edit-btn btn-success"><a href="/posts/edit/<%= post.id%>">Edit Post</a></button>
         <hr>
         <p><b>Description:</b></p>
         <p><%= post.description %> </p>
