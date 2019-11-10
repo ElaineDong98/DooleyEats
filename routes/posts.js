@@ -106,7 +106,8 @@ router.get('/show_post', ensureAuthenticated, (req, res) =>
 
     var author = {
       id: req.user._id,
-      username: req.user.username
+      username: req.user.username, 
+      image: req.user.image
     };
     const newPost = new Post({
       title,
