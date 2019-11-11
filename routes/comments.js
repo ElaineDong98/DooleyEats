@@ -32,6 +32,10 @@ const isAuthenticated = (req, res, next) => {
     }
   };
 
+router.post("/", isAuthenticated, (req, res) => {
+  res.render("/");
+});  
+
 // comments Create
 router.post("/", isAuthenticated, (req, res) => {
     //lookup campground using id
