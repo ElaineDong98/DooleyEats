@@ -1,11 +1,10 @@
 
 <% include ../partials/header %>
-<div class="row">
-    <div>
-        <h1 style="text-align: center;">Edit Post</h1>
-    </div>
-    <div>
-        <div class="rwd-form">
+<div>
+    <h1 style="text-align: center;">Edit Your Post</h1>
+</div>
+    <div class="form" style="width: 50%;display: block;margin-left: auto;
+        margin-right: auto;">
             <form action="/posts/<%= posts._id %>?_method=PUT" method="POST">
                 <div class="form-group">
                     </br></br></br></br>
@@ -15,7 +14,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input class="form-control" type="text" name="description" value="<%= posts.description %>" autocomplete="off"
+                    <input style="height:200px;" class="form-control" type="text" name="description" value="<%= posts.description %>" autocomplete="off"
                         required />
                 </div>
 
@@ -37,5 +36,4 @@
             <hr />
             <a href="/posts/<%= posts._id %>">Back</a>
         </div>
-    </div>
     <% include ../partials/footer %>
