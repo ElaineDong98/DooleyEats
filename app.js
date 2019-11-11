@@ -63,6 +63,7 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 app.use("/posts", require("./routes/posts"));
+app.use("/posts/:id/comments", require("./routes/comments"));
 
 const PORT = process.env.PORT || 5000;
 

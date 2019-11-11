@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/Posts");
-const Comment  = require("../models/comment"),
+const Comment  = require("../models/comment");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const { ensureAuthenticated } = require("../config/auth");
@@ -32,57 +32,57 @@ const isAuthenticated = (req, res, next) => {
     }
   };
 
-router.post("/", isAuthenticated, (req, res) => {
-  res.render("/");
-});  
+// router.get("/", isAuthenticated, (req, res) => {
+//   res.render("/");
+// });  
 
-// comments Create
-router.post("/", isAuthenticated, (req, res) => {
-    //lookup campground using id
-    post.findById(req.params.id, (err, post) => {
-      if (err) { 
-        console.log(err);
-        res.redirect("/posts");
-      }
-      else {
-        //create new comment
-        Comment.create(req.body.comment, (err, comment) => {
-          if (err) {
-            req.flash("error", "Something went wrong.");
-            console.log(err);
-          } else {
-            //add username and id to comments
-            comment.author.id = req.user._id;
-            comment.author.username = req.user.username;
-            //save comment
-            comment.save();
-            //connect new comment to campground
-            post.comments.push(comment);
-            post.save();
-            //redirect to campground show page
-            req.flash("success", "Successfully added comment");
-            res.redirect("/posts/" + post._id);
-          }
-        });
-      }
-    });
-  });
-
-
+// // comments Create
+// router.post("/", isAuthenticated, (req, res) => {
+//     //lookup campground using id
+//     Post.findById(req.params.id, (err, post) => {
+//       if (err) { 
+//         console.log(err);
+//         res.redirect("/posts");
+//       }
+//       else {
+//         //create new comment
+//         Comment.create(req.body.comment, (err, comment) => {
+//           if (err) {
+//             req.flash("error", "Something went wrong.");
+//             console.log(err);
+//           } else {
+//             //add username and id to comments
+//             comment.author.id = req.user._id;
+//             comment.author.username = req.user.username;
+//             //save comment
+//             comment.save();
+//             //connect new comment to campground
+//             Post.comments.push(comment);
+//             Post.save();
+//             //redirect to campground show page
+//             req.flash("success", "Successfully added comment");
+//             res.redirect("/posts/" + Post._id);
+//           }
+//         });
+//       }
+//     });
+//   });
 
 
 
 
 
-  router.get('/new_post', ensureAuthenticated, (req, res) =>
-  res.render('Posts/new_post', {
-    username: req.user.username
-  }));
 
-router.get('/show_post', ensureAuthenticated, (req, res) =>
-  res.render('Posts/show_post', {
-    username: req.user.username
-  }));
+
+//   router.get('/new_post', ensureAuthenticated, (req, res) =>
+//   res.render('Posts/new_post', {
+//     username: req.user.username
+//   }));
+
+// router.get('/show_post', ensureAuthenticated, (req, res) =>
+//   res.render('Posts/show_post', {
+//     username: req.user.username
+//   }));
 
 
 
@@ -92,9 +92,9 @@ router.get('/show_post', ensureAuthenticated, (req, res) =>
     res.render("/");
   })
   .post(async (req, res, next) => {
-    const {text,createTime,author} = req.body;
+    var {text,createTime,author} = req.body;
 
-    var author = {
+    author = {
       id: req.user._id,
       username: req.user.username
     };
@@ -112,6 +112,7 @@ router.get('/show_post', ensureAuthenticated, (req, res) =>
         });
       } else {
         res.redirect("/posts");
+        console.log("comment is: " + newComment.text);
       }
     });
   });
