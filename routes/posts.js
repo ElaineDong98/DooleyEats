@@ -102,7 +102,7 @@ router.get('/show_post', ensureAuthenticated, (req, res) =>
     res.render("/");
   })
   .post(async (req, res, next) => {
-    const { title, image, description, tags, location} = req.body;
+    const { title,postType, image, description, tags, location} = req.body;
 
     var author = {
       id: req.user._id,
@@ -111,6 +111,7 @@ router.get('/show_post', ensureAuthenticated, (req, res) =>
     };
     const newPost = new Post({
       title,
+      postType,
       image,
       description,
       tags,

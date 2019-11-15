@@ -20,13 +20,13 @@
             />
         </div>
 
-        Tag: <br>
-        <select name="tags" >
-            <optgroup label="Please Select A Tag:">
+        Post Category: <br>
+        <select name="postType" >
+            <optgroup label="Please Select A Post Category:">
                 <option value="" selected disabled hidden>Choose here</option>
-                <option id="tags" >#RestaurantReview</option>
-                <option id="tags" >#Recipe</option>
-                <option id="tags" >#HangOut</option>
+                <option id="postType" >#RestaurantReview</option>
+                <option id="postType" >#Recipe</option>
+                <option id="postType" >#HangOut</option>
             </optgroup>
         </select>
         <br><br>
@@ -93,7 +93,7 @@
         </select>
         <br><br> -->
        
-        <!-- <div class = "form-group">
+        <div class = "form-group">
           <label for="tags">Tags:</label>
           <input 
             type="text" 
@@ -103,7 +103,7 @@
             required = ""
             value="<%= typeof tags != 'undefined' ? tags : '' %>"
           />
-        </div> -->
+        </div>
 
         <!-- Send email to confirm -->
         <button type="submit" class="btn btn-primary btn-block">

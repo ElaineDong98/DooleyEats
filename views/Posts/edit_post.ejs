@@ -11,7 +11,27 @@
                     <label for="title">Title</label>
                     <input class="form-control" type="text" name="title" value="<%= posts.title %>"
                         autocomplete="off" required />
-                </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                            <label for="postType">Post Category</label>
+                            <select name="postType" >
+                                    <optgroup label="Please Select A Post Category:">
+                                        <option value="" selected disabled hidden>Choose here</option>
+                                        <option id="postType" >#RestaurantReview</option>
+                                        <option id="postType" >#Recipe</option>
+                                        <option id="postType" >#HangOut</option>
+                                    </optgroup>
+                                </select>
+                            <input class="form-control" type="text" name="postType" value="<%= posts.postType %>"
+                                autocomplete="off" /> 
+                        </div>    -->
+
+                        <div class="form-group">
+                                <label for="image">Image</label>
+                                <input class="form-control" type="text" name="image" value="<%= posts.image %>" autocomplete="off" />
+                            </div>
+
                 <div class="form-group">
                     <label for="description">Description</label>
                     <input style="height:200px;" class="form-control" type="text" name="description" value="<%= posts.description %>" autocomplete="off"
@@ -19,15 +39,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="rating">Rating</label>
-                    <input class="form-control" type="text" name="rating" value="<%= posts.rating %>"
-                        autocomplete="off" />
-                </div>
-
-                <div class="form-group">
-                    <label for="image">Image</label>
-                    <input class="form-control" type="text" name="image" value="<%= posts.image %>" autocomplete="off" />
-                </div>
+                        <label for="tags">Tag</label>
+                        <input class="form-control" type="text" name="tags" value="<%= posts.tags %>" autocomplete="off" />
+                    </div>
 
                 <div class="form-group">
                     <button class="btn btn-md btn-primary btn-block">Update Post</button>
