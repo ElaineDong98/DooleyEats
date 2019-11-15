@@ -56,6 +56,7 @@ var PostSchema = new mongoose.Schema({
       text: String
     }
   ]
+
 });
 PostSchema.plugin(passportLocalMongoose)
 
