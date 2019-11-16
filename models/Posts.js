@@ -8,6 +8,9 @@ var PostSchema = new mongoose.Schema({
     required: true,
     //default: 'title'
   },
+  postType: {
+    type: String
+  },
   rating: {
     type: Number
   },
@@ -56,6 +59,7 @@ var PostSchema = new mongoose.Schema({
       text: String
     }
   ]
+
 });
 PostSchema.plugin(passportLocalMongoose)
 
