@@ -6,7 +6,6 @@ var PostSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    //default: 'title'
   },
   rating: {
     type: Number
@@ -17,11 +16,13 @@ var PostSchema = new mongoose.Schema({
   image: {
     type: String
   },
+  image_approved : Boolean,
+  info : [String],
   description: {
     type: String,
     required: true,
-    //default: 'description'
   },
+  rating_avg : String,
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,

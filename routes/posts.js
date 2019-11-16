@@ -89,11 +89,6 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
     username: req.user.username
   }));
 
-router.get('/show_post', ensureAuthenticated, (req, res) =>
-  res.render('Posts/show_post', {
-    username: req.user.username
-  }));
-
 
 
   router
@@ -166,11 +161,23 @@ router.put("/:id", ensureAuthenticated, (req, res) => {
 // SHOW - shows more info about one Post
 
 router.get("/:id", ensureAuthenticated,function (req, res) {
-  Post.findById(req.params.id,  (err, foundPosts) => {
+  Post.findById(req.params.id).populate({
+    path: 'comments',
+    populate : {
+                    path : 'upvotes',
+                    model : 'User'
+              }
+})
+.exec(function(err, foundPosts) {
     if (err) {
       req.flash("error", "Something went wrong.");
       res.redirect("/");
-    } else {
+    } 
+    else if(!foundPosts){    
+            console.log("Post not found!");
+            res.status(404).send("Post not found!");
+    }
+    else {
       User.find()
         .where("_id")
         .equals(foundPosts.author.id)
@@ -179,9 +186,19 @@ router.get("/:id", ensureAuthenticated,function (req, res) {
             req.flash("error", "Something went wrong...");
             res.redirect("/dashboard");
           } else {
-            res.render("Posts/show_post", {
-              post: foundPosts,
-              author: user
+            Post.populate(foundPosts, 
+              {
+                  path: 'comments.downvotes',
+                  model: 'User',
+              }, function(err, new_post) {
+                  if (err)
+                  {   
+                      console.log(err);
+                      res.status(500).send("Sorry! an error occurred!");
+                  }
+                  else{
+                    res.render("Posts/show_post", {post: new_post, author: user});
+                  }
             });
           }
         });
