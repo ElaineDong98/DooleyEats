@@ -165,8 +165,12 @@ body {
           
         </div>
         <br>
+        <% if (currUser && post.author.id.equals(currUser._id)) {%>
         <button class="btn profile-edit-btn btn-success"><a href="/posts/edit/<%= post.id%>">Edit Post</a></button>
-
+        <form class="delete-form" action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </form>
+        <% } %>
     </div>
   </div>
 

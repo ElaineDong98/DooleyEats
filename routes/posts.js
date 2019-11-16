@@ -220,4 +220,16 @@ router.post("/:id/like", function (req, res) {
 });
 
 
+// destroy campground route
+router.delete("/:id", (req, res) => {
+  Post.findByIdAndRemove(req.params.id, err => {
+    if (err) { res.redirect("back"); }
+    else {
+      req.flash("success", "Post removed!");
+      res.redirect("back");
+    }
+  });
+});
+
+
 module.exports = router;
