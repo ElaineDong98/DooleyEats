@@ -7,6 +7,9 @@ var PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  postType: {
+    type: String
+  },
   rating: {
     type: Number
   },

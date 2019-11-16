@@ -165,13 +165,19 @@ body {
       </div>
       <br>
         <div class="list-group">
-          <li class="list-group-item">Would you recommend (0-10): <%= post.rating %></li>
+          <!-- <li class="list-group-item">Would you recommend (0-10): <%= post.rating %></li> -->
+          <li class="list-group-item">Post Category: <%= post.postType %></li>
           <li class="list-group-item">Tags: <%= post.tags %></li>
           
         </div>
         <br>
+        <% if (currUser && post.author.id.equals(currUser._id)) {%>
         <button class="btn profile-edit-btn btn-success"><a href="/posts/edit/<%= post.id%>">Edit Post</a></button>
-
+        <br>
+        <form class="delete-form" action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </form>
+        <% } %>
     </div>
   </div>
 
@@ -234,7 +240,7 @@ body {
       <hr>
       <!-- Comments list -->
       
-      <% for(var i = 0; i <post.comments.length;i++){ %>
+      <% for(var i = 0; i < post.comments.length; i++){ %>
           <%  var com = post.comments[i]; %>
           <div class="row">
             <div class="row">
@@ -244,8 +250,7 @@ body {
               <div class="col-md-3">
                 <div class="pull-right"><strong><span class="glyphicon glyphicon-user"></span> <%=com.author.username%></strong></div>
               </div>
-          </div>
-
+            </div>
           <div class="row">
             <div class="col-md-10">
                 <pre><%= com.text %> </pre>

@@ -90,14 +90,13 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
   }));
 
 
-
   router
   .route("/")
   .get(isNotAuthenticated, (req, res) => {
     res.render("/");
   })
   .post(async (req, res, next) => {
-    const { title, image, description, tags, location} = req.body;
+    const { title,postType, image, description, tags, location} = req.body;
 
     var author = {
       id: req.user._id,
@@ -106,6 +105,7 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
     };
     const newPost = new Post({
       title,
+      postType,
       image,
       description,
       tags,
@@ -206,6 +206,7 @@ router.get("/:id", ensureAuthenticated,function (req, res) {
     });
 });
 
+
 // Post Like Route
 router.post("/:id/like", function (req, res) {
   Post.findById(req.params.id, function (err, foundPost) {
@@ -232,6 +233,18 @@ router.post("/:id/like", function (req, res) {
       }
       return res.redirect("/posts/" + foundPost._id);
     });
+  });
+});
+
+
+// destroy campground route
+router.delete("/:id", (req, res) => {
+  Post.findByIdAndRemove(req.params.id, err => {
+    if (err) { res.redirect("/dashboard"); }
+    else {
+      req.flash("success", "Post removed!");
+      res.redirect("/dashboard");
+    }
   });
 });
 
