@@ -95,7 +95,6 @@ router.get('/show_post', ensureAuthenticated, (req, res) =>
   }));
 
 
-
   router
   .route("/")
   .get(isNotAuthenticated, (req, res) => {
@@ -188,6 +187,7 @@ router.get("/:id", ensureAuthenticated,function (req, res) {
       }
     });
 });
+
 
 // Post Like Route
 router.post("/:id/like", function (req, res) {

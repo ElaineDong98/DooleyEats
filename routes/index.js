@@ -1,14 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const {ensureAuthenticated} = require('../config/auth');
+const Post = require("../models/Posts");
 
  // Welcome Page
  router.get('/', (req, res) => res.render('welcome'));
  // Dashboard
- router.get('/dashboard', ensureAuthenticated, (req, res) => 
-    res.render('dashboard', {
-        username: req.user.username
-    }));
+ router.get('/dashboard',ensureAuthenticated, (req, res) => 
+    Post.find({},  (err, foundPosts) => {
+        res.render('dashboard', {
+            posts: foundPosts,
+            username: req.user.username
+          })
+        }
+      ).sort([["likes", 'desc']]));
+      
+    
 //Search
 router.get('/search', (req, res) => res.render('search'));
 
