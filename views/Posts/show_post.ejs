@@ -167,6 +167,7 @@ body {
         <br>
         <% if (currUser && post.author.id.equals(currUser._id)) {%>
         <button class="btn profile-edit-btn btn-success"><a href="/posts/edit/<%= post.id%>">Edit Post</a></button>
+        <br>
         <form class="delete-form" action="/posts/<%= post.id %>?_method=DELETE" method="POST">
           <button class="btn btn-danger btn-sm">Delete</button>
         </form>
@@ -230,6 +231,10 @@ body {
           <a class="btn btn-success" href="/posts/<%= post._id %>/comments/new">Add New Comment</a>
       </div>
       <hr>
+
+
+
+
       <% post.comments.forEach(function(comment){ %>
           <div class="row">
               <div class="col-md-12">
@@ -250,6 +255,11 @@ body {
               </div>
           </div>
       <% }) %>
+
+
+
+
+
   </div>
 
 
