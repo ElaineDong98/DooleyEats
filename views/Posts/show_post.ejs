@@ -278,10 +278,10 @@ body {
             <!--upvote and downvote buttons-->
             <div class="col-md-2  col-sm-2 col-xs-2 text-center" style="padding:0 10px; ">
                 <form action="/posts/<%= post._id %>/comments/<%=com._id%>/upvote" method="POST">
-                    <button class="btn upvote btn-xs"><i class="material-icons md-18">thumb_up</i></button>
+                    <button class="fas fa-thumbs-up" style="font-size:24px"></button>
                 </form> 
                 <form action="/posts/<%= post._id %>/comments/<%=com._id%>/downvote" method="POST">
-                    <button class="btn downvote btn-xs"><i class="material-icons md-18">thumb_down</i></button>
+                    <button class="fas fa-thumbs-down" style="font-size:24px"></button>
                 </form>
             </div>
             <!--downvotes info-->
