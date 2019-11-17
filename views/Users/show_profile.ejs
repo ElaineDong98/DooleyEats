@@ -415,22 +415,33 @@ Remove or comment-out the code block below to see how the browser will fall-back
   
     <div class="container">
       <h3><%= user.username %>'s posts</h3>
-      
-        <% posts.forEach(post => { %>
-            <div class="gallery-item" tabindex="0">
-                <a href="/posts/<%= post.id %>"><font color="black"><%= post.title %></font>
-                <img src="<%= post.image %>" class="gallery-image" alt="">
-                <div class="gallery-item-info">
-                    <ul>
-                        <li class="gallery-item-likes"><font color="white"><span class="visually-hidden">Likes:</span><i class="fas fa-heart"
-                                aria-hidden="true"></i> 0</font></li>
-                        <li class="gallery-item-comments"><font color="white"><span class="visually-hidden">Comments:</span><i class="fas fa-comment"
-                                aria-hidden="true"></i> 0</font></li>
-                    </ul>
+      <%posts.sort(function (a, b) {
+        if (a.createdAt && b.createdAt){
+          return b.createdAt - a.createdAt;
+        }
+        if (!a.createdAt){
+          return 1;
+        }
+        })%>
+        <% posts.forEach(post => {%>
+            <div class="col-md-3 col-sm-6">
+              <div class="thumbnail card"><a href="/Posts/<%= post._id %>">
+                <div>
+                    <img src="<%= post.image %>" class="gallery-image" alt="" style="width:100%">
+                    <div class="caption">
+                        <h4 class="caption"><%= post.title %></h4>
+                    </div>
+                     <br>
+                        <a class="pull-left"> By <%= post.author.username %></a>
+                        <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= post.likes.length %></a>
+                    <br>
+                    <span>Date: <%= post.createdAt.toDateString() %></span>
                 </div>
-                </a>
+              </div>
             </div>
-        <% }); %>
+        <% }) %>
+        
+        
       </div>
       <!-- End of gallery -->
     </div>

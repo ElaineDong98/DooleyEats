@@ -116,6 +116,14 @@ body {
           <h4><%= numPost %> posts found in the posts:</h4><% } %>
       </div>
     <% } %>
+    <%posts.sort(function (a, b) {
+      if (a.createdAt && b.createdAt){
+        return b.createdAt - a.createdAt;
+      }
+      if (!a.createdAt){
+        return 1;
+      }
+      })%>
     <% posts.forEach(Post => {%>
       <div class="col-md-3 col-sm-6">
         <div class="thumbnail card"><a href="/Posts/<%= Post._id %>">
@@ -125,9 +133,10 @@ body {
             <h4 class="caption"><%= Post.title %></h4>
           </div>
           <br>
-            <a class="pull-left"> <%= Post.author.username %></a>
+            <a class="pull-left">By <%= Post.author.username %></a>
             <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= Post.likes.length %></a>
           <br>
+          <span>Date: <%= Post.createdAt.toDateString() %></span>
           </a >
         </div>
         </div>
