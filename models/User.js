@@ -28,7 +28,8 @@ const UserSchema = new mongoose.Schema({
   gender:{
     type: String, 
     required: false
-  },
+  }, 
+
 
   /* --Two Fields for Email Verification-- */
   // whether account is activated 

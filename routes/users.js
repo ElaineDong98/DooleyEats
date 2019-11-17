@@ -315,6 +315,8 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
       req.flash("error", "Something went wrong...");
       res.redirect("/dashboard");
     } else {
+
+
       Post.find()
         .where("author.id")
         .equals(foundUser._id)
@@ -323,13 +325,23 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
             req.flash("error", "Something went wrong...");
             res.redirect("/dashboard");
           } else {
+            var likes = 0;
+            for (each in posts){
+              if (posts[each].likes){
+                likes += posts[each].likes.length;
+              }
+            }
             res.render("Users/show_profile", {
               count: Object.keys(posts).length,
+              likes: likes,
               user: foundUser,
               posts: posts
             });
           }
         });
+
+
+        
     }
   });
 });
