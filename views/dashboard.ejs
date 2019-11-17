@@ -62,9 +62,49 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     </div>
     <hr>
   <div style="background-color:rgba(250, 209, 148, 0.25)">
-  
+    <h2>Trending Posts</h2>
+
+    <!-- First Photo Grid-->
+    <div class="row text-center" style="display: flex; flex-wrap: wrap;" id="Trending_Restaurants">
+      <%posts.sort(function (a, b) {
+        if (a.likes && b.likes){
+          if (a.likes.length == b.likes.length){
+            return b.createdAt - a.createdAt
+          }
+          return b.likes.length - a.likes.length;
+          
+        }
+        
+        if (!a.likes){
+          return 1;
+        }
+        })%>
+        <% for (var i = 0; i < 8; i++) { %>
+          <div class="col-md-3 col-sm-6">
+            <div class="thumbnail card">
+              <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
+              <div class="caption">
+                <h4 class="caption"><%= posts[i].title %></h4>
+              </div>
+              <p>
+                <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i]._id %>">
+                  More Info
+                </a >
+              </p >
+              <div>
+                <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i].likes.length %></span>
+              </div>
+                <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i].author.username %></a></em>
+            <span>Date: <%= posts[i].createdAt.toDateString() %></span>
+            </div>
+          </div>
+        <% } %>
+      </div>  
+    </div>  
+  <hr> 
+
   <h2>Newest Posts</h2>
-  <!-- first Photo Grid-->
+  <!-- Second Photo Grid-->
     <div class="row text-center" style="display: flex; flex-wrap: wrap;" id="Trending_Restaurants">
       
       <% for (var i = 0; i < 8; i++) { %>
@@ -89,49 +129,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <% } %>
     </div>  
   </div>
-  <hr>
-
-  <h2>Trending Posts</h2>
-
-  <!-- Second Photo Grid-->
-  <div class="row text-center" style="display: flex; flex-wrap: wrap;" id="Trending_Restaurants">
-    <%posts.sort(function (a, b) {
-      if (a.likes && b.likes){
-        if (a.likes.length == b.likes.length){
-          return b.createdAt - a.createdAt
-        }
-        return b.likes.length - a.likes.length;
-        
-      }
-      
-      if (!a.likes){
-        return 1;
-      }
-      })%>
-      <% for (var i = 0; i < 8; i++) { %>
-        <div class="col-md-3 col-sm-6">
-          <div class="thumbnail card">
-            <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
-            <div class="caption">
-              <h4 class="caption"><%= posts[i].title %></h4>
-            </div>
-            <p>
-              <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i]._id %>">
-                More Info
-              </a >
-            </p >
-            <div>
-              <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i].likes.length %></span>
-            </div>
-              <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i].author.username %></a></em>
-          <span>Date: <%= posts[i].createdAt.toDateString() %></span>
-          </div>
-        </div>
-      <% } %>
-    </div>  
-
-
-  
   <hr id="About_Us">
 
   <!-- About Us Section -->
