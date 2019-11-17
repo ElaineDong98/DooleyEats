@@ -105,7 +105,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <h2>Newest Posts</h2>
   <!-- first Photo Grid-->
     <div class="row text-center" style="display: flex; flex-wrap: wrap;" id="Trending_Restaurants">
-      
+      <%posts.sort(function (a, b) {
+        if (a.createdAt && b.createdAt){
+          
+          return b.createdAt - a.createdAt;
+          
+        }
+        if (!a.createdAt){
+          return 1;
+        }
+        })%>
       <% for (var i = 0; i < 8; i++) { %>
         <div class="col-md-3 col-sm-6">
           <div class="thumbnail card">
