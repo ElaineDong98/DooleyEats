@@ -161,14 +161,14 @@ router.put("/:id", ensureAuthenticated, (req, res) => {
 // SHOW - shows more info about one Post
 
 router.get("/:id", ensureAuthenticated,function (req, res) {
+  
   Post.findById(req.params.id).populate({
     path: 'comments',
     populate : {
                     path : 'upvotes',
                     model : 'User'
               }
-})
-.exec(function(err, foundPosts) {
+  }).exec(function(err, foundPosts) {
     if (err) {
       req.flash("error", "Something went wrong.");
       res.redirect("/");
@@ -197,7 +197,27 @@ router.get("/:id", ensureAuthenticated,function (req, res) {
                       res.status(500).send("Sorry! an error occurred!");
                   }
                   else{
-                    res.render("Posts/show_post", {post: new_post, author: user});
+      Post.find()
+        .where("author.id")
+        .equals(foundPosts.author.id)
+        .exec((err, author_posts) => {
+          if (err) {
+            req.flash("error", "Something went wrong...");
+            res.redirect("/dashboard");
+          } else {
+            var likes = 0;
+            for (each in author_posts) {
+              if (author_posts[each].likes) {
+                likes += author_posts[each].likes.length;
+              }
+            }
+            res.render("Posts/show_post", {
+              post: new_post, author: user,
+              count: Object.keys(author_posts).length,
+              likes: likes
+            });
+          }
+        });
                   }
             });
           }
