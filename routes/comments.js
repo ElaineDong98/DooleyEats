@@ -23,14 +23,15 @@ const isAuthenticated = (req, res, next) => {
       res.redirect("/");
     }
   };
-  const isNotAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-      req.flash("error_msg", "You are already logged in!");
-      res.redirect("/");
-    } else {
-      return next();
-    }
-  };
+
+const isNotAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    req.flash("error_msg", "You are already logged in!");
+    res.redirect("/");
+  } else {
+    return next();
+  }
+};
 
 // average calculation function
 var calculateAverageRating = function (comm)
@@ -44,6 +45,7 @@ var calculateAverageRating = function (comm)
   avg = Math.round(avg*10)/10;
   return avg;
 };
+
 // save calculated average rating:
 var saveAverageRating = function(req,res)
 {
@@ -58,6 +60,7 @@ var saveAverageRating = function(req,res)
     }    
   });
 };
+
 var searchId = function(arr,val)
 {
   for(var i=0;i<arr.length;i++)
@@ -66,7 +69,8 @@ var searchId = function(arr,val)
         return i;
       }
   }
-  return -1;
+  return 
+  -1;
 }
 var increaseUpvotes = function(req,res)
 {
@@ -124,6 +128,7 @@ var increaseDownvotes = function(req,res)
     }
   });
 };
+
 var decreaseDownvotes = function(req,res)
 {
   Comment.findById(req.params.comment_id).exec(function(err,com)
@@ -148,10 +153,6 @@ var getDate = function(){
   
 };
 
-
-
-
-
 //Comments New
 router.get("/new", isAuthenticated, function(req, res){
       // find post by id
@@ -164,146 +165,6 @@ router.get("/new", isAuthenticated, function(req, res){
           }
       })
 });
-
-// // comments Create
-// router.post("/", isAuthenticated, (req, res) => {
-//     //lookup campground using id
-//     // Post.findById(req.params.id, (err, post) => {
-//     //   if (err) { 
-//     //     console.log(err);
-//     //     res.redirect("/posts");
-//     //   }
-//     //   else {
-//     //     //create new comment
-//     //     Comment.create(req.body.comment, (err, comment) => {
-//     //       if (err) {
-//     //         req.flash("error", "Something went wrong.");
-//     //         console.log(err);
-//     //       } else {
-//     //         //add username and id to comments
-//     //         comment.author.id = req.user._id;
-//     //         comment.author.username = req.user.username;
-//     //         comment.text = "hello world";
-//     //         //save comment
-//     //         comment.save();
-//     //         //console.log(comment);
-//     //         console.log("user id is " + comment.author.id);
-//     //         console.log("user is " + comment.author.username);
-//     //         console.log("text is " + comment.text);
-//     //         //connect new comment to campground
-//     //         post.comments.push(comment);
-//     //         post.save();
-//     //         //redirect to campground show page
-//     //         //console.log(comment);
-//     //         req.flash("success", "Successfully added comment");
-//     //         res.redirect("/posts/" + post._id);
-//     //       }
-//     //     });
-//     //   }
-//     // });
-//     Post.findById(req.params.id, (err, post) => {
-//       if (err) { 
-//         console.log(err);
-//         res.redirect("/posts");
-//       }
-//       const {title, text} = req.body;
-
-//       var author = {
-//         id: req.user._id,
-//         username: req.user.username, 
-//       };
-//       const newComment = new Comment({
-//         title,
-//         text,
-//         author
-//       });
-
-//       post.comments.push(newComment);
-//       newComment.save(function(err, resp) {
-//         if (err) {
-//           console.log(err);
-//           res.send({
-//             message: 'something went wrong'
-//           });
-//         } else {
-//           console.log("a user with id " + newComment.author.id);
-//           console.log("and name " + newComment.author.username);
-//           console.log("posted this title: " + newComment.title);
-//           console.log("and this comment: " + newComment.text);
-//           req.flash("success_msg", "Comment Added!");
-//           res.redirect("/posts/" + post._id);
-//         }
-//       });
-//     });
-//   });
-
-
-// //Comments Create
-// router.post("/", isAuthenticated ,function(req,res)
-// {
-//     // find campgrounds by id and we have to populate with comments in order to calculate avg rating from all comments
-//     Post.findById(req.params.id).populate("comments").exec( function(err,post)
-//     {
-//         if(err) {	
-//           console.log(err);	
-//           res.redirect("/posts");	
-//         }
-//         else
-//         {
-//             const {title, text} = req.body;
-//             Comment.create(req.body,function(err,com)
-//             {
-//               if(err){ 
-//                 console.log("comment is " + req.body);
-//                 console.log(err);	
-//                 res.redirect("/posts");	
-//               }
-//               else {
-//                 //add username ,id  and date to comment
-//                 com.author.id = req.user._id;
-//                 com.author.username = req.user.username;
-//                 com.date = getDate();
-
-//                 //const {title, text} = req.body;
-//                 var author = {
-//                   id: com.author.id,
-//                   username: com.author.username, 
-//                 };
-
-//                 const newComment = new Comment({
-//                   title: title,
-//                   text: text,
-//                   author: author
-//                 });
-
-//                 post.comments.push(newComment); // add comment to array of comments in current campground
-
-//                 // average rating calculation
-//                 var avg = calculateAverageRating(post.comments);
-//                 console.log(com);
-//                 post.rating_avg = avg;
-
-//                 newComment.save(function(err, resp) {
-//                   if (err) {
-//                     console.log(err);
-//                     res.send({
-//                       message: 'something went wrong'
-//                     });
-//                   } else {
-//                     console.log("a user with id " + newComment.author.id);
-//                     console.log("and name " + newComment.author.username);
-//                     console.log("posted this comment: " + newComment.title);
-//                     console.log("with content : " + newComment.text);                    
-//                     req.flash("success_msg", "Comment Added!");
-//                     res.redirect("/posts/" + post._id);
-//                   }
-//                 });
-               
-//                 }
-//             });
-//         }
-//     });
-// });
 
 //Comments Create
 router.post("/", isAuthenticated ,function(req,res)
@@ -335,7 +196,6 @@ router.post("/", isAuthenticated ,function(req,res)
                       author
                     });
 
-
                     //save comment
                     newComment.save();
 
@@ -346,14 +206,82 @@ router.post("/", isAuthenticated ,function(req,res)
                     post.rating_avg = avg;
                     post.save(); // save all changes in current campground
                     req.flash("successArr","Comment Added!");
-res.redirect('/posts/' + post._id);  // redirect after saving
+                    res.redirect('/posts/' + post._id);  // redirect after saving
                 }
             });
         }
     });
 });
 
+//*************************************************************************
+//    EDIT route
+//*************************************************************************
+router.get("/:comment_id/edit", ensureAuthenticated, function(req,res)
+{
+  Comment.findById(req.params.comment_id, function(err, foundComment){
+    if(err) {	
+      console.log(err);	
+      res.redirect("back");	
+    }
+    else {
+      res.render("comments/edit", {post_id:req.params.id, comment: foundComment});}
+  });
+});
 
+//UPDATE
+router.post("/:comment_id", ensureAuthenticated, function(req,res)
+{   // find and update the correct campground
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body,function(err,updatedComment)
+    {
+      if(err){	
+        console.log(err);	
+        res.redirect("back");	
+      }
+      else { 
+        req.flash("success_msg","Comment Updated!");
+        console.log("updated title is: " + req.body.title);
+        console.log("updated comment is: " + req.body.text);
+        saveAverageRating(req,res);
+        res.redirect("/posts/" + req.params.id );
+      }
+    });
+});
+
+/*--------------------------------------------------------------------------*/
+//  comment upvote and downvote
+router.post("/:comment_id/upvote",ensureAuthenticated,function(req,res)
+{
+  increaseUpvotes(req,res);
+  res.redirect("/posts/"+req.params.id);
+});
+router.post("/:comment_id/downvote",ensureAuthenticated,function(req,res)
+{
+  increaseDownvotes(req,res);
+  res.redirect("/posts/"+req.params.id);
+});
+router.post("/:comment_id/undoupvote",ensureAuthenticated,function(req,res)
+{
+  decreaseUpvotes(req,res);
+  res.redirect("/posts/"+req.params.id);
+});
+router.post("/:comment_id/undodownvote",ensureAuthenticated,function(req,res)
+{
+  decreaseDownvotes(req,res);
+  res.redirect("/posts/"+req.params.id);
+});
+
+//*************************************************************************
+//    DESTROY route
+//*************************************************************************
+router.delete("/:comment_id",ensureAuthenticated,function(req,res)
+{
+  Comment.findByIdAndRemove(req.params.comment_id,function(err)
+  {
+    req.flash("success_msg", "Comment Deleted!");
+    saveAverageRating(req,res);
+    res.redirect("/posts/"+req.params.id);
+  });
+});
   
 
-  module.exports = router;
+module.exports = router;
