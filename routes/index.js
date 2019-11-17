@@ -13,7 +13,7 @@ const Post = require("../models/Posts");
             username: req.user.username
           })
         }
-      ).sort([["likes", 'desc']]));
+      ).sort({ createdAt: 'desc' }));
       
     
 //Search

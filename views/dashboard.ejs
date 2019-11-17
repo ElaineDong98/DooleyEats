@@ -62,12 +62,40 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     <hr>
   <div style="background-color:rgba(250, 209, 148, 0.25)">
   
+  <h2>Newest Posts</h2>
+  <!-- first Photo Grid-->
+    <div class="row text-center" style="display: flex; flex-wrap: wrap;" id="Trending_Restaurants">
+      
+      <% for (var i = 0; i < 8; i++) { %>
+        <div class="col-md-3 col-sm-6">
+          <div class="thumbnail card">
+            <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
+            <div class="caption">
+              <h4 class="caption"><%= posts[i].title %></h4>
+            </div>
+            <p>
+              <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i]._id %>">
+                More Info
+              </a >
+            </p >
+            <div>
+              <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i].likes.length %></span>
+            </div>
+          <span><%= posts[i].createdAt.toDateString() %></span>
+          </div>
+        </div>
+      <% } %>
+    </div>  
+  
   <h2>Trending Posts</h2>
 
-  <!-- First Photo Grid-->
+  <!-- Second Photo Grid-->
   <div class="row text-center" style="display: flex; flex-wrap: wrap;" id="Trending_Restaurants">
-
-      <% for (var i = 0; i < 4; i++) { %>
+    <%posts.sort(function (a, b) {
+        return a.likes - b.likes;
+      })
+      console.log(posts); %>
+      <% for (var i = 0; i < 8; i++) { %>
         <div class="col-md-3 col-sm-6">
           <div class="thumbnail card">
             <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
@@ -95,30 +123,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </div>
 <hr>
 
-  <h2>Newest Posts</h2>
-  <!-- Second Photo Grid-->
-  <div class="w3-row-padding w3-padding-16">
-      
-
-    <div class="w3-quarter">
-      <img alt="#Discount Activities" style="width:100%" src="https://assets3.thrillist.com/v1/image/2761948/size/tl-full_width_tall_mobile.jpg">
-      <h3><a href="/Posts/5dc70f55785cffe550b42dc0" target="_blank">The Best Places to Grab Ice Cream Near Emory University</a></h3>
-      <p class="lead mb-3"><a href = "/users/<%= currUser._id %>" >By <%= username%>  </a></p>
-    </div>
-    <div class="w3-quarter">
-      <img alt="#American Food" style="width:100%" src="https://www.atlantaeats.com/wp-content/uploads/2019/06/SWEETWATER-interior-600x400.jpg">
-    </div>
-    <div class="w3-quarter">
-      <img alt="#Dessert" style="width:100%" src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAHbHVW.img?h=552&w=750&m=6&q=60&u=t&o=f&l=f&x=890&y=667">
-      <h3><a href="/Posts/5dc7017ee349f2d93a1b06c4" target="_blank">The 5 Best Atlanta Restaurants That Are Open 24 Hours</a></h3>
-    </div>
-
-    <div class="w3-quarter">
-        <img alt="#Dessert" style="width:100%" src="https://s3.amazonaws.com/secretsaucefiles/photos/images/000/212/053/large/IMG_5579_%282%29.jpg?1533615412">
-        <h3><a href="/Posts/5dc72b0fdbc1da614db44c15" target="_blank">I Ate Jackfruit for the First Time, and This Is How It Went</a></h3>
-      </div>
-  </div>
-
+  
   <hr id="About_Us">
 
   <!-- About Us Section -->
