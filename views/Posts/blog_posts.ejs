@@ -7,7 +7,6 @@
 * {
   box-sizing: border-box;
 }
-
 /* Add a gray background color with some padding */
 body {
   font-family: Arial;
@@ -73,15 +72,15 @@ body {
     padding: 0;
   }
 }
+.card :hover  {
+    opacity:0.8;
+}
 </style>
 </head>
 <body>
 
   <header class="jumbotron">
-    <h1><span class="glyphicon glyphicon-tent align-bottom" aria-hidden="true"></span> All Posts in DooleyEats!</h1>
-    <a class="pull-right" href="/posts/">
-      View All Posts
-    </a>
+    <h1><span class="glyphicon glyphicon-cutlery align-bottom" aria-hidden="true"></span> All Posts in DooleyEats</h1>
     <hr>
     <form class="form-inline" action="/posts" method="GET">
       <div class="form-group has-feedback">
@@ -90,7 +89,12 @@ body {
         <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
       </div>
     </form>
+    
     <hr>
+    <a class="pull-left" href="/posts/">
+      <span class="glyphicon" aria-hidden="true"></span>
+      View All Posts
+    </a>
     <a class="pull-right" href="/Posts/new_post">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       Create New Posts
@@ -114,19 +118,18 @@ body {
     <% } %>
     <% posts.forEach(Post => {%>
       <div class="col-md-3 col-sm-6">
-        <div class="thumbnail card">
+        <div class="thumbnail card"><a href="/Posts/<%= Post._id %>">
+          <div>
           <img src="<%= Post.image %>" class="gallery-image" alt="" style="width:100%">
           <div class="caption">
             <h4 class="caption"><%= Post.title %></h4>
           </div>
-          <p>
-            <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= Post._id %>">
-              More Info
-            </a >
-          </p >
-          <div>
-            <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= Post.likes.length %></span>
-          </div>
+          <br>
+            <a class="pull-left"> <%= Post.author.username %></a>
+            <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= Post.likes.length %></a>
+          <br>
+          </a >
+        </div>
         </div>
       </div>
     <% }) %>
