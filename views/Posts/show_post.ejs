@@ -168,9 +168,12 @@ body {
           <!-- <li class="list-group-item">Would you recommend (0-10): <%= post.rating %></li> -->
           <li class="list-group-item">Post Category: <%= post.postType %></li>
           <li class="list-group-item">Tags: <%= post.tags %></li>
+
+          <% if (post.location!=="") {%>
           <li class="list-group-item">Restaurant Location: <%= post.location %>
           <button class="btn btn-link"><a href="https://www.google.com/maps/search/<%= post.location%>">View Map</a></button></li>
-          
+          <% } %>
+
         </div>
         <br> <br>
         <% if (currUser && post.author.id.equals(currUser._id)) {%>
@@ -184,8 +187,6 @@ body {
         </div>
     </div>
   </div>
-
-
 
 <div data-v-f71fb898="" class="right-card">
   <div class="col-md-9">
