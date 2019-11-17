@@ -81,7 +81,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
             <div>
               <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i].likes.length %></span>
             </div>
-          <span><%= posts[i].createdAt.toDateString() %></span>
+              <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i].author.username %></a></em>
+          <span>Date: <%= posts[i].createdAt.toDateString() %></span>
           </div>
         </div>
       <% } %>
@@ -110,15 +111,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
             <div>
               <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i].likes.length %></span>
             </div>
-          <span><%= posts[i].createdAt.toDateString() %></span>
+              <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i].author.username %></a></em>
+          <span>Date: <%= posts[i].createdAt.toDateString() %></span>
           </div>
         </div>
       <% } %>
     </div>  
 
-
-
-    
   </div>
 </div>
 <hr>
