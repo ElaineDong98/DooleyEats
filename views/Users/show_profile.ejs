@@ -384,8 +384,10 @@ Remove or comment-out the code block below to see how the browser will fall-back
   
         <div class="profile-user-settings">
           <h1 class="profile-user-name"><%= user.username%></h1>
+            <% if (currUser &&( user.id == currUser._id)) {%>
           <button class="btn profile-edit-btn"><a href="/users/edit/<%= user.id%>">Edit Profile</a></button>
           <button class="btn profile-settings-btn" aria-label="profile settings"><a href="/users/edit/<%= user.id%>"><i class="fas fa-cog" aria-hidden="true"></i></a></button>
+            <% }%>
         </div>
   
         <div class="profile-stats">
