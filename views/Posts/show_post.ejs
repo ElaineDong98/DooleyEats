@@ -172,7 +172,7 @@ body {
           <button class="btn btn-link"><a href="https://www.google.com/maps/search/<%= post.location%>">View Map</a></button></li>
           
         </div>
-        <br>
+        <br> <br>
         <% if (currUser && post.author.id.equals(currUser._id)) {%>
         <button class="btn profile-edit-btn btn-success"><a href="/posts/edit/<%= post.id%>">Edit Post</a></button>
         <br> <br>
