@@ -69,26 +69,47 @@ var searchId = function(arr,val)
         return i;
       }
   }
-  return 
-  -1;
+  return -1;
 }
+
+function addOne(num){
+  return num + 1;
+}
+
+function subOne(num){
+  return num - 1;
+}
+
 var increaseUpvotes = function(req,res)
 {
   Comment.findById(req.params.comment_id).exec(function(err,com)
   {
-    if(err){	console.log(err);	res.redirect("/posts");	}
-    else
-    {
-  		if(searchId(com.upvotes,req.user._id)==-1)
-  		{ // add user to that comment's upvotes list
-  			com.upvotes.push(req.user);
+    if(err){	
+      console.log(err);	
+      res.redirect("/posts");	
+    } else {
+  		if(searchId(com.upvotes,req.user._id)==-1) { 
+        
+        // add user to that comment's upvotes list
+        com.upvotes.push(req.user);
+        // console.log("upvotes: " + com.upvotes);
+        console.log(req.user.username + " just upvoted this comment!");
+        //increase upvoteCount by 1
+        console.log("number of upvotes before is " + com.upvoteCount);
+        com.upvoteCount = addOne(com.upvoteCount);
+        console.log("number of upvotes after is " + com.upvoteCount);
+
         // remove user from downvotes list, if they already downvoted the comment
         var index = searchId(com.downvotes,req.user._id);
-        if(index!=-1)
+        if(index!=-1) {
           com.downvotes.splice(index,1);
+          //decrease downvoteCount by 1
+          com.downvoteCount = subOne(com.downvoteCount);
+          console.log("number of downvotes after is " + com.downvoteCount);
+        }
         com.save();
   		}
-    }    
+    }
   });
 };
 
@@ -103,6 +124,10 @@ var decreaseUpvotes = function(req,res)
       if(index!=-1)
       {
         com.upvotes.splice(index,1);
+        console.log(req.user.username + " just un-upvoted this comment!");
+        //decrease upvoteCount by 1
+        com.upvoteCount = subOne(com.upvoteCount);
+        console.log("number of upvotes after is " + com.upvoteCount);
         com.save();
       } 
     }   
@@ -112,17 +137,30 @@ var decreaseUpvotes = function(req,res)
 var increaseDownvotes = function(req,res)
 {
   Comment.findById(req.params.comment_id).exec(function(err,com)
-  {
-    if(err){	console.log(err);	res.redirect("/posts");	}
-    else
-    {
-      if(searchId(com.downvotes,req.user._id)==-1)
-  		{ // add user to that comment's downvotes list
-  			com.downvotes.push(req.user);
+  { 
+    if(err){	
+      console.log(err);	
+      res.redirect("/posts");	
+    }
+    else {
+      if(searchId(com.downvotes, req.user._id)==-1) { 
+        // add user to that comment's downvotes list
+        com.downvotes.push(req.user);
+        com.downvoteCount += 1;
+        console.log(req.user.username + " just downvoted this comment!")
+        //increase downvoteCount by 1
+        console.log("number of downvotes before is " + com.downvoteCount);
+        com.downvoteCount = addOne(com.downvoteCount);
+        console.log("number of downvotes after is " + com.downvoteCount);
+
         // remove user from upvotes list, if they already upvoted the comment
-        var index = searchId(com.upvotes,req.user._id);
-        if(index!=-1)
+        var index = searchId(com.upvotes, req.user._id);
+        if(index!=-1) {
           com.upvotes.splice(index,1);
+          //decrease upvoteCount by 1
+          com.upvoteCount = subOne(com.upvoteCount);
+          console.log("number of upvotes after is " + com.upvoteCount);
+        }
         com.save();
   		}
     }
@@ -140,6 +178,10 @@ var decreaseDownvotes = function(req,res)
       if(index!=-1)
       {
         com.downvotes.splice(index,1);
+        console.log(req.user.username + " just undo-downvoted this comment!");
+        //decrease downvoteCount by 1
+        com.downvoteCount = subOne(com.downvoteCount);
+        console.log("number of downvotes after is " + com.downvoteCount);
         com.save();
       } 
     }    
@@ -184,16 +226,23 @@ router.post("/", isAuthenticated ,function(req,res)
                     com.author.id = req.user._id;
                     com.author.username = req.user.username;
                     com.date = getDate();
+                    com.upvoteCount = 0;
+                    com.downvoteCount = 0;
 
                     var author = {
                       id: com.author.id,
                       username: com.author.username, 
                     };
 
+                    var upvoteCount = com.upvoteCount;
+                    var downvoteCount = com.downvoteCount;
+
                     const newComment = new Comment({
                       title,
                       text,
-                      author
+                      author,
+                      upvoteCount,
+                      downvoteCount
                     });
 
                     //save comment
@@ -252,21 +301,45 @@ router.post("/:comment_id", ensureAuthenticated, function(req,res)
 router.post("/:comment_id/upvote",ensureAuthenticated,function(req,res)
 {
   increaseUpvotes(req,res);
+  // Comment.findById(req.params.comment_id).exec(function(err,com)
+  // { 
+  //   console.log("number of upvotes before is " + com.upvoteCount);
+  //   com.upvoteCount = addOne(com.upvoteCount);
+  //   console.log("number of upvotes after is " + com.upvoteCount);
+  // });
   res.redirect("/posts/"+req.params.id);
 });
 router.post("/:comment_id/downvote",ensureAuthenticated,function(req,res)
 {
   increaseDownvotes(req,res);
+  // Comment.findById(req.params.comment_id).exec(function(err,com)
+  // { 
+  //   console.log("number of downvotes before is " + com.downvoteCount);
+  //   com.downvoteCount = addOne(com.downvoteCount);
+  //   console.log("number of downvotes after is " + com.downvoteCount);
+  // });
   res.redirect("/posts/"+req.params.id);
 });
 router.post("/:comment_id/undoupvote",ensureAuthenticated,function(req,res)
 {
   decreaseUpvotes(req,res);
+  // Comment.findById(req.params.comment_id).exec(function(err,com)
+  // { 
+  //   console.log("number of upvotes before is " + com.upvoteCount);
+  //   com.upvoteCount = subOne(com.upvoteCount);
+  //   console.log("number of upvotes after is " + com.upvoteCount);
+  // });
   res.redirect("/posts/"+req.params.id);
 });
 router.post("/:comment_id/undodownvote",ensureAuthenticated,function(req,res)
 {
   decreaseDownvotes(req,res);
+  // Comment.findById(req.params.comment_id).exec(function(err,com)
+  // { 
+  //   console.log("number of downvotes before is " + com.downvoteCount);
+  //   com.downvoteCount = subOne(com.downvoteCount);
+  //   console.log("number of downvotes after is " + com.downvoteCount);
+  // });
   res.redirect("/posts/"+req.params.id);
 });
 
