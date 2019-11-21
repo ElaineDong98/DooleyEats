@@ -13,14 +13,18 @@ var PostSchema = new mongoose.Schema({
   rating: {
     type: Number
   },
+
   hours:{
     type:String
   },
+
   image: {
-    type: String
+    data: Buffer, 
+    contentType: String,
   },
   image_approved : Boolean,
-  info : [String],
+  info : [Object],
+
   description: {
     type: String,
     required: true,
@@ -36,12 +40,14 @@ var PostSchema = new mongoose.Schema({
   location: {
     type: String
   },
+
   lat: Number,
   lng: Number,
   createdAt: {
     type: Date,
     default: Date.now
   },
+
   tags: {
     type: String
   },
@@ -61,7 +67,8 @@ var PostSchema = new mongoose.Schema({
     }
   ]
 
-});
+}
+);
 PostSchema.plugin(passportLocalMongoose)
 
 const Post = mongoose.model('Post', PostSchema);

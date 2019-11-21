@@ -11,6 +11,10 @@ var async = require("async");
 var nodemailer = require("nodemailer");
 const config = require('../config/mailer');
 var crypto = require("crypto");
+
+
+const fs = require('fs');
+
 router.use(bodyParser.urlencoded({ extended: false }));
 
 //Posts Model
@@ -90,13 +94,21 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
   }));
 
 
+  router.route('/img_data')
+.post(upload.single('file'), function(req, res) {
+    var new_img = new Img;
+    new_img.img.data = fs.readFileSync(req.file.path)
+    new_img.img.contentType = 'image/jpeg';
+    new_img.save();    res.json({ message: 'New image added to the db!' });
+})
+
   router
   .route("/")
   .get(isNotAuthenticated, (req, res) => {
     res.render("/");
   })
   .post(async (req, res, next) => {
-    const { title,postType, image, description, tags, location} = req.body;
+    const { title,postType, description, tags, location} = req.body;
 
     var author = {
       id: req.user._id,
@@ -106,7 +118,6 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
     const newPost = new Post({
       title,
       postType,
-      image,
       description,
       tags,
       location,
