@@ -94,13 +94,13 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
   }));
 
 
-  router.route('/img_data')
-.post(upload.single('file'), function(req, res) {
-    var new_img = new Img;
-    new_img.img.data = fs.readFileSync(req.file.path)
-    new_img.img.contentType = 'image/jpeg';
-    new_img.save();    res.json({ message: 'New image added to the db!' });
-})
+//   router.route('/img_data')
+// .post(upload.single('file'), function(req, res) {
+//     var new_img = new Img;
+//     new_img.img.data = fs.readFileSync(req.file.path)
+//     new_img.img.contentType = 'image/jpeg';
+//     new_img.save();    res.json({ message: 'New image added to the db!' });
+// })
 
   router
   .route("/")

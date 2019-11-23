@@ -16,11 +16,11 @@ var CommentSchema = mongoose.Schema({
       ref: "User"
     }
   ],
-  upvoteCount: {
-    type: Number, 
-    required: true,
-    default: 0
-  },
+  // upvoteCount: {
+  //   type: Number, 
+  //   required: true,
+  //   default: 0
+  // },
 
   downvotes : [
     {
@@ -28,11 +28,11 @@ var CommentSchema = mongoose.Schema({
       ref: "User"
     }
   ],
-  downvoteCount: {
-    type: Number, 
-    required: true,
-    default: 0
-  },
+  // downvoteCount: {
+  //   type: Number, 
+  //   required: true,
+  //   default: 0
+  // },
 
   author: { 
     id: {

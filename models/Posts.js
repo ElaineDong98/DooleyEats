@@ -29,6 +29,7 @@ var PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  //average rating
   rating_avg : String,
   likes: [
     {
