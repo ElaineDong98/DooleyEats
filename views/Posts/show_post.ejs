@@ -308,15 +308,16 @@ body {
       <br>
         <div class="list-group">
             <script>
-                function separatetags() {
-                    var tagstring = document.getElementById("Tags").value;
-                    console.log(tagstring)
+                function separatetags(tagstring) {
+                    tagstring = tagstring.split(/\s+/); 
+                    return tagstring
                 }
             </script>
           <!-- <li class="list-group-item">Would you recommend (0-10): <%= post.rating %></li> -->
           <li class="list-group-item">Post Category: <%= post.postType %></li>
-          <li class="list-group-item">Tags: <a href="http://localhost:5000/posts?search=<%= post.tags%>"><%= post.tags %></a></li>
-
+          <li class="list-group-item">Tags: <a href="http://localhost:5000/posts?search=<%= post.tags.split(" ")[0]%>"><%= post.tags.split(" ")[0]; %> 
+            <a href="http://localhost:5000/posts?search=<%= post.tags.split(" ")[1]%>"><%= post.tags.split(" ")[1];  %>
+            <a href="http://localhost:5000/posts?search=<%= post.tags.split(" ")[2]%>"><%= post.tags.split(" ")[2];  %></a></li>
           <% if (post.location!=="") {%>
           <li class="list-group-item">Restaurant Location: <%= post.location %>
           <button class="btn btn-link"><a href="https://www.google.com/maps/search/<%= post.location%>">View Map</a></button></li>
