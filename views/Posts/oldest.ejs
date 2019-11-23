@@ -204,7 +204,7 @@ body {
     <% } %>
     <%posts.sort(function (a, b) {
       if (a.createdAt && b.createdAt){
-        return b.createdAt - a.createdAt;
+        return a.createdAt - b.createdAt;
       }
       if (!a.createdAt){
         return 1;
