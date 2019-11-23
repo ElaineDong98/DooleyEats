@@ -72,13 +72,13 @@ var searchId = function(arr,val)
   return -1;
 }
 
-function addOne(num){
-  return num + 1;
-}
+// function addOne(num){
+//   return num + 1;
+// }
 
-function subOne(num){
-  return num - 1;
-}
+// function subOne(num){
+//   return num - 1;
+// }
 
 var increaseUpvotes = function(req,res)
 {
@@ -94,25 +94,28 @@ var increaseUpvotes = function(req,res)
         com.upvotes.push(req.user);
         // console.log("upvotes: " + com.upvotes);
         console.log(req.user.username + " just upvoted this comment!");
+        console.log("upvotes array contains " + com.upvotes);
         //increase upvoteCount by 1
-        console.log("number of upvotes before is " + com.upvoteCount);
-        com.upvoteCount = addOne(com.upvoteCount);
-        console.log("number of upvotes after is " + com.upvoteCount);
+        // console.log("number of upvotes before is " + com.upvoteCount);
+        // com.upvoteCount = addOne(com.upvoteCount);
+        // console.log("number of upvotes after is " + com.upvoteCount);
 
         // remove user from downvotes list, if they already downvoted the comment
         var index = searchId(com.downvotes,req.user._id);
         if(index!=-1) {
           com.downvotes.splice(index,1);
           //decrease downvoteCount by 1
-          com.downvoteCount = subOne(com.downvoteCount);
-          console.log("number of downvotes after is " + com.downvoteCount);
+          // com.downvoteCount = subOne(com.downvoteCount);
+          // console.log("number of downvotes after is " + com.downvoteCount);
         }
         com.save();
+        console.log("downvote array contains " + com.downvotes);
   		}
     }
   });
 };
 
+//** "undo upvote" button for commments **
 var decreaseUpvotes = function(req,res)
 {
   Comment.findById(req.params.comment_id).exec(function(err,com)
@@ -124,11 +127,12 @@ var decreaseUpvotes = function(req,res)
       if(index!=-1)
       {
         com.upvotes.splice(index,1);
-        console.log(req.user.username + " just un-upvoted this comment!");
+        console.log(req.user.username + " just undid a upvote!");
         //decrease upvoteCount by 1
-        com.upvoteCount = subOne(com.upvoteCount);
-        console.log("number of upvotes after is " + com.upvoteCount);
+        //com.upvoteCount = subOne(com.upvoteCount);
+        //console.log("number of upvotes after is " + com.upvoteCount);
         com.save();
+        console.log("upvotes array contains " + com.upvotes);
       } 
     }   
   });
@@ -146,43 +150,47 @@ var increaseDownvotes = function(req,res)
       if(searchId(com.downvotes, req.user._id)==-1) { 
         // add user to that comment's downvotes list
         com.downvotes.push(req.user);
-        com.downvoteCount += 1;
+        // com.downvoteCount += 1;
         console.log(req.user.username + " just downvoted this comment!")
+        console.log("downvotes array contains " + com.downvotes);
         //increase downvoteCount by 1
-        console.log("number of downvotes before is " + com.downvoteCount);
-        com.downvoteCount = addOne(com.downvoteCount);
-        console.log("number of downvotes after is " + com.downvoteCount);
+        // console.log("number of downvotes before is " + com.downvoteCount);
+        // com.downvoteCount = addOne(com.downvoteCount);
+        // console.log("number of downvotes after is " + com.downvoteCount);
 
         // remove user from upvotes list, if they already upvoted the comment
         var index = searchId(com.upvotes, req.user._id);
         if(index!=-1) {
           com.upvotes.splice(index,1);
           //decrease upvoteCount by 1
-          com.upvoteCount = subOne(com.upvoteCount);
-          console.log("number of upvotes after is " + com.upvoteCount);
+          //com.upvoteCount = subOne(com.upvoteCount);
+          //console.log("number of upvotes after is " + com.upvoteCount);
         }
         com.save();
+        console.log("upvotes array contains " + com.upvotes);
   		}
     }
   });
 };
 
+//** "undo downvote" button for commments **
 var decreaseDownvotes = function(req,res)
 {
   Comment.findById(req.params.comment_id).exec(function(err,com)
   {
-    if(err){	req.flash("error_msg",err.message);	res.redirect("/posts");	}
+    if(err){	console.log(err);;	res.redirect("/posts");	}
     else
     { // remove user from that comment's downvotes list
       var index = searchId(com.downvotes,req.user._id);
       if(index!=-1)
       {
         com.downvotes.splice(index,1);
-        console.log(req.user.username + " just undo-downvoted this comment!");
+        console.log(req.user.username + " just undid a downvote!");
         //decrease downvoteCount by 1
-        com.downvoteCount = subOne(com.downvoteCount);
-        console.log("number of downvotes after is " + com.downvoteCount);
+        // com.downvoteCount = subOne(com.downvoteCount);
+        // console.log("number of downvotes after is " + com.downvoteCount);
         com.save();
+        console.log("downvotes array contains " + com.downvotes);
       } 
     }    
   });

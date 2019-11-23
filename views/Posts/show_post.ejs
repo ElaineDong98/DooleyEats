@@ -1,5 +1,6 @@
 <% include ../partials/header %>
 <link href="//s.xiaohongshu.com/formula-static/@xhs/launcher@1.5.1/dist/Launcher.css" rel="stylesheet">
+
 <style>
   .card-note .bottom-gap[data-v-f71fb898] {
     margin: 0 0 20px;
@@ -16,9 +17,149 @@
     color: #4f4f4f;
     font-weight: 500;
 }
-.pull-right {
-    margin-right: 15px;
+
+/*material-icons configure:*/
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v48/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
 }
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+/*--------comment upvote and downvote in show page------*/
+.voting-buttons form img{
+    height:18px;
+    width:18px;
+    display:block;
+}
+.voting-buttons form{
+    display:inline;
+}
+.number-of-upvotes{
+    color:green;
+}
+.number-of-downvotes{
+    color:#CD5C5C;
+}
+.upvote{
+    background-color:#e0e0e0;
+}
+.upvote:hover{
+    background-color:#5cb85c;
+}
+.downvote{
+    background-color:#e0e0e0;
+}
+.downvote:hover{
+    background-color:#d9534f;
+}
+.upvoted{
+ background-color: #5cb85c;
+}
+.downvoted{
+    background-color:#d9534f;
+}
+.list-of-upvotes , .list-of-downvotes{
+    visibility: hidden;
+    /*width: 150px;*/
+    /*background-color: #859398;*/
+    text-decoration: none;
+    background-color:#9d9d9d;
+    color: #f8f8f8;
+    text-align: center;
+    border-radius: 6px;
+    padding:  0;
+    font-size:1.3rem;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 10;
+    bottom:21px;
+    /*right: 20px;*/
+}
+
+/*----------------------------------------------*/
+pre{
+  font-family:arial;
+  white-space: pre-wrap;
+  background:none;
+  border:none;
+}
+
+ h5{ /*comments title*/
+    margin: 0 0 10px 10px;
+}
+.pull-right{
+	margin-right:15px;
+}
+.rating{
+  color:#ebebeb;
+}
+
+/*for countering text overflow in comments text and campground description*/
+ div{
+   word-wrap:break-word;
+ }
+
+ .style10 {  /* comments line  */
+	border-top: 1px dotted #8c8b8b;
+	border-bottom: 1px dotted #fff;
+}
+/* div containing list of information about campground (left pane)*/
+.infolist{
+   z-index: 10; position: fixed;
+   right:0;
+}
+.thumbnail .caption-full
+{
+  padding: 9px;
+}
+/*list of amenities in campground*/
+.listnana{
+  padding:10px 2px 10px 20px;
+}
+@media (max-width:767px){
+    .infolist{
+        position:relative;
+        z-index:0;
+    }
+}
+
+@media (min-width: 768px) {
+    /* For mobile phones: */
+.infolist {  /*make infolist responsive in show page*/
+    position: fixed;
+    z-index:0;
+  }
+
+.container{
+     /*to prevent campgrounds from overflowing in profile page */
+    width:auto;  
+  }
+}
+
+
+
 .author-item .title[data-v-0d757e92] {
     font-weight: 500;
     font-size: 16px;
@@ -200,10 +341,10 @@ body {
     <div class="thumbnail">
       <div class="caption">
         <div class="fakeimg center">
-          <!-- <img src="<%= post.image %>" class="gallery-image" alt=""
+          <img src="<%= post.image %>" class="gallery-image" alt=""
           style="margin-left: auto; display: block;
           margin-right: auto;
-          width: 100%;"> -->
+          width: 100%;">
           </div>
           <div><p></p></div>
         <h2><%= post.title %></h2>
@@ -216,16 +357,50 @@ body {
         <p><%= post.description %> </p>
         <hr>
         <p>
-          <em>Submitted By: <a href="/users/<%= post.author.id %>"><%= post.author.username %></a></em>
+          <em>Submitted By: <a href="/users/<%= post.author.id %>"><strong><%= post.author.username %></strong></a></em>
         </p>
         <p>
           <em><%= post.createdAt %></em>
         </p>
+
+
+        <!-- ratings distribution-->
+				<div class="row" id="ratingbar" style="margin-left:0; width:315px;">
+            <!-- 
+                * fixed width is specified for maintaining size even when resized
+                * col-md, col-sm, col-xs are specified to make the columns responsive  
+            -->
+            <div class="col-md-2 col-sm-2 col-xs-2" style="width:110px;">
+                <div class="row">
+                    <h3 style="color:black;"><strong><%=post.rating_avg%>  <span style="color:black;">&#9733;</span></strong></h3>
+                </div>
+                <div class="row">
+                    <strong>(<%=post.comments.length%> rating<%if(post.comments.length!=1){%>s<% }%>)</strong>
+                </div>
+            </div>
+            <!-- ratings bars-->
+            <% var stars = [5,4,3,2,1]; %>
+            <% var bar_colors = ["color-green","color-green","color-green","color-orange","color-red"];%>
+
+            <div class="col-md-10 col-sm-10 col-xs-10 container horizontal rounded" style="width:205px;">
+            <% for(var i=0;i< 5;i++){ %>
+              <div class="row">
+                  <div class="col-md-2 col-sm-2 col-xs-2 bar-item"><%=stars[i];%> <span>&#9733;</span></div>
+                  <div class="col-md-8 col-sm-8 col-xs-8 progress-bar horizontal">
+                          <div class="progress-track"><div class="progress-fill <%=bar_colors[i]%>"></div></div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 ff" style="width:75px;"></div>
+              </div>
+            <% } %>
+            </div>
+        </div>    <!--  end ratings distribution-->
+
+
       </div>
     </div>
 
 
-
+<!--likes section-->
     <div style="padding-bottom: 10px;" class="text-right">
       <form action="/posts/<%= post._id %>/like" method="POST">
         <div class="btn-group">
@@ -245,10 +420,10 @@ body {
       </form>
     </div>
   
-
-    <div class="well"><!--comments section-->
+<!--comments section-->
+    <div class="well">
       <div class="text-right">
-        <a class="btn btn-success" href="/posts/<%= post._id %>/comments/new">Add New Comment</a>
+          <a class="btn btn-success" href="/posts/<%= post._id %>/comments/new">Add New Comment</a>
       </div>
       <hr>
       <!-- Comments list -->
@@ -273,7 +448,7 @@ body {
             </div>
           </div>
 
-          <!-- voting info -->
+          <!-- **voting info** -->
           <div class="voting-buttons row" style="margin:0 auto;">
             <!--upvotes info-->
             <div class="col-md-5 col-sm-5 col-xs-5" style="padding:0; text-align:right;">
@@ -287,14 +462,16 @@ body {
                   <% }%>
                 </ul>
               </span>
-            </div> -->
+            </div>
             <!--upvote and downvote buttons-->
             <div class="col-md-2  col-sm-2 col-xs-2 text-center" style="padding:0 10px; ">
                 <form action="/posts/<%= post._id %>/comments/<%=com._id%>/upvote" method="POST">
-                    <button class="fas fa-thumbs-up" style="font-size:24px"></button>
+                    <!-- <button class="fas fa-thumbs-up" style="font-size:24px"></button> -->
+                    <button class="btn upvote btn-xs"><i class="material-icons md-18">thumb_up</i></button>
                 </form> 
                 <form action="/posts/<%= post._id %>/comments/<%=com._id%>/downvote" method="POST">
-                    <button class="fas fa-thumbs-down" style="font-size:24px"></button>
+                    <!-- <button class="fas fa-thumbs-down" style="font-size:24px"></button> -->
+                    <button class="btn downvote btn-xs"><i class="material-icons md-18">thumb_down</i></button>
                 </form>
             </div>
             <!--downvotes info-->
@@ -328,31 +505,29 @@ body {
           <hr class="style10">
       <% } %><!--end of single comment-->
     </div>
-
-
   </div>
 </html>
 
 
 <!-- save rating values in a new array('ratings') BEFORE passing them to script tag (at bottom of document)-->
 <!-- this is done because of the following error occurs otherwise :
-	 Uncaught SyntaxError: Unexpected token in JSON at position 290 at JSON.parse (<anonymous>) -->
-    <%var ratings = []; %>
-    <%var loggedInUser = currUser ? currUser : "none";%>
-    <!-- above line is because if you check if you accesss variable 'currentuser' inside script tag by using json parse,
-       you will get json parsing error if no one is loggedin because if user isn't logged in, then it cannot parse null value
-      the work-around is simple, just check here and use another var loggedInUser
-      only if loggedInUser != "none", do required work (highlighting their upvoted and downvoted comments)
-    -->
-    <%for(var i=0;i< post.comments.length;i++){%>
-      <% ratings.push(post.comments[i].rating_value); %>
-    <% } %>
+    Uncaught SyntaxError: Unexpected token in JSON at position 290 at JSON.parse (<anonymous>) -->
+      <%var ratings = []; %>
+      <%var loggedInUser = currUser ? currUser : "none";%>
+      <!-- above line is because if you check if you accesss variable 'currUser' inside script tag by using json parse,
+        you will get json parsing error if no one is loggedin because if user isn't logged in, then it cannot parse null value
+        the work-around is simple, just check here and use another var loggedInUser
+        only if loggedInUser != "none", do required work (highlighting their upvoted and downvoted comments)
+      -->
+      <%for(var i=0;i< post.comments.length;i++){%>
+        <% ratings.push(post.comments[i].rating_value); %>
+      <% } %>
   <!-- script for filling horizontal bars and for upvote and downvote action-->
   <script type="text/javascript">
-    // accessing ejs variable in javascript (camp,its comments and currentuser)
+    // accessing ejs variable in javascript (post,its comments and currUser)
     var comms =  <%- JSON.stringify(ratings); %>;
     var comments =  <%- JSON.stringify(post.comments); %>;
-    var campgroundId =  <%- JSON.stringify(post._id); %>;
+    var postId =  <%- JSON.stringify(post._id); %>;
     // currentuser -> the one who is logged in
     var current_user =  <%- JSON.stringify(loggedInUser); %>;
   
@@ -389,37 +564,42 @@ body {
       c--;
     });	
     
-    //arrays for upvotes and downvotes
+    //arrays for # of upvotes and downvotes
     var upvotesArr=[] , downvotesArr=[];
     for(var i=0;i<comments.length;i++)
     {
+      //length of upvote array
       upvotesArr.push(comments[i].upvotes.length);
+      //length of downvote array
       downvotesArr.push(comments[i].downvotes.length);
     }
+    //check if comment is already upvote/downvoted
     var isUpvoted = [],isDownvoted = [];
-      if(current_user!="none")
+    if(current_user!="none")
+    {
+      var i,j,found;
+      for( i=0;i<comments.length;i++)
       {
-        var i,j,found;
-        for( i=0;i<comments.length;i++)
-        {
-          isUpvoted[i] = 0;
-          isDownvoted[i] = 0;
-          for( j=0;j<comments[i].upvotes.length;j++)
-            //if user id is in the upvotes array
-            if(comments[i].upvotes[j]._id == current_user._id)
-            {
-              isUpvoted[i] = 1;
-              break;
-            }
-          for( j=0;j<comments[i].downvotes.length;j++)
-            //if user id is in the downvotes array
-            if(comments[i].downvotes[j]._id == current_user._id)
-            {
-              isDownvoted[i] = 1;
-              break;
-            }
-        }
-      }	
+        isUpvoted[i] = 0;
+        isDownvoted[i] = 0;
+        for( j=0;j<comments[i].upvotes.length;j++)
+          //if user id is in the upvotes array
+          if(comments[i].upvotes[j]._id == current_user._id)
+          {
+            //reset array
+            isUpvoted[i] = 1;
+            break;
+          }
+        for( j=0;j<comments[i].downvotes.length;j++)
+          //if user id is in the downvotes array
+          if(comments[i].downvotes[j]._id == current_user._id)
+          {
+            //reset array
+            isDownvoted[i] = 1;
+            break;
+          }
+      }
+    }	
     
     // display #upvotes and #downvotes for each comment
     c=0;
@@ -439,8 +619,8 @@ body {
         {   
           $(this).toggleClass("upvote");//remove upvote class
           $(this).toggleClass("upvoted");// add upvoted class
-          // change the action of the form tag of that specific comment
-          $(this).parent().attr('action','/posts/'+post._id+'/comments/'+comments[c]._id+'/undoupvote');
+          // **change the action of the form tag of that specific comment**
+          $(this).parent().attr('action','/posts/'+postId+'/comments/'+comments[c]._id+'/undoupvote');
         }
         c++;
       });
@@ -452,12 +632,12 @@ body {
           $(this).toggleClass("downvote");//remove downvote class
           $(this).toggleClass("downvoted");// add downvoted class
           // change the action of the form tag of that specific comment
-          $(this).parent().attr('action','/posts/'+post._id+'/comments/'+comments[c]._id+'/undodownvote');
+          $(this).parent().attr('action','/posts/'+postId+'/comments/'+comments[c]._id+'/undodownvote');
         }
         c++;
       });
       /*  
-          display list of ppl who upvoted and downvoted on hover  
+          display list of users who upvoted and downvoted on hover  
           the structure of the document is such that 
           the list to be shown(when hovered) and the element on which the hover occurs are siblings
           they are accessed using siblengs() or next( or previous() depending on the need
