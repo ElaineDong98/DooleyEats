@@ -16,7 +16,7 @@
               name = "title" 
               placeholder = "Enter post title"
               required = ""
-              style="font-size:18pt;height:50px;width:730px;"
+              style="font-size:16pt;height:50px;width:730px;"
               value="<%= typeof title != 'undefined' ? title : '' %>"
             />
         </div>
@@ -46,10 +46,10 @@
         </div>
 
         <div align="left" class = "form-group">
-          <label for="description">Description:</label> <br>
+          <label for="description"  >Description:</label> <br>
         <textarea id="description" onkeypress="onTestChange();" 
                   name="description" rows="25" cols="100" placeholder="Describe something..." 
-                  wrap="hard"></textarea> <br><br>
+                  wrap="hard" style ="font-size:16pt;"></textarea> <br><br>
       </div>
 
         <script>
