@@ -87,6 +87,191 @@ router.get("/", (req, res) => {
   }
 });
 
+// trendingsort
+router.get("/trending", (req, res) => {
+  let noPost = "";
+  if(req.query.search){
+    let searched = true;
+    let numPost;
+    const searchQuery = req.query.search,
+          regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Post.find({ title: regex }, (err, allPosts) => {
+      if (err) {
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err);
+      } else {
+        if (allPosts.length < 1) {
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        numPost = allPosts.length
+        res.render("Posts/trending", {
+          posts: allPosts,
+          noPost: noPost,
+          numPost: numPost,
+          searched: searched, 
+          searchQuery: searchQuery
+        });
+      }
+    });
+  }else{
+    searched = false;
+    Post.find({}, (err, allPosts) => {
+      if(err){
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err); 
+      }else{
+        if (allPosts.length < 1){
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        res.render("Posts/trending", {
+          posts: allPosts, 
+          noPost: noPost, 
+          searched: searched
+        });
+      }
+    });
+  }
+});
+
+// oldest
+router.get("/oldest", (req, res) => {
+  let noPost = "";
+  if(req.query.search){
+    let searched = true;
+    let numPost;
+    const searchQuery = req.query.search,
+          regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Post.find({ title: regex }, (err, allPosts) => {
+      if (err) {
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err);
+      } else {
+        if (allPosts.length < 1) {
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        numPost = allPosts.length
+        res.render("Posts/oldest", {
+          posts: allPosts,
+          noPost: noPost,
+          numPost: numPost,
+          searched: searched, 
+          searchQuery: searchQuery
+        });
+      }
+    });
+  }else{
+    searched = false;
+    Post.find({}, (err, allPosts) => {
+      if(err){
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err); 
+      }else{
+        if (allPosts.length < 1){
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        res.render("Posts/oldest", {
+          posts: allPosts, 
+          noPost: noPost, 
+          searched: searched
+        });
+      }
+    });
+  }
+});
+
+//likeasc
+router.get("/likeasc", (req, res) => {
+  let noPost = "";
+  if(req.query.search){
+    let searched = true;
+    let numPost;
+    const searchQuery = req.query.search,
+          regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Post.find({ title: regex }, (err, allPosts) => {
+      if (err) {
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err);
+      } else {
+        if (allPosts.length < 1) {
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        numPost = allPosts.length
+        res.render("Posts/likeasc", {
+          posts: allPosts,
+          noPost: noPost,
+          numPost: numPost,
+          searched: searched, 
+          searchQuery: searchQuery
+        });
+      }
+    });
+  }else{
+    searched = false;
+    Post.find({}, (err, allPosts) => {
+      if(err){
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err); 
+      }else{
+        if (allPosts.length < 1){
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        res.render("Posts/likeasc", {
+          posts: allPosts, 
+          noPost: noPost, 
+          searched: searched
+        });
+      }
+    });
+  }
+});
+
+
+//likedes
+router.get("/likedes", (req, res) => {
+  let noPost = "";
+  if(req.query.search){
+    let searched = true;
+    let numPost;
+    const searchQuery = req.query.search,
+          regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Post.find({ title: regex }, (err, allPosts) => {
+      if (err) {
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err);
+      } else {
+        if (allPosts.length < 1) {
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        numPost = allPosts.length
+        res.render("Posts/likedes", {
+          posts: allPosts,
+          noPost: noPost,
+          numPost: numPost,
+          searched: searched, 
+          searchQuery: searchQuery
+        });
+      }
+    });
+  }else{
+    searched = false;
+    Post.find({}, (err, allPosts) => {
+      if(err){
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err); 
+      }else{
+        if (allPosts.length < 1){
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        res.render("Posts/likedes", {
+          posts: allPosts, 
+          noPost: noPost, 
+          searched: searched
+        });
+      }
+    });
+  }
+});
+
 
 router.get('/new_post', ensureAuthenticated, (req, res) =>
   res.render('Posts/new_post', {
@@ -94,13 +279,13 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
   }));
 
 
-  router.route('/img_data')
-.post(upload.single('file'), function(req, res) {
-    var new_img = new Img;
-    new_img.img.data = fs.readFileSync(req.file.path)
-    new_img.img.contentType = 'image/jpeg';
-    new_img.save();    res.json({ message: 'New image added to the db!' });
-})
+//   router.route('/img_data')
+// .post(upload.single('file'), function(req, res) {
+//     var new_img = new Img;
+//     new_img.img.data = fs.readFileSync(req.file.path)
+//     new_img.img.contentType = 'image/jpeg';
+//     new_img.save();    res.json({ message: 'New image added to the db!' });
+// })
 
   router
   .route("/")

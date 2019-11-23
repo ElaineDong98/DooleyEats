@@ -43,6 +43,38 @@ router.get('/blog_posts', (req, res) => res.render('blog_posts', {
     gender: req.user.gender
 }));
 
+//trending
+router.get('/trending', (req, res) => res.render('trending', {
+    username: req.user.username,
+    email:req.user.email, 
+    hometown: req.user.hometown,
+    gender: req.user.gender
+}));
+
+//oldest
+router.get('/oldest', (req, res) => res.render('oldest', {
+    username: req.user.username,
+    email:req.user.email, 
+    hometown: req.user.hometown,
+    gender: req.user.gender
+}));
+
+//likeasc
+router.get('/likeasc', (req, res) => res.render('likeasc', {
+    username: req.user.username,
+    email:req.user.email, 
+    hometown: req.user.hometown,
+    gender: req.user.gender
+}));
+
+//likedes
+router.get('/likedes', (req, res) => res.render('likedes', {
+    username: req.user.username,
+    email:req.user.email, 
+    hometown: req.user.hometown,
+    gender: req.user.gender
+}));
+
 //New_post
 router.get('/forum', (req, res) => res.render('forum', {
     username: req.user.username,

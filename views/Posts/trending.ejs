@@ -203,13 +203,18 @@ body {
       </div>
     <% } %>
     <%posts.sort(function (a, b) {
-      if (a.createdAt && b.createdAt){
-        return b.createdAt - a.createdAt;
-      }
-      if (!a.createdAt){
-        return 1;
-      }
-      })%>
+        if (a.likes && b.likes){
+          if (a.likes.length == b.likes.length){
+            return b.createdAt - a.createdAt
+          }
+          return b.likes.length - a.likes.length;
+          
+        }
+        
+        if (!a.likes){
+          return 1;
+        }
+        })%>
     
     <% posts.forEach(Post => {%>
       <div class="col-md-3 col-sm-6">

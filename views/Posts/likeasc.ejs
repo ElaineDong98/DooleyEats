@@ -203,14 +203,13 @@ body {
       </div>
     <% } %>
     <%posts.sort(function (a, b) {
-      if (a.createdAt && b.createdAt){
-        return b.createdAt - a.createdAt;
-      }
-      if (!a.createdAt){
-        return 1;
-      }
-      })%>
-    
+        if (a.likes && b.likes){
+          return b.likes.length - a.likes.length;
+        }
+        if (!a.likes){
+          return 1;
+        }
+        })%>
     <% posts.forEach(Post => {%>
       <div class="col-md-3 col-sm-6">
         <div class="thumbnail card"><a href="/Posts/<%= Post._id %>">
