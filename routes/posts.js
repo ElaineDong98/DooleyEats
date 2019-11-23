@@ -66,7 +66,6 @@ router.get("/", (req, res) => {
           searchQuery: searchQuery
         });
       }
-      
     });
   }else{
     searched = false;
