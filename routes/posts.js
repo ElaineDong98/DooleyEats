@@ -49,7 +49,7 @@ router.get("/", (req, res) => {
     let numPost;
     const searchQuery = req.query.search,
           regex = new RegExp(escapeRegex(req.query.search), 'gi');
-    Post.find({ title: regex }, (err, allPosts) => {
+    Post.find({Tags: regex}, (err, allPosts) => {
       if (err) {
         req.flash("error", "Error: Cannot show posts");
         console.log(err);
@@ -66,10 +66,11 @@ router.get("/", (req, res) => {
           searchQuery: searchQuery
         });
       }
+      
     });
   }else{
     searched = false;
-    Post.find({}, (err, allPosts) => {
+    Post.find({Tags: regex}, (err, allPosts) => {
       if(err){
         req.flash("error", "Error: Cannot show posts");
         console.log(err); 
@@ -94,13 +95,13 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
   }));
 
 
-  router.route('/img_data')
-.post(upload.single('file'), function(req, res) {
-    var new_img = new Img;
-    new_img.img.data = fs.readFileSync(req.file.path)
-    new_img.img.contentType = 'image/jpeg';
-    new_img.save();    res.json({ message: 'New image added to the db!' });
-})
+//   router.route('/img_data')
+// .post(upload.single('file'), function(req, res) {
+//     var new_img = new Img;
+//     new_img.img.data = fs.readFileSync(req.file.path)
+//     new_img.img.contentType = 'image/jpeg';
+//     new_img.save();    res.json({ message: 'New image added to the db!' });
+// })
 
   router
   .route("/")
