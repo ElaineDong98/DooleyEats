@@ -39,7 +39,7 @@ const isNotAuthenticated = (req, res, next) => {
 };
 
 function escapeRegex(text) {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+  return text.replace(/[-[\]{}()*+?.,\\^$|\s]/g, "\\$&");
 };
 
 router.get("/", (req, res) => {
@@ -49,7 +49,7 @@ router.get("/", (req, res) => {
     let numPost;
     const searchQuery = req.query.search,
           regex = new RegExp(escapeRegex(req.query.search), 'gi');
-    Post.find({tags: regex}, (err, allPosts) => {
+    Post.find({"$or": [{tags: regex},{title:regex}]},(err, allPosts) => {
       if (err) {
         req.flash("error", "Error: Cannot show posts");
         console.log(err);
@@ -66,7 +66,6 @@ router.get("/", (req, res) => {
           searchQuery: searchQuery
         });
       }
-      
     });
   }else{
     searched = false;
