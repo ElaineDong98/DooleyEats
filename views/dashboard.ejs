@@ -8,7 +8,10 @@
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
-
+br {
+   display: block;
+   margin: 5px 0;
+}
 </style>
 <body>
 <% include ./partials/messages %>
@@ -25,16 +28,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 <!-- Top menu -->
 <div class="w3-top">
   <div class="w3-white w3-xlarge" style="max-width:1100px;margin:left">
-    <div class="w3-large w3-button w3-padding-16  w3-left" onclick="w3_open()">☰</div>
+    <div class="w3-large w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
     <div class="w3-right w3-padding-16 ">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        <a class="lead mb-3" href="/posts/new_post">+ create new post</a>
+      <button class="btn btn-sm btn-outline-success my-2 my-sm-1" type="submit">
+        <a class="lead " href="/posts/new_post">+ create new post</a>
       </button>
-      <br> <br>
+      <br style="line-height:3px">
       
       <form action="/posts" method="GET" class="form-inline">
       <input class="form-control mr-sm-2" type="search" name = "search" placeholder="Search" aria-label="Search" />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+      <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">
         Search
       </button>
       </form>
@@ -80,12 +83,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
           return 1;
         }
         })%>
-        <% for (var i = 0; i < 8; i++) { %>
+        <% var j = 0; 
+        for (var i = 0; i < 8; i++) { 
+           if (posts[i+j].postType == "HangOut") {
+            j += 1;
+            i -= 1; 
+            continue;}%>
           <div class="col-md-3 col-sm-6">
             <div class="thumbnail card">
               <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
               <div class="caption">
-                <h4 class="caption"><%= posts[i].title %></h4>
+                <h4 class="caption"><%= posts[i+j].title %></h4>
               </div>
               <p>
                 <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i]._id %>">
@@ -93,10 +101,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
                 </a >
               </p >
               <div>
-                <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i].likes.length %></span>
+                <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span>
               </div>
-                <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i].author.username %></a></em>
-            <span>Date: <%= posts[i].createdAt.toDateString() %></span>
+                <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i+j].author.username %></a></em>
+            <span>Date: <%= posts[i+j].createdAt.toDateString() %></span>
             </div>
           </div>
         <% } %>
@@ -109,31 +117,34 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     <div class="row text-center" style="display: flex; flex-wrap: wrap;" id="Trending_Restaurants">
       <%posts.sort(function (a, b) {
         if (a.createdAt && b.createdAt){
-          
           return b.createdAt - a.createdAt;
-          
         }
         if (!a.createdAt){
           return 1;
         }
         })%>
-      <% for (var i = 0; i < 8; i++) { %>
+        <% var j = 0; 
+                for (var i = 0; i < 8; i++) { 
+                   if (posts[i+j].postType == "HangOut") {
+                    j += 1;
+                    i -= 1; 
+                    continue;}%>
         <div class="col-md-3 col-sm-6">
           <div class="thumbnail card">
             <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
             <div class="caption">
-              <h4 class="caption"><%= posts[i].title %></h4>
+              <h4 class="caption"><%= posts[i+j].title %></h4>
             </div>
             <p>
-              <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i]._id %>">
+              <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i+j]._id %>">
                 More Info
               </a >
             </p >
             <div>
-              <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i].likes.length %></span>
+              <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span>
             </div>
-              <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i].author.username %></a></em>
-          <span>Date: <%= posts[i].createdAt.toDateString() %></span>
+              <em>Submitted By <a href="/users/<%= posts[i+j].author.id %>"><%= posts[i+j].author.username %></a></em>
+          <span>Date: <%= posts[i+j].createdAt.toDateString() %></span>
           </div>
         </div>
       <% } %>
@@ -150,8 +161,20 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <!-- About Us Section -->
   
   <div class="w3-container w3-padding-32">
-    <div style="background-color:rgba(250, 209, 148, 0.25)">
+    <div style="background-color:#fad19440">
   <h2>HangOut</h2>
+  <%posts.sort(function (a, b) {
+              if (a.createdAt && b.createdAt){return b.createdAt - a.createdAt;}
+              if (!a.createdAt){return 1;}})%>
+  <% for (var i = 0; i < 4; i++) { %>
+  <% if(posts[i].postType == "HangOut") { %>
+  <div class="w3-padding-32">
+    <img style="width:100%">
+    <h3><a href="/posts/<%= posts[i]._id %>" target="_blank"><%= posts[i].title %></a>
+    </h3>
+    <p><%= posts[i].description.substring(0, 50) %></p>
+  </div>
+  <% } %><% } %>
     <div class="w3-padding-32">
             <img style="width:100%">
             <h3><a href="/Posts/5dc72c61dbc1da614db44c16" target="_blank">Free Pepperoni Pizze At Blaze Pizza!!!</a></h3>
@@ -162,6 +185,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
         <h3><a href="/Posts/5dc72f1ddbc1da614db44c17" target="_blank">Anyone want to go to GreatWall Supermarket in Duluth?</a></h3>
         <p>Next Sunday 6pm. Anyone wants to uber to... </p>
       </div>
+    </div>
+
+
+
     </div>
   </div>
   <hr>
