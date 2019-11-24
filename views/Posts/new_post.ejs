@@ -1,5 +1,6 @@
 <% include ../partials/header %>
 <body class="text-center">
+  
   <div class="row mt-6">
   <div class="col-md-12 m-auto">
   <div class="card card-body">
@@ -16,24 +17,24 @@
               name = "title" 
               placeholder = "Enter post title"
               required = ""
-              style="font-size:16pt;height:50px;width:730px;"
+              style="font-size:14pt;width:100%;"
               value="<%= typeof title != 'undefined' ? title : '' %>"
             />
         </div>
 
         <div align="left" class = "form-group">
           <label for="postType">Post Category:</label>
-        <select name="postType" >
+        <select name="postType" ng-model="selectItem" id="postType" onChange="showType(this);">
             <optgroup label="Please Select A Post Category:">
                 <option value="" selected disabled hidden>Choose here</option>
-                <option id="postType" >RestaurantReview</option>
-                <option id="postType" >Recipe</option>
-                <option id="postType" >HangOut</option>
+                <option value = "RestaurantReview" >RestaurantReview</option>
+                <option value = "Recipe" >Recipe</option>
+                <option value = "HangOut" >HangOut</option>
             </optgroup>
+            
         </select>
-
 </div>
-
+  
         <div align="left" class = "form-group">
           <label for="image">Upload images:</label>
           <input 
@@ -48,50 +49,46 @@
         <div align="left" class = "form-group">
           <label for="description"  >Description:</label> <br>
         <textarea id="description" onkeypress="onTestChange();" 
-                  name="description" rows="20" cols="75" placeholder="Describe something..." 
-                  wrap="hard" style ="font-size:16pt;"></textarea> <br><br>
+                  name="description" rows="20" cols=100% placeholder="Describe something..." 
+                  wrap="hard" style ="font-size:14pt;"></textarea> <br><br>
       </div>
-
-        <script>
-          function onTestChange() {
-              var key = window.event.keyCode;
-          
-              // If the user has pressed enter
-              if (key === 13) {
-                  document.getElementById("description").value = document.getElementById("description").value + "\n";
-                  return false;
-              }
-              else {
-                  return true;
-              }
-          }
-          </script>
         
-       
         <div align="left" class = "form-group">
-          <label for="tags">Tags:</label>
+          <a id = "tags" label for="tags">Tags:</label>
           <input 
             type="text" 
             id="tags"
             name="tags"
             placeholder = "Enter your tags here" 
             required = ""
-            style="font-size:12pt;height:40px;width:730px;"
+            style="font-size:12pt;height:40px;width:100%;"
             value="<%= typeof tags != 'undefined' ? tags : '' %>"
-          />
+          ></a>
         </div>
 
         <div align="left" class = "form-group">
-          <label for="location">Restaurant Location (if applicable):</label>
+          <a id = "location" label for="location">Restaurant Location (if applicable):</label>
           <input 
             type="text" 
             id="location"
             name="location"
             placeholder = "Enter restaurant location here" 
-            style="font-size:12pt;height:40px;width:700px;"
-            value="<%= typeof tags != 'undefined' ? tags : '' %>"
-          />
+            style="font-size:12pt;height:40px;width:100%;"
+          /a>
         </div>
+
+        <div align="left" class="form-group">
+          <a id = "meetTime" label for="meetTime">Hangout Time:</label>
+          <input type="datetime-local" id="meetTime" name="meetTime" value="2019-11-30T12:00"
+            style="font-size:12pt;height:40px;width:100%;" value="<%= typeof tags != 'undefined' ? tags : '' %>" ></a>
+        </div>
+
+        <div align="left" class="form-group">
+          <a id = "meetLocation" label for="meetLocation">Hangout Location:</label>
+          <input type="text" id="meetLocation" name="meetLocatione" placeholder="Where to meet up?"
+            style="font-size:12pt;height:40px;width:100%;" value="<%= typeof tags != 'undefined' ? tags : '' %>" ></a>
+        </div>
+
 
         <!-- Send email to confirm -->
         <button type="submit" class="btn btn-primary btn-block">
@@ -102,11 +99,45 @@
             Reset
         </button>
 
+
+
         <button class="btn btn-md btn-primary">
           <a href="/posts">Back</a>
         </button>
 
     </form>
+      <script type="text/javascript">
+        function onTestChange() {
+          var key = window.event.keyCode;
+          // If the user has pressed enter
+          if (key === 13) {
+            document.getElementById("description").value = document.getElementById("description").value + "\n";
+            return false;
+          }
+          else {
+            return true;
+          }
+        }
+
+        function showType(type) {
+          var theTypes = document.getElementById("postType").value;
+          if (theTypes == "Recipe" ) {
+            //alert("The input value has changed. The new value is: " + theTypes);
+            document.getElementById("location").innerHTML = "";
+            document.getElementById("meetTime").innerHTML = "";
+            document.getElementById("meetLocation").innerHTML = "";
+          }else if (theTypes == "HangOut"){
+            document.getElementById("location").innerHTML = "";
+            document.getElementById("tags").innerHTML = "";
+          }
+          else if (theTypes != "HangOut"){
+            document.getElementById("meetTime").innerHTML = "";
+            document.getElementById("meetLocation").innerHTML = "";
+          }
+          return theTypes;
+
+        }
+      </script>
   </div>
   </div>
   </div>

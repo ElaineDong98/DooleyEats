@@ -49,6 +49,17 @@ var PostSchema = new mongoose.Schema({
     default: Date.now
   },
 
+  //this is for hangout
+  meetTime: Date,
+  meetLocation: String,
+  signup: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      username: String
+    },
+  ],
+  ///
   tags: {
     type: String
   },
