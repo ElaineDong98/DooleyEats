@@ -132,6 +132,10 @@ router
     }
   });
 
+// Friend Request Page
+router.get("/friend_request", (req, res) => res.render("friend_request"));
+
+
 // Login Page
 router.get("/login", (req, res) => res.render("login"));
 
