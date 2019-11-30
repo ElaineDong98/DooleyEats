@@ -39,6 +39,18 @@ element.style {
                 value="<%= typeof title != 'undefined' ? title : '' %>"
             />
         </div>
+        
+        <div class = "form-group">
+                <label for="anony">Public or Anonymous:</label>
+              <select name="anony" ng-model="selectItem" id="anony" onChange="showType(this);">
+                  <optgroup label="Public or Anonymous">
+                      <option value="" selected disabled hidden>Choose here</option>
+                      <option value = "Public" >Public</option>
+                      <option value = "Anonymous" >Anonymous</option>
+                  </optgroup>
+                  
+              </select>
+      </div>
 
         <div class="form-group">
             <label for="text">Text:</label>

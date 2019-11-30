@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var CommentSchema = mongoose.Schema({
   title : {type: String, required: true},
+  anony : {type: String, required: true},
   text: {type: String, required: true},
   date: String,
   createTime: { 

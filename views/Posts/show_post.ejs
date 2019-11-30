@@ -628,7 +628,13 @@ body {
                 <h5><strong><%= com.rating_value %></strong>  <span style="color:black;">&#9733;</span>  <strong><%=com.title%></strong></h5>
               </div>
               <div class="col-md-9">
-                <div class="pull-left"><strong><span class="glyphicon glyphicon-user"></span> <%=com.author.username%></strong></div>
+                  <% if (com.anony =="Anonymous") {%>  
+                <div class="pull-left"><strong><span class="glyphicon glyphicon-user"></span> Anonymous</strong></div>
+                <% } else{ %>  
+                <div class="pull-left"><strong><span class="glyphicon glyphicon-user"></span><%=com.author.username%></strong></div>
+               <% } %>
+
+               
               </div>
             </div>
           <div class="row" style="margin:0;">

@@ -225,7 +225,7 @@ router.post("/", isAuthenticated ,function(req,res)
         if(err){	console.log(err);	res.redirect("/posts");	}
         else
         {
-            const {title, text} = req.body;
+            const {title, anony,text} = req.body;
             Comment.create(req.body,function(err,com)
             {
               if(err){	console.log(err);	res.redirect("/posts");	}
@@ -247,6 +247,7 @@ router.post("/", isAuthenticated ,function(req,res)
 
                     const newComment = new Comment({
                       title,
+                      anony,
                       text,
                       author,
                       upvoteCount,
