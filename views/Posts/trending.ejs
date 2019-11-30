@@ -136,6 +136,8 @@ body {
           <a href="/posts/oldest">Oldest</a>
           <a href="/posts/likeasc">Likes: High to Low</a>
           <a href="/posts/likedes">Likes: Low to High</a>
+          <a href="/posts/viewdes">Views: High to Low</a>
+          <a href="/posts/viewasc">Views: Low to High</a>
         </div>
       </a>
       </div>
@@ -203,13 +205,16 @@ body {
       </div>
     <% } %>
     <%posts.sort(function (a, b) {
-        if (a.likes && b.likes){
-          if (a.likes.length == b.likes.length){
-            return b.createdAt - a.createdAt
+      if (a.likes && b.likes){
+        if (a.likes.length == b.likes.length){
+          if (a.view == b.view){
+            return b.createdAt - a.createdAt;
           }
-          return b.likes.length - a.likes.length;
-          
+          return b.view - a.view;
         }
+        return b.likes.length - a.likes.length;
+        
+      }
         
         if (!a.likes){
           return 1;
@@ -226,7 +231,8 @@ body {
           </div>
           <br>
             <a class="pull-left">By <%= Post.author.username %></a>
-            <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= Post.likes.length %></a>
+            <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= Post.likes.length %></a><br>
+            <a class="pull-right"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= Post.view-1 %></a>
           <br>
           <span>Date: <%= Post.createdAt.toDateString() %></span>
           </a >

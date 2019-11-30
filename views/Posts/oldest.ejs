@@ -136,6 +136,8 @@ body {
           <a href="/posts/oldest">Oldest</a>
           <a href="/posts/likeasc">Likes: High to Low</a>
           <a href="/posts/likedes">Likes: Low to High</a>
+          <a href="/posts/viewdes">Views: High to Low</a>
+          <a href="/posts/viewasc">Views: Low to High</a>
         </div>
       </a>
       </div>
@@ -221,7 +223,8 @@ body {
           </div>
           <br>
             <a class="pull-left">By <%= Post.author.username %></a>
-            <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= Post.likes.length %></a>
+            <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= Post.likes.length %></a><br>
+            <a class="pull-right"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= Post.view-1 %></a>
           <br>
           <span>Date: <%= Post.createdAt.toDateString() %></span>
           </a >

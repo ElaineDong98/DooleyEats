@@ -272,6 +272,96 @@ router.get("/likedes", (req, res) => {
   }
 });
 
+router.get("/viewasc", (req, res) => {
+  let noPost = "";
+  if(req.query.search){
+    let searched = true;
+    let numPost;
+    const searchQuery = req.query.search,
+          regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Post.find({ title: regex }, (err, allPosts) => {
+      if (err) {
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err);
+      } else {
+        if (allPosts.length < 1) {
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        numPost = allPosts.length
+        res.render("Posts/viewasc", {
+          posts: allPosts,
+          noPost: noPost,
+          numPost: numPost,
+          searched: searched, 
+          searchQuery: searchQuery
+        });
+      }
+    });
+  }else{
+    searched = false;
+    Post.find({}, (err, allPosts) => {
+      if(err){
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err); 
+      }else{
+        if (allPosts.length < 1){
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        res.render("Posts/viewasc", {
+          posts: allPosts, 
+          noPost: noPost, 
+          searched: searched
+        });
+      }
+    });
+  }
+});
+
+router.get("/viewdes", (req, res) => {
+  let noPost = "";
+  if(req.query.search){
+    let searched = true;
+    let numPost;
+    const searchQuery = req.query.search,
+          regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Post.find({ title: regex }, (err, allPosts) => {
+      if (err) {
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err);
+      } else {
+        if (allPosts.length < 1) {
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        numPost = allPosts.length
+        res.render("Posts/viewdes", {
+          posts: allPosts,
+          noPost: noPost,
+          numPost: numPost,
+          searched: searched, 
+          searchQuery: searchQuery
+        });
+      }
+    });
+  }else{
+    searched = false;
+    Post.find({}, (err, allPosts) => {
+      if(err){
+        req.flash("error", "Error: Cannot show posts");
+        console.log(err); 
+      }else{
+        if (allPosts.length < 1){
+          noPost = "There is no post found. Create one by yourself!";
+        }
+        res.render("Posts/viewdes", {
+          posts: allPosts, 
+          noPost: noPost, 
+          searched: searched
+        });
+      }
+    });
+  }
+});
+
 
 router.get('/new_post', ensureAuthenticated, (req, res) =>
   res.render('Posts/new_post', {
