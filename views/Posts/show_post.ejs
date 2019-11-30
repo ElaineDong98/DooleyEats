@@ -543,7 +543,11 @@ body {
         <hr>
         <div class="pull-right">
           <span>Total likes: <i class="fas fa-heart" style="color: red"></i> <%= post.likes.length %></span>
-        </div>
+        </div><br>
+
+        <div class="pull-right">
+            <span>Total views: <i class="fas fa-eye" style="color: yellowgreen"></i> <%= post.view -1%></span>
+          </div>
         <hr>
         <p><b>Description:</b></p>
         <p><%= post.description %> </p>

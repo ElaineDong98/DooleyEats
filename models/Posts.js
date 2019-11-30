@@ -14,6 +14,12 @@ var PostSchema = new mongoose.Schema({
     type: Number
   },
 
+  view: {
+    type: Number,
+    default: 1
+  },
+
+
   hours:{
     type:String
   },
@@ -78,7 +84,6 @@ var PostSchema = new mongoose.Schema({
       text: String
     }
   ]
-
 }
 );
 PostSchema.plugin(passportLocalMongoose)

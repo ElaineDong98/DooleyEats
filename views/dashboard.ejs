@@ -73,7 +73,10 @@ br {
       <%posts.sort(function (a, b) {
         if (a.likes && b.likes){
           if (a.likes.length == b.likes.length){
-            return b.createdAt - a.createdAt
+            if (a.view == b.view){
+              return b.createdAt - a.createdAt;
+            }
+            return b.view - a.view;
           }
           return b.likes.length - a.likes.length;
           
@@ -101,7 +104,8 @@ br {
                 </a >
               </p >
               <div>
-                <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span>
+                <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span><br>
+                <span class="badge label-primary"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= posts[i+j].view-1 %></span>
               </div>
                 <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i+j].author.username %></a></em>
             <span>Date: <%= posts[i+j].createdAt.toDateString() %></span>
@@ -141,7 +145,8 @@ br {
               </a >
             </p >
             <div>
-              <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span>
+              <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span><br>
+              <span class="badge label-primary"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= posts[i+j].view -1%></span>
             </div>
               <em>Submitted By <a href="/users/<%= posts[i+j].author.id %>"><%= posts[i+j].author.username %></a></em>
           <span>Date: <%= posts[i+j].createdAt.toDateString() %></span>

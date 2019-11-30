@@ -310,6 +310,7 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
       meetLocation,
       author
     });
+    
 
     newPost.save(function(err, resp) {
       if (err) {
@@ -359,7 +360,8 @@ router.put("/:id", ensureAuthenticated, (req, res) => {
 // SHOW - shows more info about one Post
 
 router.get("/:id", ensureAuthenticated,function (req, res) {
-  
+  Post.findOneAndUpdate({_id :req.params.id}, {$inc : {'view' : 1}}).exec();
+
   Post.findById(req.params.id).populate({
     path: 'comments',
     populate : {
