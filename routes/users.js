@@ -350,6 +350,44 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
+router.get("/likedPost/:id", ensureAuthenticated, (req, res) => {
+  User.findById(req.params.id, (err, foundUser) => {
+    if (err || !foundUser) {
+      req.flash("error", "Something went wrong...");
+      res.redirect("/dashboard");
+    } else {
+
+
+      Post.find()
+        .where("author.id")
+        .equals(foundUser._id)
+        .exec((err, posts) => {
+          if (err) {
+            req.flash("error", "Something went wrong...");
+            res.redirect("/dashboard");
+          } else {
+            var likes = 0;
+
+            for (each in posts){
+              if (posts[each].likes){
+                likes += posts[each].likes.length;
+              }
+            }
+            res.render("Users/likedPost", {
+              count: Object.keys(posts).length,
+              likes: likes,
+              user: foundUser,
+              posts: posts
+            });
+          }
+        });
+
+
+        
+    }
+  });
+});
+
 router.get("/edit/:id", function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
     if (err) {

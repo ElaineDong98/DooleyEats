@@ -532,9 +532,11 @@ router.post("/:id/like", function (req, res) {
     if (foundUserLike) {
       // user already liked, removing like
       foundPost.likes.pull(req.user._id);
+      req.user.likedPost.pull(foundPost._id);
     } else {
       // adding the new user like
       foundPost.likes.push(req.user);
+      req.user.likedPost.push(foundPost._id);
     }
     foundPost.save(function (err) {
       if (err) {

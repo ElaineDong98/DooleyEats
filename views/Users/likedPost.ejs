@@ -374,48 +374,10 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 </style>
 <body>
-<header>
-
-    <div class="container">
-      <div class="profile">
-        <div class="profile-image">
-          <img src="<%= user.image%>" alt="" style="width:70%">
-        </div>
-  
-        <div class="profile-user-settings">
-          <h1 class="profile-user-name"><%= user.username%></h1>
-            <% if (currUser &&( user.id == currUser._id)) {%>
-          <button class="btn profile-edit-btn"><a href="/users/edit/<%= user.id%>">Edit Profile</a></button>
-          <button class="btn profile-settings-btn" aria-label="profile settings"><a href="/users/edit/<%= user.id%>"><i class="fas fa-cog" aria-hidden="true"></i></a></button>
-            <% }%>
-        </div>
-  
-        <div class="profile-stats">
-          <ul>
-            <li><span class="profile-stat-count"><%= count%></span> posts</li>
-            <li><span class="profile-stat-count"><%= likes%></span> likes</li>
-          </ul>
-        </div>
-  
-        <div class="profile-bio">
-          <p> <div class="caption">Email: <%= user.email%></a ></div></p>
-          <p><div class="caption">Hometown: <%= user.hometown%></a ></div></p>
-          <p> <div class="caption">Biography: <%= user.biography%></a ></div></p>
-          <p><div class="caption">Gender: <%= user.gender%></a ></div>
-          </p>
-        </div>
-      </div>
-      <!-- End of profile section -->
-      <button class="btn profile-edit-btn"><a href="/users/likedPost/<%= user.id%>">Liked Posts</a></button>
-    </div>
-    <!-- End of container -->
-  
-  </header>
-  
   <main>
   
     <div class="container">
-      <h3><%= user.username %>'s posts</h3>
+      <h3><%= user.username %> liked posts</h3>
       <%posts.sort(function (a, b) {
         if (a.createdAt && b.createdAt){
           return b.createdAt - a.createdAt;
@@ -435,8 +397,8 @@ Remove or comment-out the code block below to see how the browser will fall-back
                      <br>
                         <a class="pull-left"> By <%= post.author.username %></a>
                         <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= post.likes.length %></a><br>
-                        <a class="pull-right"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= post.view-1 %></a>        
-                    <br>
+                        <a class="pull-right"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= post.view-1 %></a>                    
+                        <br>
                     <span>Date: <%= post.createdAt.toDateString() %></span>
                 </div>
               </div>
@@ -449,3 +411,4 @@ Remove or comment-out the code block below to see how the browser will fall-back
   </main>
 
 <% include ../partials/footer %>
+

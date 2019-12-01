@@ -30,7 +30,14 @@ const UserSchema = new mongoose.Schema({
     required: false
   }, 
 
-
+likedPost: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Posts",
+      title: String
+    },
+  ],
+  
   /* --Two Fields for Email Verification-- */
   // whether account is activated 
   active:{
