@@ -558,40 +558,6 @@ body {
         <p>
           <em><%= post.createdAt %></em>
         </p>
-
-
-        <!-- ratings distribution-->
-				<div class="row" id="ratingbar" style="margin-left:0; width:315px;">
-            <!-- 
-                * fixed width is specified for maintaining size even when resized
-                * col-md, col-sm, col-xs are specified to make the columns responsive  
-            -->
-            <div class="col-md-2 col-sm-2 col-xs-2" style="width:110px;">
-                <div class="row">
-                    <h3 style="color:black;"><strong><%=post.rating_avg%>  <span style="color:black;">&#9733;</span></strong></h3>
-                </div>
-                <div class="row">
-                    <strong>(<%=post.comments.length%> rating<%if(post.comments.length!=1){%>s<% }%>)</strong>
-                </div>
-            </div>
-            <!-- ratings bars-->
-            <% var stars = [5,4,3,2,1]; %>
-            <% var bar_colors = ["color-green","color-green","color-green","color-orange","color-red"];%>
-
-            <div class="col-md-10 col-sm-10 col-xs-10 container horizontal rounded" style="width:205px;">
-            <% for(var i=0;i< 5;i++){ %>
-              <div class="row">
-                  <div class="col-md-2 col-sm-2 col-xs-2 bar-item"><%=stars[i];%> <span>&#9733;</span></div>
-                  <div class="col-md-8 col-sm-8 col-xs-8 progress-bar horizontal">
-                          <div class="progress-track"><div class="progress-fill <%=bar_colors[i]%>"></div></div>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-2 ff" style="width:75px;"></div>
-              </div>
-            <% } %>
-            </div>
-        </div>    <!--  end ratings distribution-->
-
-
       </div>
     </div>
 
@@ -628,16 +594,13 @@ body {
           <%  var com = post.comments[i]; %>
           <div class="row">
             <div class="row" style="margin:0;">
-              <div class="col-md-9 pull-left">
-                <h5><strong><%= com.rating_value %></strong>  <span style="color:black;">&#9733;</span>  <strong><%=com.title%></strong></h5>
-              </div>
               <div class="col-md-9">
                   <% if (com.anony =="Anonymous") {%>  
                 <div class="pull-left"><strong><span class="glyphicon glyphicon-user"></span> Anonymous</strong></div>
                 <% } else{ %>  
-                <div class="pull-left"><strong><span class="glyphicon glyphicon-user"></span><%=com.author.username%></strong></div>
+                <div class="pull-left"><strong><span class="glyphicon glyphicon-user"></span><br><a href="/users/<%= com.author.id %>"><%=com.author.username%></strong></a></div>
                <% } %>
-
+               <br>
                
               </div>
             </div>
@@ -650,46 +613,6 @@ body {
             </div>
           </div>
 
-          <!-- **voting info** -->
-          <div class="voting-buttons row" style="margin:0 auto;">
-            <!--upvotes info-->
-            <div class="col-md-5 col-sm-5 col-xs-5" style="padding:0; text-align:right;">
-              <!--number of upvotes-->
-              <span class="number-of-upvotes"></span>
-              <!--list of people who upvoted(pops up on click)-->
-              <span class="list-of-upvotes">
-                <ul style="list-style:none; margin:5px; padding:0; ">
-                  <%for(var kk=0;kk< com.upvotes.length;kk++){%>
-                    <li><%=com.upvotes[kk].username%></li>
-                  <% }%>
-                </ul>
-              </span>
-            </div>
-            <!--upvote and downvote buttons-->
-            <div class="col-md-2  col-sm-2 col-xs-2 text-center" style="padding:0 10px; ">
-                <form action="/posts/<%= post._id %>/comments/<%=com._id%>/upvote" method="POST">
-                    <!-- <button class="fas fa-thumbs-up" style="font-size:24px"></button> -->
-                    <button class="btn upvote btn-xs"><i class="material-icons md-18">thumb_up</i></button>
-                </form> 
-                <form action="/posts/<%= post._id %>/comments/<%=com._id%>/downvote" method="POST">
-                    <!-- <button class="fas fa-thumbs-down" style="font-size:24px"></button> -->
-                    <button class="btn downvote btn-xs"><i class="material-icons md-18">thumb_down</i></button>
-                </form>
-            </div>
-            <!--downvotes info-->
-            <div class="col-md-5 col-sm-5 col-xs-5" style="padding:0; text-align:left;">
-              <!--number of downvotes-->
-              <span class="number-of-downvotes"></span>
-              <!--list of people who downvoted(pops up on click)-->
-              <span class="list-of-downvotes">
-                <ul style="list-style:none; margin:5px; padding:0; ">
-                  <%for(var kk=0;kk< com.downvotes.length;kk++){%>
-                    <li><%=com.downvotes[kk].username%></li>
-                  <% }%>
-                </ul>
-              </span>
-            </div>                           
-          </div><!--end voting info-->
           <!-- edit and delete comment buttons: --> 
           <%if(currUser && (com.author.id.equals(currUser._id)|| currUser.username === "ADMIN")){%>
           <div class="row" style="margin-right:0;">
@@ -697,7 +620,7 @@ body {
                 <form id="deleteform" action = "/posts/<%=post._id%>/comments/<%=com._id%>?_method=DELETE" method="POST">
                 <button class = "btn btn-xs btn-danger"  >Delete</button>
                 </form> 
-            </div>
+            </div> 
             <div class="pull-right">
                 <a class = "btn btn-xs btn-warning" href="/posts/<%=post._id%>/comments/<%= com._id%>/edit" >Edit</a>
             </div>
@@ -709,151 +632,4 @@ body {
     </div>
   </div>
 </html>
-
-
-<!-- save rating values in a new array('ratings') BEFORE passing them to script tag (at bottom of document)-->
-<!-- this is done because of the following error occurs otherwise :
-    Uncaught SyntaxError: Unexpected token in JSON at position 290 at JSON.parse (<anonymous>) -->
-      <%var ratings = []; %>
-      <%var loggedInUser = currUser ? currUser : "none";%>
-      <!-- above line is because if you check if you accesss variable 'currUser' inside script tag by using json parse,
-        you will get json parsing error if no one is loggedin because if user isn't logged in, then it cannot parse null value
-        the work-around is simple, just check here and use another var loggedInUser
-        only if loggedInUser != "none", do required work (highlighting their upvoted and downvoted comments)
-      -->
-      <%for(var i=0;i< post.comments.length;i++){%>
-        <% ratings.push(post.comments[i].rating_value); %>
-      <% } %>
-  <!-- script for filling horizontal bars and for upvote and downvote action-->
-  <script type="text/javascript">
-    // accessing ejs variable in javascript (post,its comments and currUser)
-    var comms =  <%- JSON.stringify(ratings); %>;
-    var comments =  <%- JSON.stringify(post.comments); %>;
-    var postId =  <%- JSON.stringify(post._id); %>;
-    // currentuser -> the one who is logged in
-    var current_user =  <%- JSON.stringify(loggedInUser); %>;
-  
-  
-    var arr=[0,0,0,0,0,0],fr=[0,0,0,0,0,0];
-    var maxVal=0,ind=0;
-    for(var i=0;i<comms.length;i++)
-    {
-      ind=Math.round(parseFloat( comms[i] , 10 ));
-      fr[ind]++;
-    }
-    for(var i=1;i<=5;i++)
-    {
-      maxVal=Math.max(fr[i],maxVal);
-    }
-    if(maxVal==0)
-      maxVal = 1;
-    for(var i=1;i<=5;i++)
-    {
-      arr[i] = Math.round((fr[i]*100)/maxVal);
-      arr[i] = arr[i].toString() + "%";
-    }
-  
-    // set fill % in ratings bar using jQuery
-    var c=5;
-    $('.horizontal .progress-fill').each(function(){
-      $(this).css('width',arr[c]);
-      c--;
-    });
-    // display frequency of ratings using jQuery
-    c=5;
-    $('.horizontal .ff').each(function(){
-      $(this).html(fr[c].toString());
-      c--;
-    });	
-    
-    //arrays for # of upvotes and downvotes
-    var upvotesArr=[] , downvotesArr=[];
-    for(var i=0;i<comments.length;i++)
-    {
-      //length of upvote array
-      upvotesArr.push(comments[i].upvotes.length);
-      //length of downvote array
-      downvotesArr.push(comments[i].downvotes.length);
-    }
-    //check if comment is already upvote/downvoted
-    var isUpvoted = [],isDownvoted = [];
-    if(current_user!="none")
-    {
-      var i,j,found;
-      for( i=0;i<comments.length;i++)
-      {
-        isUpvoted[i] = 0;
-        isDownvoted[i] = 0;
-        for( j=0;j<comments[i].upvotes.length;j++)
-          //if user id is in the upvotes array
-          if(comments[i].upvotes[j]._id == current_user._id)
-          {
-            //reset array
-            isUpvoted[i] = 1;
-            break;
-          }
-        for( j=0;j<comments[i].downvotes.length;j++)
-          //if user id is in the downvotes array
-          if(comments[i].downvotes[j]._id == current_user._id)
-          {
-            //reset array
-            isDownvoted[i] = 1;
-            break;
-          }
-      }
-    }	
-    
-    // display #upvotes and #downvotes for each comment
-    c=0;
-    $('.number-of-upvotes').each(function(){
-      $(this).html(upvotesArr[c].toString());
-      c++
-    });
-    c=0;
-    $('.number-of-downvotes').each(function(){
-      $(this).html(downvotesArr[c].toString());
-      c++
-    });
-    c=0;
-      $('.voting-buttons div form .upvote').each(function(){
-        //if upvote button is already clicked
-        if(isUpvoted[c]==1)
-        {   
-          $(this).toggleClass("upvote");//remove upvote class
-          $(this).toggleClass("upvoted");// add upvoted class
-          // **change the action of the form tag of that specific comment**
-          $(this).parent().attr('action','/posts/'+postId+'/comments/'+comments[c]._id+'/undoupvote');
-        }
-        c++;
-      });
-      c=0;
-      $('.voting-buttons div form .downvote').each(function(){
-        //if downvote button is already clicked
-        if(isDownvoted[c]==1)
-        {   
-          $(this).toggleClass("downvote");//remove downvote class
-          $(this).toggleClass("downvoted");// add downvoted class
-          // change the action of the form tag of that specific comment
-          $(this).parent().attr('action','/posts/'+postId+'/comments/'+comments[c]._id+'/undodownvote');
-        }
-        c++;
-      });
-      /*  
-          display list of users who upvoted and downvoted on hover  
-          the structure of the document is such that 
-          the list to be shown(when hovered) and the element on which the hover occurs are siblings
-          they are accessed using siblengs() or next( or previous() depending on the need
-          Note: If only one function is specified, it will be run for both the mouseenter and mouseleave events.
-      */
-      $('.number-of-upvotes').hover(
-          function(){   if($(this).html() != "0") $(this).next().css('visibility','visible');    },// mouseenter event
-          function(){    $(this).next().css('visibility','hidden');    }                           // mouseleave event
-      );
-      $('.number-of-downvotes').hover(
-          function(){   if($(this).html() != "0") $(this).next().css('visibility','visible');    },// mouseenter event
-          function(){    $(this).next().css('visibility','hidden');    }                           // mouseleave event
-      );
-      
-      
-  </script>
   
