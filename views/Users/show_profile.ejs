@@ -432,10 +432,10 @@ Remove or comment-out the code block below to see how the browser will fall-back
                     <div class="caption">
                         <h4 class="caption"><%= post.title %></h4>
                     </div>
-                     <br>
-                        <a class="pull-left"> By <%= post.author.username %></a>
-                        <a class="pull-right"><i class="fas fa-heart" style="color:red"></i> <%= post.likes.length %></a><br>
-                        <a class="pull-right"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= post.view-1 %></a>        
+                     <br>      
+                        <span class="text-center">By <%= post.author.username %></span><br>
+                        <span class="text-center"><i class="fas fa-heart" style="color:red"></i> <%= post.likes.length%></span>
+                        <span class="text-center"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= post.view-1 %></span>
                     <br>
                     <span>Date: <%= post.createdAt.toDateString() %></span>
                 </div>

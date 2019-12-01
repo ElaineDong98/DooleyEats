@@ -183,57 +183,6 @@ background: linear-gradient(to left, #283048 , #859398);
     -webkit-font-smoothing: antialiased;
 }
 
-/*--------comment upvote and downvote in show page------*/
-.voting-buttons form img{
-    height:18px;
-    width:18px;
-    display:block;
-}
-.voting-buttons form{
-    display:inline;
-}
-.number-of-upvotes{
-    color:green;
-}
-.number-of-downvotes{
-    color:#CD5C5C;
-}
-.upvote{
-    background-color:#e0e0e0;
-}
-.upvote:hover{
-    background-color:#5cb85c;
-}
-.downvote{
-    background-color:#e0e0e0;
-}
-.downvote:hover{
-    background-color:#d9534f;
-}
-.upvoted{
- background-color: #5cb85c;
-}
-.downvoted{
-    background-color:#d9534f;
-}
-.list-of-upvotes , .list-of-downvotes{
-    visibility: hidden;
-    /*width: 150px;*/
-    /*background-color: #859398;*/
-    text-decoration: none;
-    background-color:#9d9d9d;
-    color: #f8f8f8;
-    text-align: center;
-    border-radius: 6px;
-    padding:  0;
-    font-size:1.3rem;
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 10;
-    bottom:21px;
-    /*right: 20px;*/
-}
-
 /*----------------------------------------------*/
 pre{
   font-family:arial;
@@ -587,7 +536,10 @@ body {
       <div class="text-right">
           <a class="btn btn-success" href="/posts/<%= post._id %>/comments/new">Add New Comment</a>
       </div>
-      <hr>
+      <div class="pull-left">
+          <span>Total comments: <i class="fas fa-comments" style="color: blueviolet"></i> <%= post.comments.length%></span>
+        </div>
+        <hr><br>
       <!-- Comments list -->
       
       <% for(var i = 0; i < post.comments.length; i++){ %>

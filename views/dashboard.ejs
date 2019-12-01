@@ -1,4 +1,31 @@
 <!DOCTYPE html>
+<style>
+    /*This is modifying the btn-primary colors but you could create your own .btn-something class as well*/
+    .btn-primary {
+        color: black;
+        background-color: #ccddf5;
+        border-color: gray; /*set the color you want here*/
+    }
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active ,.btn-primary:active:focus , .open>.dropdown-toggle.btn-primary {
+        color: black;
+        background-color: rgb(39, 97, 223);
+        border-color: #adadad;
+    }
+    
+  body
+  {
+    color : black;
+    /*background-color: #232323 ;*/
+  background: #0b635e; 
+   /*fallback for old browsers */
+   /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #f1d685 , #f7eee4); 
+   /*W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #c0bdb4 , #f7eee4); 
+  
+  }
+  </style>
+  
 <html>
 <title>Dooley Eats Homepage</title>
 <meta charset="UTF-8">
@@ -16,19 +43,10 @@ br {
 <body>
 <% include ./partials/messages %>
 
-<!-- Sidebar (hidden by default) -->
-<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-large w3-animate-left" style="display:none;z-index:2;width:30%;min-width:300px" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-hide-large"
-    onclick="w3_close()">Close &times;</button>
-  <a href="#Menu" onclick="w3_close()" class="w3-bar-item w3-button">Menu</a>
-  <a href="#Trending_Restaurants" onclick="w3_close()" class="w3-bar-item w3-button">Trending Restaurants</a>
-  <a href="#About_Us" onclick="w3_close()" class="w3-bar-item w3-button">About Us</a>
-</nav>
-
 <!-- Top menu -->
 <div class="w3-top">
-  <div class="w3-white w3-xlarge" style="max-width:1100px;margin:left">
-    <div class="w3-large w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+  <div class="w3-light-gray w3-xlarge" style="max-width:1100px;margin:left">
+    <div class="w3-large w3-button w3-padding-16 w3-left" onclick="w3_open()"></div>
     <div class="w3-right w3-padding-16 ">
       <button class="btn btn-sm btn-outline-success my-2 my-sm-1" type="submit">
         <a class="lead " href="/posts/new_post">+ create new post</a>
@@ -53,18 +71,15 @@ br {
     <div class="w3-left w3-padding-16"><a href = "register.html" > Register</a></div> -->
     <div class="w3-center w3-padding-16"><img src="https://qiaolin22.github.io/login/static/image/logo.png" alt="Logo" style="width:8%"></div>
   </div>
-</div>
-
-<hr id="Menu">
-<hr id="Trending Restaurants">
+</div><br><br><br><br>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
     <div>
-        <span style="color:rgba(75, 50, 214, 1); font-size: 150%"><a href="/posts/">View all posts here</a></span>
+        <span style="color:rgb(88, 6, 88); font-size: 150%"><a href="/posts/">View all posts here</a></span>
     </div>
     <hr>
-  <div style="background-color:rgba(250, 209, 148, 0.25)">
+  <div>
 
 <h2>Trending Posts</h2>
 
@@ -93,7 +108,7 @@ br {
             i -= 1; 
             continue;}%>
           <div class="col-md-3 col-sm-6">
-            <div class="thumbnail card">
+            <div class="thumbnail card" style="background-color:rgba(245, 207, 138, 0.425)">
               <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
               <div class="caption">
                 <h4 class="caption"><%= posts[i+j].title %></h4>
@@ -104,12 +119,12 @@ br {
                 </a >
               </p >
               <div>
-                <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span><br>
+                <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span>
                 <span class="badge label-primary"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= posts[i+j].view-1 %></span>
               </div>
                 <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i+j].author.username %></a></em>
             <span>Date: <%= posts[i+j].createdAt.toDateString() %></span>
-            </div>
+            </div> <br><br><br><br><br><br>
           </div>
         <% } %>
       </div>  
@@ -134,7 +149,7 @@ br {
                     i -= 1; 
                     continue;}%>
         <div class="col-md-3 col-sm-6">
-          <div class="thumbnail card">
+          <div class="thumbnail card" style="background-color:rgba(203, 248, 152, 0.425)">
             <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
             <div class="caption">
               <h4 class="caption"><%= posts[i+j].title %></h4>
@@ -145,28 +160,20 @@ br {
               </a >
             </p >
             <div>
-              <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span><br>
+              <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span>
               <span class="badge label-primary"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= posts[i+j].view -1%></span>
             </div>
               <em>Submitted By <a href="/users/<%= posts[i+j].author.id %>"><%= posts[i+j].author.username %></a></em>
           <span>Date: <%= posts[i+j].createdAt.toDateString() %></span>
-          </div>
+          </div> <br><br><br><br><br><br>
         </div>
       <% } %>
     </div>  
   </div>
   <hr>
-
-  
-
-
-  
-  <hr id="About_Us">
-
-  <!-- About Us Section -->
   
   <div class="w3-container w3-padding-32">
-    <div style="background-color:#fad19440">
+    <div style="background-color:rgba(196, 236, 247, 0.39)">
   <h2>HangOut</h2>
   <%posts.sort(function (a, b) {
               if (a.createdAt && b.createdAt){return b.createdAt - a.createdAt;}
@@ -238,11 +245,10 @@ br {
     <div class="w3-third w3-serif">
       <h3>POPULAR TAGS</h3>
       <p>
-        <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dinner</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Salmon</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">France</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Drinks</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Flavors</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Cuisine</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Chicken</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dressing</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fried</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fish</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Duck</span>
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Emory">Emory</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Recipe">Recipe</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Pizza">Pizza</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Sauce">Sauce</a> 
       </p>
     </div>
 
