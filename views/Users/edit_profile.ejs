@@ -10,17 +10,19 @@
       Username:
         <br /> <span style="padding-left:20px"><%= user.username %></span>
       </div>
+
       <div class="form-group">
-        <label for="email">Email:</label>
-        <input
-          class="form-control"
-          type="email"
-          name="email"
-          value="<%= user.email %>"
-          autocomplete="off"
-          required
-        />
+      
+      Email:
+        <br /> <span style="padding-left:20px"><%= user.email %></span>
       </div>
+
+
+      <div class="form-group">
+        <label for="image">Your profile image:</label>
+        <input class="form-control" type="text" name="image" value="<%= user.image %>" autocomplete="off" />
+      </div>
+
 
       <div class="form-group">
           <label for="biography">Biography:</label>
@@ -33,22 +35,33 @@
           />
         </div>
 
-      <div class="form-group">
-        <label for="image">Your profile image:</label>
-        <input class="form-control" type="text" name="image" value="<%= user.image %>" autocomplete="off" />
-      </div>
+        <div class="form-group">
+          <label for="hometown">Hometown:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="hometown"
+            value="<%= user.hometown %>"
+            autocomplete="off"
+          />
+        </div>
+      
 
-      <div class="form-group">
-        <label for="hometown">Hometown:</label>
-        <input
-          class="form-control"
-          type="text"
-          name="hometown"
-          value="<%= user.hometown %>"
-          autocomplete="off"
-        />
-      </div>
+        <div class="form-group">
+          <label for="major">Major:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="major"
+            value="<%= user.major %>"
+            autocomplete="off"
+          />
+        </div>
+      
 
+      
+
+      
 
       Gender: <br>
         <select name="gender" >
@@ -60,6 +73,25 @@
             </optgroup>
         </select>
         <br><br>
+
+      Year: <br>
+        <select name="year" >
+            <optgroup label="Please Select A Year:">
+                <option value="" selected disabled hidden>Choose here</option>
+                <option >2020</option>
+                <option >2021</option>
+                <option >2022</option>
+                <option >2023</option>
+            </optgroup>
+        </select>
+        <br><br>
+
+     
+
+      
+
+
+      
 
       <div class="form-group">
         <button class="btn btn-md btn-primary btn-block">Update Profile</button>
