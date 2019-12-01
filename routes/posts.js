@@ -383,7 +383,7 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
     res.render("/");
   })
   .post(async (req, res, next) => {
-    const { title,postType, description, tags, location, meetLocation, meetTime} = req.body;
+    const { title, postType, image, description, tags, location, meetLocation, meetTime} = req.body;
 
     var author = {
       id: req.user._id,
@@ -393,6 +393,7 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
     const newPost = new Post({
       title,
       postType,
+      image,
       description,
       tags,
       location,
@@ -409,6 +410,7 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
           message: 'something went wrong'
         });
       } else {
+        console.log('new post contains:  ' + newPost);
         res.redirect("/posts");
       }
     });

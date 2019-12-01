@@ -25,8 +25,9 @@ var PostSchema = new mongoose.Schema({
   },
 
   image: {
-    data: Buffer, 
-    contentType: String,
+    // data: Buffer, 
+    // contentType: String,
+    type: String
   },
   image_approved : Boolean,
   info : [Object],
