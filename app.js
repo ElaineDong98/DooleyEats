@@ -1,6 +1,10 @@
 const express = require("express"), 
       app = express();
 
+const multer = require('multer');
+const ejs = require('ejs');
+const path = require('path');
+
 const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
