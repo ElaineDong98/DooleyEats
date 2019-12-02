@@ -499,7 +499,10 @@ Remove or comment-out the code block below to see how the browser will fall-back
         </div>
         <div class="container">
 <p style="margin-left: 2.5em;padding: 0 7em 2em 0;border-width: 2px; border-color:transparent; border-style:solid;"></p>
-            <%posts.sort(function (a, b) {
+<% if (posts.length == 0){%>
+<h4 class="caption"><%= user.username %> hasn't liked any post yet.</h4>
+<% } %>
+<%posts.sort(function (a, b) {
         if (a.createdAt && b.createdAt){
           return b.createdAt - a.createdAt;
         }
@@ -527,10 +530,10 @@ Remove or comment-out the code block below to see how the browser will fall-back
                 </div>
             </div>
             <% }) %>
+            
+        
         </div>
-        <!-- End of gallery -->
-        </div>
-        <!-- End of container -->
-    </main>
-
-    <% include ../partials/footer %>
+            <!-- End of gallery -->
+            <!-- End of container -->
+            <br>
+            <% include ../partials/footer %>
