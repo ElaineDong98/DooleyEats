@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 
 var CommentSchema = mongoose.Schema({
-  title : {type: String, required: true},
   anony : {type: String, required: true},
   text: {type: String, required: true},
   date: String,
@@ -9,7 +8,7 @@ var CommentSchema = mongoose.Schema({
     type: Date, 
     default: Date.now 
   },
-  
+
   author: { 
     id: {
       type: mongoose.Schema.Types.ObjectId,

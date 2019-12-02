@@ -72,7 +72,7 @@ router.post("/", isAuthenticated ,function(req,res)
         if(err){	console.log(err);	res.redirect("/posts");	}
         else
         {
-            const {title, anony,text} = req.body;
+            const {anony,text} = req.body;
             Comment.create(req.body,function(err,com)
             {
               if(err){	console.log(err);	res.redirect("/posts");	}
@@ -87,7 +87,6 @@ router.post("/", isAuthenticated ,function(req,res)
                     };
 
                     const newComment = new Comment({
-                      title,
                       anony,
                       text,
                       author,
@@ -133,7 +132,6 @@ router.post("/:comment_id", ensureAuthenticated, function(req,res)
       }
       else { 
         req.flash("success_msg","Comment Updated!");
-        console.log("updated title is: " + req.body.title);
         console.log("updated comment is: " + req.body.text);
         saveAverageRating(req,res);
         res.redirect("/posts/" + req.params.id );
