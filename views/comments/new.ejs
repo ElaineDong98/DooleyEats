@@ -44,12 +44,13 @@ element.style {
 
             <textarea class="form-control" style=" height:100px" type="text" id="text" name="text" placeholder="Enter Your Comment" required = "" value="<%= typeof text != 'undefined' ? text : '' %>"></textarea>
         </div>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary btn-block btn-lg">Submit</button>
+
+    <div class="form-group">
+            <button class="btn btn-success btn-block btn-lg">Submit</button>
         </div>
     </form>
-    <a class  = "btn btn-success" href="/posts" >Back</a>
+    <a href="/posts/<%= post._id %>/comments">Back</a>
+    
    </div>
  </div>
 </div>
