@@ -133,7 +133,6 @@ router.post("/:comment_id", ensureAuthenticated, function(req,res)
       else { 
         req.flash("success_msg","Comment Updated!");
         console.log("updated comment is: " + req.body.text);
-        saveAverageRating(req,res);
         res.redirect("/posts/" + req.params.id );
       }
     });
@@ -147,7 +146,6 @@ router.delete("/:comment_id",ensureAuthenticated,function(req,res)
   Comment.findByIdAndRemove(req.params.comment_id,function(err)
   {
     req.flash("success_msg", "Comment Deleted!");
-    saveAverageRating(req,res);
     res.redirect("/posts/"+req.params.id);
   });
 });
