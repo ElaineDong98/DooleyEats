@@ -320,7 +320,6 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
       res.redirect("/dashboard");
     } else {
 
-
       Post.find()
         .where("author.id")
         .equals(foundUser._id)
@@ -356,11 +355,7 @@ router.get("/likedPost/:id", ensureAuthenticated, (req, res) => {
       req.flash("error", "Something went wrong...");
       res.redirect("/dashboard");
     } else {
-
-
-      Post.find()
-        .where("author.id")
-        .equals(foundUser._id)
+      Post.find({ likes: foundUser._id})
         .exec((err, posts) => {
           if (err) {
             req.flash("error", "Something went wrong...");
