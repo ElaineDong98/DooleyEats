@@ -21,7 +21,7 @@
    /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(to right, #f1d685 , #f7eee4); 
    /*W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, #c0bdb4 , #f7eee4); 
+  background: linear-gradient(to right, #c0b4b540 , #f7eee4); 
   
   }
   </style>
@@ -108,7 +108,7 @@ br {
             i -= 1; 
             continue;}%>
           <div class="col-md-3 col-sm-6">
-            <div class="thumbnail card" style="background-color:rgba(245, 207, 138, 0.425)">
+            <div class="thumbnail card" style="background-color:rgba(245, 207, 138, 0.3)">
               <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
               <div class="caption">
                 <h4 class="caption"><%= posts[i+j].title %></h4>
@@ -149,7 +149,7 @@ br {
                     i -= 1; 
                     continue;}%>
         <div class="col-md-3 col-sm-6">
-          <div class="thumbnail card" style="background-color:rgba(203, 248, 152, 0.425)">
+          <div class="thumbnail card" style="background-color:rgba(203, 248, 152, 0.3)">
             <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
             <div class="caption">
               <h4 class="caption"><%= posts[i+j].title %></h4>
@@ -173,31 +173,36 @@ br {
   <hr>
   
   <div class="w3-container w3-padding-32">
-    <div style="background-color:rgba(196, 236, 247, 0.39)">
   <h2>HangOut</h2>
   <%posts.sort(function (a, b) {
               if (a.createdAt && b.createdAt){return b.createdAt - a.createdAt;}
               if (!a.createdAt){return 1;}})%>
   <% for (var i = 0; i < 4; i++) { %>
   <% if(posts[i].postType == "HangOut") { %>
-  <div class="w3-padding-32">
+
+  <div class="w3-padding-32" >
+    <div class="thumbnail card" style="background-color:rgba(196, 236, 247, 0.3)">
     <img style="width:100%">
-    <h3><a href="/posts/<%= posts[i]._id %>" target="_blank"><%= posts[i].title %></a>
+    <h3><a href="/posts/<%= posts[i]._id %>" target="_blank" style="left: 50%">        <%= posts[i].title %></a>
     </h3>
-    <p><%= posts[i].description.substring(0, 50) %></p>
+    <p style="left: 50%; justify-content: center;">        <%= posts[i].description.substring(0, 50) %></p>
+  </div>
   </div>
   <% } %><% } %>
     <div class="w3-padding-32">
+      <div class="thumbnail card" style="background-color:rgba(196, 236, 247, 0.3)">
             <img style="width:100%">
             <h3><a href="/Posts/5dc72c61dbc1da614db44c16" target="_blank">Free Pepperoni Pizze At Blaze Pizza!!!</a></h3>
             <p>Anyone want to grab a free pizza together tomorrow at 12pm? Blaze Pizza has a... </p>
           </div>
+          </div>
     <div class="w3-padding-32">
+      <div class="thumbnail card" style="background-color:rgba(196, 236, 247, 0.3)">
         <img style="width:100%">
         <h3><a href="/Posts/5dc72f1ddbc1da614db44c17" target="_blank">Anyone want to go to GreatWall Supermarket in Duluth?</a></h3>
         <p>Next Sunday 6pm. Anyone wants to uber to... </p>
       </div>
-    </div>
+      </div>
 
 
 

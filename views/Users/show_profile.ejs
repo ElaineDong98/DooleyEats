@@ -372,50 +372,6 @@ Remove or comment-out the code block below to see how the browser will fall-back
     }
 }
 
-.fx7hk {
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    color: #999;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    font-size: 18px;
-    font-weight: 600;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    letter-spacing: 1px;
-    text-align: center;
-}
-a.T-jvg, a.T-jvg:visited {
-    color: #262626;
-}
-.fx7hk {
-    border-top: 1px solid #efefef;
-}
-._9VEo1:not(:last-child) {
-    margin-right: 60px;
-}._9VEo1, a.T-jvg, a.T-jvg:visited, a._9VEo1, a._9VEo1:visited {
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-.T-jvg {
-    border-top: 2px solid #262626;
-    color: #262626;
-    margin-top: -5px;
-}
-
 </style>
 <body>
 <header>
@@ -425,6 +381,17 @@ a.T-jvg, a.T-jvg:visited {
         <div class="profile-image">
           <img src="<%= user.image%>" alt="" style="width:70%">
         </div>
+
+        
+	<div class="usercard col-lg-3">
+		<h4 class="usercard-name"></h4>
+		<p class="usercard-username"></p>
+		<form action="" method="get" class="add_friend">
+            <input type="hidden" name="receiverName" class="receiverName" value="{{this.username}}">
+            <input type="hidden" name="sender-name" class="sender-name" value="{{user.username}}">
+            <button type="submit" id="" onclick="addFriend('{{this.username}}')" class="btn add accept friend-add"><i class="fa fa-user"></i> Add Friend</button>
+        </form>
+	</div>
   
         <div class="profile-user-settings">
           <h1 class="profile-user-name"><%= user.username%></h1>
@@ -448,26 +415,22 @@ a.T-jvg, a.T-jvg:visited {
           <p><div class="caption">Major: <%= user.major%></a ></div></p>
           <p><div class="caption">Gender: <%= user.gender%></a ></div>
           <p><div class="caption">Year: <%= user.year%></a ></div></p>
+          <p><div class="caption">Friends: <%= user.friendsList%></a ></div></p>
+          
           </p>
         </div>
       </div>
       <!-- End of profile section -->
-      </div>
+      <button class="btn profile-edit-btn"><a href="/users/likedPost/<%= user.id%>">Liked Posts</a></button>
+    </div>
     <!-- End of container -->
   
   </header>
   
   <main>
-    <div class = "fx7hk">
-        <a class="_9VEo1 T-jvg" href="/users/<%= user.id %>"><span class="smsjF">
-                <div class=" coreSpriteDesktopPhotoGridActive"></div><span class="PJXu4"><%= user.username %>'s posts</span>
-            </span></a>
-        <a class="_9VEo1 " href="/users/likedPost/<%= user.id%>"><span class="smsjF">
-        <div class="coreSpriteDesktopProfileIGTV "></div><span class="PJXu4"><%= user.username %>'s liked posts</span>
-        </span></a>
-    </div>
+  
     <div class="container">
-        <p style="margin-left: 2.5em;padding: 0 7em 2em 0;border-width: 2px; border-color:transparent; border-style:solid;"></p>
+      <h3><%= user.username %>'s posts</h3>
       <%posts.sort(function (a, b) {
         if (a.createdAt && b.createdAt){
           return b.createdAt - a.createdAt;
