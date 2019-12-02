@@ -424,7 +424,16 @@ body {
               class="name-detail"><a href="/users/<%= post.author.id %>"><%= post.author.username %></a></span> <i data-v-534aa174="" class="level-detail"
               style="background-image: url(&quot;https://s4.xiaohongshu.com/static/throne/property/f11_v2.png&quot;);"></i>
           </h6>
-          <p data-v-534aa174="" class="brief" style="font-size: 14px;color: #999;">Member of binary 4.0</p>
+          <% if (post.author.username == "elaine") {%>
+          <p data-v-534aa174="" class="brief" style="font-size: 14px;color: #999;">I'm foodie</p>
+          <% } %>
+
+          <% if (post.author.username == "kyle") {%>
+          <p data-v-534aa174="" class="brief" style="font-size: 14px;color: #999;">Member of Binary 4.0</p>
+          <% } %>
+          <% if (post.author.username == "harui") {%>
+          <p data-v-534aa174="" class="brief" style="font-size: 14px;color: #999;">hahaha</p>
+          <% } %>
         </div>
         <!---->
       </span>

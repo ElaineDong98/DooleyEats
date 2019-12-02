@@ -355,33 +355,43 @@ router.get("/likedPost/:id", ensureAuthenticated, (req, res) => {
       req.flash("error", "Something went wrong...");
       res.redirect("/dashboard");
     } else {
-      Post.find({ likes: foundUser._id})
+
+
+      Post.find()
+        .where("author.id")
+        .equals(foundUser._id)
         .exec((err, posts) => {
           if (err) {
             req.flash("error", "Something went wrong...");
             res.redirect("/dashboard");
           } else {
-            var likes = 0;
-
-            for (each in posts){
-              if (posts[each].likes){
-                likes += posts[each].likes.length;
+            var liked = 0;
+            for (each in posts) {
+              if (posts[each].likes) {
+                liked += posts[each].likes.length;
               }
             }
-            res.render("Users/likedPost", {
-              count: Object.keys(posts).length,
-              likes: likes,
-              user: foundUser,
-              posts: posts
-            });
+            var count = Object.keys(posts).length;
+            Post.find({ likes: foundUser._id })
+              .exec((err, likedPosts) => {
+                if (err) {
+                  req.flash("error", "Something went wrong...");
+                  res.redirect("/dashboard");
+                } else {
+                  res.render("Users/likedPost", {
+                    count: count,
+                    liked: liked,
+                    user: foundUser,
+                    posts: likedPosts
+                  });
           }
         });
-
-
-        
+    }
+        });
     }
   });
 });
+
 
 router.get("/edit/:id", function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
