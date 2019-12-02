@@ -372,6 +372,50 @@ Remove or comment-out the code block below to see how the browser will fall-back
     }
 }
 
+.fx7hk {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #999;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: 600;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    letter-spacing: 1px;
+    text-align: center;
+}
+a.T-jvg, a.T-jvg:visited {
+    color: #262626;
+}
+.fx7hk {
+    border-top: 1px solid #efefef;
+}
+._9VEo1:not(:last-child) {
+    margin-right: 60px;
+}._9VEo1, a.T-jvg, a.T-jvg:visited, a._9VEo1, a._9VEo1:visited {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.T-jvg {
+    border-top: 2px solid #262626;
+    color: #262626;
+    margin-top: -5px;
+}
+
 </style>
 <body>
 <header>
@@ -408,16 +452,22 @@ Remove or comment-out the code block below to see how the browser will fall-back
         </div>
       </div>
       <!-- End of profile section -->
-      <button class="btn profile-edit-btn"><a href="/users/likedPost/<%= user.id%>">Liked Posts</a></button>
-    </div>
+      </div>
     <!-- End of container -->
   
   </header>
   
   <main>
-  
+    <div class = "fx7hk">
+        <a class="_9VEo1 T-jvg" href="/users/<%= user.id %>"><span class="smsjF">
+                <div class=" coreSpriteDesktopPhotoGridActive"></div><span class="PJXu4"><%= user.username %>'s posts</span>
+            </span></a>
+        <a class="_9VEo1 " href="/users/likedPost/<%= user.id%>"><span class="smsjF">
+        <div class="coreSpriteDesktopProfileIGTV "></div><span class="PJXu4"><%= user.username %>'s liked posts</span>
+        </span></a>
+    </div>
     <div class="container">
-      <h3><%= user.username %>'s posts</h3>
+        <p style="margin-left: 2.5em;padding: 0 7em 2em 0;border-width: 2px; border-color:transparent; border-style:solid;"></p>
       <%posts.sort(function (a, b) {
         if (a.createdAt && b.createdAt){
           return b.createdAt - a.createdAt;
