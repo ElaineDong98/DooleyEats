@@ -78,7 +78,19 @@ likedPost: [
     type: String,
     required: false, 
     default: "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-  }
+  },
+  sentRequest:[{
+		username: {type: String, default: ''}
+	}],
+	request: [{
+		userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+		username: {type: String, default: ''}
+	}],
+	friendsList: [{
+		friendId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+		friendName: {type: String, default: ''}
+	}],
+	totalRequest: {type: Number, default:0}
 
 });
 
