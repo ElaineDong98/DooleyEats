@@ -67,7 +67,6 @@ router.get("/new", isAuthenticated, function(req, res){
 //Comments Create
 router.post("/", isAuthenticated ,function(req,res)
 {
-    // find campgrounds by id and we have to populate with comments in order to calculate avg rating from all comments
     Post.findById( req.params.id ).populate("comments").exec( function(err,post)  
     {
         if(err){	console.log(err);	res.redirect("/posts");	}
@@ -81,35 +80,24 @@ router.post("/", isAuthenticated ,function(req,res)
                     //add username ,id  and date to comment
                     com.author.id = req.user._id;
                     com.author.username = req.user.username;
-                    com.date = getDate();
-                    com.upvoteCount = 0;
-                    com.downvoteCount = 0;
 
                     var author = {
                       id: com.author.id,
                       username: com.author.username, 
                     };
 
-                    var upvoteCount = com.upvoteCount;
-                    var downvoteCount = com.downvoteCount;
-
                     const newComment = new Comment({
                       title,
                       anony,
                       text,
                       author,
-                      upvoteCount,
-                      downvoteCount
                     });
 
                     //save comment
                     newComment.save();
 
                     post.comments.push(newComment); // add comment to array of comments in current campground
-                    // average rating calculation
-                    var avg = calculateAverageRating(post.comments);
                     console.log(newComment);
-                    post.rating_avg = avg;
                     post.save(); // save all changes in current campground
                     req.flash("successArr","Comment Added!");
                     res.redirect('/posts/' + post._id);  // redirect after saving
