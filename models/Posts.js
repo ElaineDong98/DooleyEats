@@ -8,7 +8,8 @@ var PostSchema = new mongoose.Schema({
     required: true,
   },
   postType: {
-    type: String
+    type: String,
+    required: true,
   },
   rating: {
     type: Number
@@ -57,8 +58,12 @@ var PostSchema = new mongoose.Schema({
   },
 
   //this is for hangout
-  meetTime: Date,
-  meetLocation: String,
+  meetTime: {
+    type: Date,
+    default: Date.now
+  },
+
+    meetLocation: String,
   signup: [
     {
       type: mongoose.Schema.Types.ObjectId,
