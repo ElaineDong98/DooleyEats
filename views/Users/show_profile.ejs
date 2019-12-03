@@ -442,10 +442,11 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
             <% if (currUser &&( user.id != currUser._id)) {%>
             <form action="" method="get" class="add_friend">
-                <input type="hidden" name="receiverName" class="receiverName" value="{{this.username}}">
-                <input type="hidden" name="sender-name" class="sender-name" value="{{user.username}}">
-                <button type="submit" id="" onclick="addFriend('{{this.username}}')" class="btn add accept friend-add"><i
-                        class="fa fa-user"></i> Add Friend</button>
+                <!-- <input type="hidden" name="receiverName" class="receiverName" value="{{this.username}}">
+                <input type="hidden" name="sender-name" class="sender-name" value="{{user.username}}"> -->
+                
+                
+                <button class="fa fa-user"><a href="https://www.instagram.com<%= user.instagramaccount%>" target="_blank">Add friend</a></button></li>
             </form>
             <% }%>
             <% if (currUser &&( user.id == currUser._id)) {%>
@@ -468,7 +469,8 @@ Remove or comment-out the code block below to see how the browser will fall-back
           <p><div class="caption">Major: <%= user.major%></a ></div></p>
           <p><div class="caption">Gender: <%= user.gender%></a ></div>
           <p><div class="caption">Year: <%= user.year%></a ></div></p>
-          <p><div class="caption">Friends: <%= user.friendsList%></a ></div></p>
+          <p><div class="caption">Instagram account: <%= user.instagramaccount%></a ></div></p>
+          <!-- <p><div class="caption">Friends: <%= user.friendsList%></a ></div></p> -->
           
           </p>
         </div>

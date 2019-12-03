@@ -11,7 +11,7 @@ function addFriend(name) {
           receiverName: name        
         },
         success: function() {
-           
+           // console.log(receiverName);
         }
       })
 }

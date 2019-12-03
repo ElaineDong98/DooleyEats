@@ -28,7 +28,8 @@ router.get('/show_profile', (req, res) => res.render('show_profile', {
     hometown: req.user.hometown,
     gender: req.user.gender,
     major: req.user.major,
-    year: req.user.year
+    year: req.user.year,
+    Instagramaccount: req.user.Instagramaccount
 }));
 //Edit profile
 router.get('/edit_profile', (req, res) => res.render('edit_profile', {
@@ -37,7 +38,8 @@ router.get('/edit_profile', (req, res) => res.render('edit_profile', {
     hometown: req.user.hometown,
     gender: req.user.gender,
     major: req.user.major,
-    year: req.user.year
+    year: req.user.year,
+    Instagramaccount: req.user.Instagramaccount
 }));
 
 //Blog Posts
@@ -47,7 +49,8 @@ router.get('/blog_posts', (req, res) => res.render('blog_posts', {
     hometown: req.user.hometown,
     gender: req.user.gender,
     major: req.user.major,
-    year: req.user.year
+    year: req.user.year,
+    instagramaccount: req.user.instagramaccount
 }));
 
 //trending
@@ -57,7 +60,8 @@ router.get('/trending', (req, res) => res.render('trending', {
     hometown: req.user.hometown,
     gender: req.user.gender,
     major: req.user.major,
-    year: req.user.year
+    year: req.user.year,
+    instagramaccount: req.user.instagramaccount
 }));
 
 //oldest
@@ -67,7 +71,8 @@ router.get('/oldest', (req, res) => res.render('oldest', {
     hometown: req.user.hometown,
     gender: req.user.gender,
     major: req.user.major,
-    year: req.user.year
+    year: req.user.year,
+    instagramaccount: req.user.instagramaccount
 }));
 
 //likeasc
@@ -77,7 +82,8 @@ router.get('/likeasc', (req, res) => res.render('likeasc', {
     hometown: req.user.hometown,
     gender: req.user.gender,
     major: req.user.major,
-    year: req.user.year
+    year: req.user.year,
+    instagramaccount: req.user.instagramaccount
 }));
 
 //likedes
@@ -87,7 +93,8 @@ router.get('/likedes', (req, res) => res.render('likedes', {
     hometown: req.user.hometown,
     gender: req.user.gender,
     major: req.user.major,
-    year: req.user.year
+    year: req.user.year,
+    instagramaccount: req.user.instagramaccount
 }));
 
 //New_post
@@ -97,7 +104,8 @@ router.get('/forum', (req, res) => res.render('forum', {
     hometown: req.user.hometown,
     gender: req.user.gender,
     major: req.user.major,
-    year: req.user.year
+    year: req.user.year,
+    instagramaccount: req.user.instagramaccount
 }));
 
 //searching friends

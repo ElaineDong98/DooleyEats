@@ -37,6 +37,10 @@ const UserSchema = new mongoose.Schema({
     type: String, 
     required: false
   }, 
+  instagramaccount:{
+    type: String,
+    required: false
+  },
 
 likedPost: [
     {
@@ -79,6 +83,7 @@ likedPost: [
     required: false, 
     default: "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
   },
+
   sentRequest:[{
 		username: {type: String, default: ''}
 	}],
