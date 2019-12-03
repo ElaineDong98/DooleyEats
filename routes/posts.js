@@ -451,6 +451,10 @@ router.put("/:id", ensureAuthenticated, (req, res) => {
 // Edit Posts Page
 // SHOW - shows more info about one Post
 
+// function breakline(text) {
+//   return text.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+// };
+
 router.get("/:id", ensureAuthenticated,function (req, res) {
   Post.findOneAndUpdate({_id :req.params.id}, {$inc : {'view' : 1}}).exec();
 

@@ -406,6 +406,10 @@ body {
     margin-left: auto;
     padding-bottom: 36px;
 }
+.white-space-pre {
+    white-space: pre-wrap;
+}
+
 </style>
 
 
@@ -461,16 +465,19 @@ body {
             <a href="http://localhost:5000/posts?search=<%= post.tags.split(" ")[2]%>"><%= post.tags.split(" ")[2];  %></a></li>
           <% } %>
             <% if (post.postType == "RestaurantReview" ){ %> 
-            <% if (post.location!=="") {%>
           <li class="list-group-item">Restaurant Location: <%= post.location %>
-          <button class="btn btn-link"><a href="https://www.google.com/maps/search/<%= post.location%>">View Map</a></button></li>
-            <% } %>
+            <% if (post.location !== "" ){ %>
+          <button class="btn btn-link"><a href="https://www.google.com/maps/search/<%= post.location%>" target="_blank">View Map</a></button></li>
           <% } %>
+          <% } %>
+
           <% if (post.postType == "HangOut" ){ %>
           <li class="list-group-item">Meet Time: <%= post.meetTime %>
             </li>
             <li class="list-group-item">Meet Location: <%= post.meetLocation %>
-            </li>
+              <% if (post.meetLocation !== "" ){ %>
+              <button class="btn btn-link"><a href="https://www.google.com/maps/search/<%= post.meetLocation%>" target="_blank">View Map</a></button></li> 
+          <% } %>
           <% } %>
         </div>
         <br> <br>
@@ -508,7 +515,7 @@ body {
           </div>
         <hr>
         <p><b>Description:</b></p>
-        <p><%= post.description %> </p>
+        <p style="white-space: pre-line"> <%= post.description %> </p>
         <hr>
         <p>
           <em>Submitted By: <a href="/users/<%= post.author.id %>"><strong><%= post.author.username %></strong></a></em>

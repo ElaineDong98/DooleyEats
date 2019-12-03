@@ -1,60 +1,95 @@
 
 <% include ../partials/header %>
-<div>
-    <h1 style="text-align: center;">Edit Your Post</h1>
-</div>
-    <div class="form" style="width: 50%;display: block;margin-left: auto;
-        margin-right: auto;">
+<style>
+    .white-space-pre {
+    white-space: pre-wrap;
+}
+</style>
+<body class="text-center">
+  
+        <div class="row mt-6">
+        <div class="col-md-12 m-auto">
+        <div class="card card-body">
+            <h1 class="text-center mb-3">
+              Edit Your Post
+            </h1>
+    <div class="form">
             <form action="/posts/<%= posts._id %>?_method=PUT" method="POST">
-                <div class="form-group">
+                <div align="left" class="form-group">
                     </br></br></br></br>
                     <label for="title">Title</label>
                     <input class="form-control" type="text" name="title" value="<%= posts.title %>"
                         autocomplete="off" required />
                     </div>
 
-                    <!-- <div class="form-group">
+                    <div align="left" class="form-group">
                             <label for="postType">Post Category</label>
                             <select name="postType" >
                                     <optgroup label="Please Select A Post Category:">
-                                        <option value="" selected disabled hidden>Choose here</option>
-                                        <option id="postType" >#RestaurantReview</option>
-                                        <option id="postType" >#Recipe</option>
-                                        <option id="postType" >#HangOut</option>
+                                        <option value="<%= posts.postType %>" selected disabled hidden><%= posts.postType %></option>
+                                        <option id="postType" >RestaurantReview</option>
+                                        <option id="postType" >Recipe</option>
+                                        <option id="postType" >HangOut</option>
                                     </optgroup>
                                 </select>
-                            <input class="form-control" type="text" name="postType" value="<%= posts.postType %>"
-                                autocomplete="off" /> 
-                        </div>    -->
+                        </div>   
 
-                        <div class="form-group">
+                        <div align="left"  class="form-group">
                                 <label for="image">Image</label>
                                 <input class="form-control" type="file" name="image" value="<%= posts.image %>" autocomplete="off" />
                             </div>
 
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <input style="height:200px;" class="form-control" type="text" name="description" value="<%= posts.description %>" autocomplete="off"
-                        required />
+                <div align="left" class="form-group">
+                    <label for="description">Description</label><br>
+                        <textarea id="description" onkeypress="onTestChange();" 
+                        name="description" rows="20" cols=105% placeholder="Describe something..." 
+                        wrap="hard" style ="font-size:14pt;"><%= posts.description %></textarea> <br><br>
+            </div>
+                        
                 </div>
 
-                <div class="form-group">
+                <div align="left" class="form-group">
                         <label for="tags">Tag</label>
                         <input class="form-control" type="text" name="tags" value="<%= posts.tags %>" autocomplete="off" />
                     </div>
 
-                    <% if (posts.location!=="") {%>
-                    <div class="form-group">
+                    <% if (posts.postType=="RestaurantReview") {%>
+                    <div align="left" class="form-group">
                         <label for="tags">Restaurant Location</label>
                         <input class="form-control" type="text" name="location" value="<%= posts.location %>" autocomplete="off" />
                     </div>
                     <% } %>
 
-                <div class="form-group">
+                    <% if (posts.postType=="HangOut") {%>
+                        <div align="left" class="form-group">
+                                <label for="tags">Hangout Time</label>
+                                <input class="form-control" type="text" name="meetTime" value="<%= posts.meetTime %>" autocomplete="off" />
+                            </div>
+
+                            <div align="left" class="form-group">
+                                    <label for="tags">Hangout Location</label>
+                                    <input class="form-control" type="text" name="meetLocation" value="<%= posts.meetLocation %>" autocomplete="off" />
+                                </div>
+                                <% } %>
+                <div align="left" class="form-group">
                     <button class="btn btn-md btn-primary btn-block">Update Post</button>
                 </div>
             </form>
             <hr />
             <a href="/posts/<%= posts._id %>">Back</a>
         </div>
+
+        <script type="text/javascript">
+            function onTestChange() {
+              var key = window.event.keyCode;
+              // If the user has pressed enter
+              if (key === 13) {
+                document.getElementById("description").value = document.getElementById("description").value + "\n";
+                return false;
+              }
+              else {
+                return true;
+              }
+            }
+            </script>
     <% include ../partials/footer %>
