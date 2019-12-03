@@ -564,6 +564,7 @@ router.put("/:id", upload.single('image'), function(req, res){
           post.description = req.body.description;
           post.tags = req.body.tags;
           post.location = req.body.location;
+          post.meetLocation = req.body.meetLocation;
           post.save();
           req.flash("success","Successfully Updated!");
           res.redirect("/posts/" + post.id);
