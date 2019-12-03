@@ -11,7 +11,9 @@ var async = require("async");
 var nodemailer = require("nodemailer");
 const config = require('../config/mailer');
 var crypto = require("crypto");
-
+var multer = require('multer');
+const ejs = require('ejs');
+const path = require('path');
 
 const fs = require('fs');
 
@@ -41,6 +43,32 @@ const isNotAuthenticated = (req, res, next) => {
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|\s]/g, "\\$&");
 };
+
+
+// Set The Storage Engine
+var storage = multer.diskStorage({
+  //destination: './public/uploads/',
+  filename: function(req, file, callback){
+    //callback(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+var imageFilter = function (req, file, cb) {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+      return cb(new Error('Only image files are allowed!'), false);
+  }
+  cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter});
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'dztyzociy',
+  api_key: '988245515754467',
+  api_secret: 'j14W9UEwC9u9v4tHGAQSgjvKIdE'
+});
 
 router.get("/", (req, res) => {
   let noPost = "";
@@ -363,10 +391,10 @@ router.get("/viewdes", (req, res) => {
 });
 
 
-router.get('/new_post', ensureAuthenticated, (req, res) =>
-  res.render('Posts/new_post', {
-    username: req.user.username
-  }));
+// router.get('/new_post', ensureAuthenticated, (req, res) =>
+//   res.render('Posts/new_post', {
+//     username: req.user.username
+//   }));
 
 
 //   router.route('/img_data')
@@ -377,83 +405,172 @@ router.get('/new_post', ensureAuthenticated, (req, res) =>
 //     new_img.save();    res.json({ message: 'New image added to the db!' });
 // })
 
-  router
-  .route("/")
-  .get(isNotAuthenticated, (req, res) => {
-    res.render("/");
-  })
-  .post(async (req, res, next) => {
-    const { title, postType, image, description, tags, location, meetLocation, meetTime} = req.body;
+  // router
+  // .route("/")
+  // .get(isNotAuthenticated, (req, res) => {
+  //   res.render("/");
+  // })
+  // .post(async (req, res, next) => {
+  //   const { title, postType, image, description, tags, location, meetLocation, meetTime} = req.body;
 
-    var author = {
+  //   var author = {
+  //     id: req.user._id,
+  //     username: req.user.username, 
+  //     image: req.user.image
+  //   };
+  //   const newPost = new Post({
+  //     title,
+  //     postType,
+  //     image,
+  //     description,
+  //     tags,
+  //     location,
+  //     meetTime, 
+  //     meetLocation,
+  //     author
+  //   });
+    
+
+  //   newPost.save(function(err, resp) {
+  //     if (err) {
+  //       console.log(err);
+  //       res.send({
+  //         message: 'something went wrong'
+  //       });
+  //     } else {
+  //       console.log('new post contains:  ' + newPost);
+  //       res.redirect("/posts");
+  //     }
+  //   });
+  // });
+
+//CREATE - add new campground to DB
+router.post("/", isAuthenticated, upload.single('image'), function(req, res) {
+  cloudinary.v2. uploader.upload(req.file.path, function(err, result) {
+    if(err) {
+      req.flash('error', err.message);
+      return res.redirect('back');
+    }
+    const { title, postType, image, description, tags, location, meetLocation, meetTime} = req.body;
+    // add cloudinary url for the image to the campground object under image property
+    req.body.image = result.secure_url;
+    // add image's public_id to campground object
+    req.body.imageId = result.public_id;
+
+    req.body.author = {
       id: req.user._id,
       username: req.user.username, 
       image: req.user.image
     };
-    const newPost = new Post({
-      title,
-      postType,
-      image,
-      description,
-      tags,
-      location,
-      meetTime, 
-      meetLocation,
-      author
-    });
-    
 
-    newPost.save(function(err, resp) {
+    // const newPost = new Post({
+    //   title,
+    //   postType,
+    //   image,
+    //   description,
+    //   tags,
+    //   location,
+    //   meetTime, 
+    //   meetLocation,
+    //   //author
+    // });
+
+    Post.create(req.body, function(err, post) {
       if (err) {
-        console.log(err);
-        res.send({
-          message: 'something went wrong'
-        });
-      } else {
-        console.log('new post contains:  ' + newPost);
-        res.redirect("/posts");
+        req.flash('error', err.message);
+        return res.redirect('back');
       }
+      res.redirect('/posts/' + post.id);
     });
   });
+});
 
-
-// Edit Posts Page
-router.get("/edit/:id", function (req, res) {
-  Post.findById(req.params.id, function (err, foundPosts) {
-    if (err) {
-      req.flash("error", "Error finding post");
-      res.redirect("back");
-    } else {
-      res.render("Posts/edit_post", {
-        posts: foundPosts
-      });
-    }
-  });
+//NEW - show form to create new campground
+router.get("/new_post", isAuthenticated, function(req, res){
+  res.render("Posts/new_post"); 
 });
 
 
-router.put("/:id", ensureAuthenticated, (req, res) => {
-  Post.findByIdAndUpdate(req.params.id, req.body, (err, updatedPosts) => {
-    if (err) {
-      req.flash("error", "Something went wrong...");
-      res.redirect("back");
-    }
-    if (updatedPosts.author.id.equals(req.user._id)) {
-      req.flash("success", "Successfully updated your profile!");
-      res.redirect("/posts/" + req.params.id);
-    } else {
-      req.flash("error", "You don't have permission to do that");
-      res.redirect("/posts/" + req.params.id);
-    }
-  }
-  );
-});
+// // Edit Posts Page
+// router.get("/edit/:id", function (req, res) {
+//   Post.findById(req.params.id, function (err, foundPosts) {
+//     if (err) {
+//       req.flash("error", "Error finding post");
+//       res.redirect("back");
+//     } else {
+//       res.render("Posts/edit_post", {
+//         posts: foundPosts
+//       });
+//     }
+//   });
+// });
+
+
+// router.put("/:id", ensureAuthenticated, (req, res) => {
+//   Post.findByIdAndUpdate(req.params.id, req.body, (err, updatedPosts) => {
+//     if (err) {
+//       req.flash("error", "Something went wrong...");
+//       res.redirect("back");
+//     }
+//     if (updatedPosts.author.id.equals(req.user._id)) {
+//       req.flash("success", "Successfully updated your profile!");
+//       res.redirect("/posts/" + req.params.id);
+//     } else {
+//       req.flash("error", "You don't have permission to do that");
+//       res.redirect("/posts/" + req.params.id);
+//     }
+//   }
+//   );
+// });
 // Edit Posts Page
 // SHOW - shows more info about one Post
 
 // function breakline(text) {
 //   return text.replace(/(?:\r\n|\r|\n)/g, "<br/>");
 // };
+
+router.get("/edit/:id", function(req, res){
+  console.log("IN EDIT!");
+  //find the campground with provided ID
+  Post.findById(req.params.id, function(err, foundPosts){
+      if(err){
+          console.log(err);
+      } else {
+          //render show template with that campground
+          res.render("Posts/edit_post", {post: foundPosts});
+      }
+  });
+});
+
+//Put method for editing post
+router.put("/:id", upload.single('image'), function(req, res){
+  Post.findById(req.params.id, async function(err, post){
+      if(err){
+          req.flash("error", err.message);
+          res.redirect("back");
+      } else {
+          if (req.file) {
+            try {
+                await cloudinary.v2.uploader.destroy(post.imageId);
+                let result = await cloudinary.v2.uploader.upload(req.file.path);
+                post.imageId = result.public_id;
+                post.image = result.secure_url;
+            } catch (err) {
+                req.flash("error", err.message);
+                res.redirect("back");
+            }
+          }   
+          post.title = req.body.title;
+          post.description = req.body.description;
+          post.tags = req.body.tags;
+          post.location = req.body.location;
+          post.save();
+          req.flash("success","Successfully Updated!");
+          res.redirect("/posts/" + post.id);
+      }
+  });
+});
+
 
 router.get("/:id", ensureAuthenticated,function (req, res) {
   Post.findOneAndUpdate({_id :req.params.id}, {$inc : {'view' : 1}}).exec();
@@ -555,16 +672,35 @@ router.post("/:id/like", function (req, res) {
 });
 
 
-// destroy campground route
-router.delete("/:id", (req, res) => {
-  Post.findByIdAndRemove(req.params.id, err => {
-    if (err) { res.redirect("/dashboard"); }
-    else {
-      req.flash("success", "Post removed!");
-      res.redirect("/dashboard");
+// // destroy campground route
+// router.delete("/:id", (req, res) => {
+//   Post.findByIdAndRemove(req.params.id, err => {
+//     if (err) { res.redirect("/dashboard"); }
+//     else {
+//       req.flash("success", "Post removed!");
+//       res.redirect("/dashboard");
+//     }
+//   });
+// });
+
+router.delete('/:id', function(req, res) {
+  Post.findById(req.params.id, async function(err, post) {
+    if(err) {
+      req.flash("error", err.message);
+      return res.redirect("back");
+    }
+    try {
+        await cloudinary.v2.uploader.destroy(post.imageId);
+        post.remove();
+        req.flash('success', 'Post deleted successfully!');
+        res.redirect('/posts');
+    } catch(err) {
+        if(err) {
+          req.flash("error", err.message);
+          return res.redirect("back");
+        }
     }
   });
 });
-
 
 module.exports = router;

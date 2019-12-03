@@ -273,11 +273,11 @@ body {
               Edit Your Post
             </h1>
     <div class="form">
-            <form action="/posts/<%= posts._id %>?_method=PUT" method="POST">
+            <form action="/posts/<%= post._id %>?_method=PUT" method="POST">
                 <div align="left" class="form-group">
                     </br></br></br></br>
                     <label for="title">Title</label>
-                    <input class="form-control" type="text" name="title" value="<%= posts.title %>"
+                    <input class="form-control" type="text" name="title" value="<%= post.title %>"
                         autocomplete="off" required />
                     </div>
 
@@ -285,7 +285,7 @@ body {
                             <label for="postType">Post Category</label>
                             <select name="postType" >
                                     <optgroup label="Please Select A Post Category:">
-                                        <option value="<%= posts.postType %>" selected disabled hidden><%= posts.postType %></option>
+                                        <option value="<%= post.postType %>" selected disabled hidden><%= post.postType %></option>
                                         <option id="postType" >RestaurantReview</option>
                                         <option id="postType" >Recipe</option>
                                         <option id="postType" >HangOut</option>
@@ -293,41 +293,43 @@ body {
                                 </select>
                         </div>   
 
-                        <div align="left"  class="form-group">
-                                <label for="image">Image</label>
-                                <input class="form-control" type="file" name="image" value="<%= posts.image %>" autocomplete="off" />
-                            </div>
+                        
+                        <div align="left" class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" id="image" name="image" accept="image/*">
+                        </div>
+          
 
                 <div align="left" class="form-group">
                     <label for="description">Description</label><br>
                         <textarea id="description" onkeypress="onTestChange();" 
                         name="description" rows="20" cols=105% placeholder="Describe something..." 
-                        wrap="hard" style ="font-size:14pt;"><%= posts.description %></textarea> <br><br>
+                        wrap="hard" style ="font-size:14pt;"><%= post.description %></textarea> <br><br>
             </div>
                         
                 </div>
 
                 <div align="left" class="form-group">
                         <label for="tags">Tag</label>
-                        <input class="form-control" type="text" name="tags" value="<%= posts.tags %>" autocomplete="off" />
+                        <input class="form-control" type="text" name="tags" value="<%= post.tags %>" autocomplete="off" />
                     </div>
 
-                    <% if (posts.postType=="RestaurantReview") {%>
+                    <% if (post.postType=="RestaurantReview") {%>
                     <div align="left" class="form-group">
                         <label for="tags">Restaurant Location</label>
-                        <input class="form-control" type="text" name="location" value="<%= posts.location %>" autocomplete="off" />
+                        <input class="form-control" type="text" name="location" value="<%= post.location %>" autocomplete="off" />
                     </div>
                     <% } %>
 
-                    <% if (posts.postType=="HangOut") {%>
+                    <% if (post.postType=="HangOut") {%>
                         <div align="left" class="form-group">
                                 <label for="tags">Hangout Time</label>
-                                <input class="form-control" type="text" name="meetTime" value="<%= posts.meetTime %>" autocomplete="off" />
+                                <input class="form-control" type="text" name="meetTime" value="<%= post.meetTime %>" autocomplete="off" />
                             </div>
 
                             <div align="left" class="form-group">
                                     <label for="tags">Hangout Location</label>
-                                    <input class="form-control" type="text" name="meetLocation" value="<%= posts.meetLocation %>" autocomplete="off" />
+                                    <input class="form-control" type="text" name="meetLocation" value="<%= post.meetLocation %>" autocomplete="off" />
                                 </div>
                                 <% } %>
                 <div align="left" class="form-group">
@@ -335,7 +337,7 @@ body {
                 </div>
             </form>
             <hr />
-            <a href="/posts/<%= posts._id %>">Back</a>
+            <a href="/posts/<%= post._id %>">Back</a>
         </div>
 
         <script type="text/javascript">
