@@ -23,9 +23,9 @@ $ npm run dev
 Open "config/keys.js" and add your MongoDB URI, local or Atlas
 
 
-### Demonstration
+## Demonstration
 
-#### User Register and login
+### User Register and login
 
 After entered our website, users are required to **register** an account using Emory Email. 
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.47.11%20PM.png)
@@ -38,9 +38,24 @@ After all these have done, you can **login** now!
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.47.19%20PM.png)
 
 
-#### Main Dashboard
+### Main Dashboard
+
+**header** 
+
+We have links to our profile, create post, and search bar in our header. 
+
+**content bar**
+
+We have three types of posts: 
+Markup: * Restaurant Review 
+        * Recipe
+        * Hang Out 
+
+In the **Hang Out** section, users can post various activity notifications. 
 
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.48.06%20PM.png)
+
+For instance, club members can post sales information, users can post discount and free food information
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.48.22%20PM.png)
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.48.22%37PM.png)
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.15%20PM.png)
