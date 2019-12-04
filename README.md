@@ -141,9 +141,7 @@ We can search posts by their title, tags, and types.
 
 
 
-    
-![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.52.11%20PM.png)
-
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-04%20at%2012.17.25%20PM.png)
 
 User profile is consist of the following components: 
 
@@ -173,7 +171,10 @@ User profile is consist of the following components:
 * Users' Liked Posts
 
 
-![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-04%20at%2012.17.25%20PM.png)
+
+    
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.52.11%20PM.png)
+
 
 ### Post Page
 
