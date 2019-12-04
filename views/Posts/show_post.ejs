@@ -446,10 +446,14 @@ body {
             class="note"><%= count %></span></div>
         <div data-v-0d757e92="" class="inner"><span data-v-0d757e92="">Likes</span> <span data-v-0d757e92=""
             class="fans"><%= likes %></span></div>
-        <div data-v-0d757e92="" class="inner"><span data-v-0d757e92="">+ Contact</span> <span data-v-0d757e92=""
-            class="fans"><button class="bt btn-link"><a href="https://www.facebook.com/<%= post.author.instagramaccount%>" target="_blank">Add friend</a></button></span></div>
-            
-      </div>
+            <div data-v-0d757e92="" class="inner"> <span data-v-0d757e92=""
+            <% if (currUser && post.author.id != (currUser._id)) {%>
+              
+                class="fans"><button class="bt btn-link"><a href="https://www.facebook.com/<%= post.author.facebookaccount%>" target="_blank"></a></button></span></div>
+            <% } %>      
+          </div>
+              
+        
       <br>
         <div class="list-group">
             <script>
@@ -459,7 +463,7 @@ body {
                 }
             </script>
           <!-- <li class="list-group-item">Would you recommend (0-10): <%= post.rating %></li> -->
-          <li class="list-group-item">Post Category: <%= post.postType %></li>
+          <li class="list-group-item"><a href="http://localhost:5000/posts?search=<%= post.postType %>">Post Category: <%= post.postType %></a></li>
           <% if (post.tags){ %>
           <li class="list-group-item">Tags: <a href="http://localhost:5000/posts?search=<%= post.tags.split(" ")[0]%>"><%= post.tags.split(" ")[0]; %> 
             <a href="http://localhost:5000/posts?search=<%= post.tags.split(" ")[1]%>"><%= post.tags.split(" ")[1];  %>
@@ -563,6 +567,14 @@ body {
       </div>
         <hr><br>
       <!-- Comments list -->
+      <%post.comments.sort(function (a, b) {
+        if (a.createdAt && b.createdAt){
+          return b.createdAt - a.createdAt;
+        }
+        if (!a.createdAt){
+          return 1;
+        }
+        })%>
       
       <% for(var i = 0; i < post.comments.length; i++){ %>
           <%  var com = post.comments[i]; %>

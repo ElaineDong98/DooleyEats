@@ -59,12 +59,12 @@
         </div>
 
         <div class="form-group">
-            <label for="instagram account">Instagram account:</label>
+            <label for="facebookaccount">Facebook account:</label>
             <input
               class="form-control"
               type="text"
-              name="Instagram account"
-              value="<%= user.instagramaccount %>"
+              name="facebookaccount"
+              value="<%= user.facebookaccount %>"
               autocomplete="off"
             />
           </div>
@@ -77,7 +77,7 @@
       Gender: <br>
         <select name="gender" >
             <optgroup label="Please Select A Gender:">
-                <option value="" selected disabled hidden>Choose here</option>
+                <option value="<%= user.gender%>" selected disabled hidden><%= user.gender %></option>
                 <option >Female</option>
                 <option >Male</option>
                 <option >Other</option>
@@ -88,7 +88,7 @@
       Year: <br>
         <select name="year" >
             <optgroup label="Please Select A Year:">
-                <option value="" selected disabled hidden>Choose here</option>
+                <option value="<%= user.year %>" selected disabled hidden><%= user.year %></option>
                 <option >2020</option>
                 <option >2021</option>
                 <option >2022</option>

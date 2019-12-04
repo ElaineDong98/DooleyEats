@@ -315,13 +315,13 @@ body {
 
         <div align="left" class="form-group">
           <label for="image">Image</label>
-          <input type="file" id="image" name="image" accept="image/*" required>
+          <input type="file" id="image" name="image" accept="image/*">
         </div>
 
         <div align="left" class = "form-group">
           <label for="description"  >Description:</label> <br>
         <textarea id="description" onkeypress="onTestChange();" 
-                  name="description" rows="20" cols=100% placeholder="Describe something..." 
+                  name="description" rows="10" cols=116% placeholder="Describe something..." 
                   wrap="hard" style ="font-size:14pt;"></textarea> <br><br>
       </div>
         
@@ -339,7 +339,7 @@ body {
         </div>
 
         <div align="left" class = "form-group">
-          <a id = "location" label for="location">Restaurant Location (if applicable):</label>
+          <a id = "location" label for="location">Restaurant Location:</label>
           <input 
             type="text" 
             id="location"
@@ -350,14 +350,15 @@ body {
         </div>
 
         <div align="left" class="form-group">
-          <a id = "meetTime" label for="meetTime">Hangout Time:</label>
+          <a id = "meetTime" label for="meetTime">Activity start time:</label>
 
-          <input type="datetime-local" id="meetTime" name="meetTime" value="2019-12-04T10:00"
-            style="font-size:12pt;height:40px;width:100%;" value="<%= typeof tags != 'undefined' ? tags : '' %>" ></a>
+            <input type="datetime-local" id="meeting-time"
+                   name="meeting-time" value="2018-06-12T19:30"
+                   min="2019-06-07T00:00" max="2020-06-14T00:00">
         </div>
 
         <div align="left" class="form-group">
-          <a id = "meetLocation" label for="meetLocation">Hangout Location:</label>
+          <a id = "meetLocation" label for="meetLocation">Activity Location:</label>
           <input type="text" id="meetLocation" name="meetLocatione" placeholder="Where to meet up?"
             style="font-size:12pt;height:40px;width:100%;" value="<%= typeof tags != 'undefined' ? tags : '' %>" ></a>
         </div>

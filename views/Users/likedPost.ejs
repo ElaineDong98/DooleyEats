@@ -439,12 +439,13 @@ Remove or comment-out the code block below to see how the browser will fall-back
                 <div class="profile-user-settings">
                     <h1 class="profile-user-name"><%= user.username%></h1>
 <% if (currUser &&( user.id != currUser._id)) {%>
-<form action="" method="get" class="add_friend">
-    <input type="hidden" name="receiverName" class="receiverName" value="{{this.username}}">
-    <input type="hidden" name="sender-name" class="sender-name" value="{{user.username}}">
-    <button type="submit" id="" onclick="addFriend('{{this.username}}')" class="btn add accept friend-add"><i
-            class="fa fa-user"></i> Add Friend</button>
-</form>
+    <form action="" method="get" class="add_friend">
+        <!-- <input type="hidden" name="receiverName" class="receiverName" value="{{this.username}}">
+        <input type="hidden" name="sender-name" class="sender-name" value="{{user.username}}"> -->
+        
+        
+        <button class="fa fa-user"><a href="https://www.facebook.com/<%= user.facebookaccount%>" target="_blank">Add friend</a></button></li>
+    </form>
 <% }%>
                     <% if (currUser &&( user.id == currUser._id)) {%>
                     <button class="btn profile-edit-btn"><a href="/users/edit/<%= user.id%>">Edit Profile</a></button>
@@ -480,9 +481,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
                             <div class="caption">Year: <%= user.year%></a></div>
                         </p>
                     </p>
-                    <p>
-                            <div class="caption">Instagram account: <%= user.instagramaccount%></a></div>
-                        </p>
+                    
                 </div>
             </div>
             <!-- End of profile section -->

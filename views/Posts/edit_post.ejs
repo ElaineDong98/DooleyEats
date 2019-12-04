@@ -272,26 +272,20 @@ body {
             <h1 class="text-center mb-3">
               Edit Your Post
             </h1>
+    </br></br></br>
     <div class="form">
-            <form action="/posts/<%= post._id %>?_method=PUT" method="POST">
+            <form action="/posts/<%= post._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+
+                    <div align="left" class="form-group"><label for="title">Post Categorys:</label>
+                       &nbsp &nbsp<%= post.postType %>
+                    </div>
                 <div align="left" class="form-group">
-                    </br></br></br></br>
+                    
                     <label for="title">Title</label>
                     <input class="form-control" type="text" name="title" value="<%= post.title %>"
                         autocomplete="off" required />
                     </div>
 
-                    <div align="left" class="form-group">
-                            <label for="postType">Post Category</label>
-                            <select name="postType" >
-                                    <optgroup label="Please Select A Post Category:">
-                                        <option value="<%= post.postType %>" selected disabled hidden><%= post.postType %></option>
-                                        <option id="postType" >RestaurantReview</option>
-                                        <option id="postType" >Recipe</option>
-                                        <option id="postType" >HangOut</option>
-                                    </optgroup>
-                                </select>
-                        </div>   
 
                         
                         <div align="left" class="form-group">
@@ -323,12 +317,13 @@ body {
 
                     <% if (post.postType=="HangOut") {%>
                         <div align="left" class="form-group">
-                                <label for="tags">Hangout Time</label>
-                                <input class="form-control" type="text" name="meetTime" value="<%= post.meetTime %>" autocomplete="off" />
-                            </div>
-
+                          <label for="meetTime">Activity start time:</label>
+                      
+                          <input type="datetime-local" id="meeting-time" name="meeting-time" value="2018-06-12T19:30" min="2019-06-07T00:00"
+                            max="2020-06-14T00:00">
+                        </div>
                             <div align="left" class="form-group">
-                                    <label for="tags">Hangout Location</label>
+                                    <label for="tags">Activity Location</label>
                                     <input class="form-control" type="text" name="meetLocation" value="<%= post.meetLocation %>" autocomplete="off" />
                                 </div>
                                 <% } %>
@@ -353,4 +348,8 @@ body {
               }
             }
             </script>
+            </div>
+            </div>
+            <br>
+<div class="card card-body">
     <% include ../partials/footer %>

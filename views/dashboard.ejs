@@ -11,6 +11,32 @@
         background-color: rgb(39, 97, 223);
         border-color: #adadad;
     }
+  
+    
+
+div.topmenu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #f5dfc5;
+}
+
+div.topmenu li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: rgb(24, 10, 10);
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+div.topmenu li a:hover {
+  background-color: #f1d685;
+}
     
   body
   {
@@ -71,15 +97,60 @@ br {
     <div class="w3-left w3-padding-16"><a href = "register.html" > Register</a></div> -->
     <div class="w3-center w3-padding-16"><img src="https://qiaolin22.github.io/login/static/image/logo.png" alt="Logo" style="width:8%"></div>
   </div>
-</div><br><br><br><br>
+</div><br>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
-    <div>
-        <span style="color:rgb(88, 6, 88); font-size: 150%"><a href="/posts/">View all posts here</a></span>
+    
+    <div class="topmenu">
+    <ul>
+      <li><a href="/posts/">View All Posts </a></li>
+      <li><a>|</a></li>
+      <li><a href="http://localhost:5000/posts?search=RestaurantReview">Restaurant Review &nbsp</a></li>
+      <li><a>|</a></li>
+      <li><a href="http://localhost:5000/posts?search=Recipe">Recipe &nbsp</a></li>
+      <li><a>|</a></li>
+      <li><a href="http://localhost:5000/posts?search=HangOut">Hang Out &nbsp</a></li>
+    </ul>
+    <hr>
+  </div>
+  <div>
+    
+    <div class="w3-container w3-padding-32">
+      <h2><a href="http://localhost:5000/posts?search=HangOut">Hang Out &nbsp</a></h2>
+      <%posts.sort(function (a, b) {
+                  if (a.createdAt && b.createdAt){return b.createdAt - a.createdAt;}
+                  if (!a.createdAt){return 1;}})%>
+      <% var i = 0;
+      var num = 0;
+      while (i < posts.length) { %>
+      <% if(posts[i].postType == "HangOut") { %>
+    
+      <div>
+        <div class="thumbnail card" style="background-color:rgba(196, 236, 247, 0.3)">
+        <img style="width:100%">
+        <h3 style="text-align: left"><a href="/posts/<%= posts[i]._id %>" target="_blank" >&nbsp<%= posts[i].title %></a>
+        <span style="float: right; font-size:16px;">Posted by:<a href="/users/<%= posts[i].author.id %>" target="_blank" > <%= posts[i].author.username %> &nbsp &nbsp</a></span>
+        </h3>
+        <h3 style="text-align: left; font-size:16px;">&nbsp  <%= posts[i].description.substring(0, 50) %>...
+        <span style="float: right; font-size:16px;">Date: <%= posts[i].createdAt.toDateString() %>&nbsp &nbsp</span></p>
+      </div>
+      <br>
+      </div>
+
+      <% num += 1;
+      } 
+      if(num >= 4){
+        break;
+      }
+      i += 1;
+    } %>
+  
+  
+  
+      </div>
     </div>
     <hr>
-  <div>
 
 <h2><a href="/posts/trending %>">Trending Posts</a></h2>
 
@@ -109,12 +180,25 @@ br {
             continue;}%>
           <div class="col-md-3 col-sm-6">
             <div class="thumbnail card" style="background-color:rgba(245, 207, 138, 0.3)">
-              <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
+              <img src="<%= posts[i+j].image %>" class="gallery-image" alt="" style="width:100%">
               <div class="caption">
                 <h4 class="caption"><%= posts[i+j].title %></h4>
               </div>
+              <h3 style = "font-size: 15px;color: rgb(13, 13, 182)">
+              <script>
+                function separatetags(tagstring) {
+                  tagstring = tagstring.split(/\s+/);
+                  return tagstring
+                }
+              </script>
+              <% if (posts[i+j].tags){ %>
+              Tags: <a href="http://localhost:5000/posts?search=<%= posts[i+j].tags.split(" ")[0]%>" class="w3-tag w3-dark-grey w3-median w3-margin-bottom"><%= posts[i+j].tags.split(" ")[0]; %></a>
+                  &nbsp<a href="http://localhost:5000/posts?search=<%= posts[i+j].tags.split(" ")[1]%>" class="w3-tag w3-dark-grey w3-median w3-margin-bottom"><%= posts[i+j].tags.split(" ")[1];  %></a>
+                    &nbsp<a href="http://localhost:5000/posts?search=<%= posts[i+j].tags.split(" ")[2]%>" class="w3-tag w3-dark-grey w3-median w3-margin-bottom"><%= posts[i+j].tags.split(" ")[2];  %></a>
+              <% } %>
+                  </h3>
               <p>
-                <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i]._id %>">
+                <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i+j]._id %>">
                   More Info
                 </a >
               </p >
@@ -122,7 +206,7 @@ br {
                 <span class="badge label-primary"><i class="fas fa-heart" style="color:red"></i> <%= posts[i+j].likes.length %></span>
                 <span class="badge label-primary"><i class="fas fa-eye" style="color:yellowgreen"></i> <%= posts[i+j].view-1 %></span>
               </div>
-                <em>Submitted By <a href="/users/<%= posts[i].author.id %>"><%= posts[i+j].author.username %></a></em>
+                <em>Submitted By <a href="/users/<%= posts[i+j].author.id %>"><%= posts[i+j].author.username %></a></em>
             <span>Date: <%= posts[i+j].createdAt.toDateString() %></span>
             </div> <br><br><br><br><br><br>
           </div>
@@ -150,10 +234,26 @@ br {
                     continue;}%>
         <div class="col-md-3 col-sm-6">
           <div class="thumbnail card" style="background-color:rgba(203, 248, 152, 0.3)">
-            <img src="<%= posts[i].image %>" class="gallery-image" alt="" style="width:100%">
+            <img src="<%= posts[i+j].image %>" class="gallery-image" alt="" style="width:100%">
             <div class="caption">
               <h4 class="caption"><%= posts[i+j].title %></h4>
             </div>
+            <h3 style="font-size: 15px;color: rgb(13, 13, 182)">
+              <script>
+                function separatetags(tagstring) {
+                  tagstring = tagstring.split(/\s+/);
+                  return tagstring
+                }
+              </script>
+              <% if (posts[i+j].tags){ %>
+              Tags: <a href="http://localhost:5000/posts?search=<%= posts[i+j].tags.split(" ")[0]%>"
+                class="w3-tag w3-dark-grey w3-median w3-margin-bottom"><%= posts[i+j].tags.split(" ")[0]; %></a>
+              &nbsp<a href="http://localhost:5000/posts?search=<%= posts[i+j].tags.split(" ")[1]%>"
+                class="w3-tag w3-dark-grey w3-median w3-margin-bottom"><%= posts[i+j].tags.split(" ")[1];  %></a>
+              &nbsp<a href="http://localhost:5000/posts?search=<%= posts[i+j].tags.split(" ")[2]%>"
+                class="w3-tag w3-dark-grey w3-median w3-margin-bottom"><%= posts[i+j].tags.split(" ")[2];  %></a>
+              <% } %>
+            </h3>
             <p>
               <a class="btn btn-primary btn-sm btn-b-mg" href="/Posts/<%= posts[i+j]._id %>">
                 More Info
@@ -171,66 +271,30 @@ br {
     </div>  
   </div>
   <hr>
-  
-  <div class="w3-container w3-padding-32">
-  <h2>HangOut</h2>
-  <%posts.sort(function (a, b) {
-              if (a.createdAt && b.createdAt){return b.createdAt - a.createdAt;}
-              if (!a.createdAt){return 1;}})%>
-  <% for (var i = 0; i < 4; i++) { %>
-  <% if(posts[i].postType == "HangOut") { %>
-
-  <div class="w3-padding-32" >
-    <div class="thumbnail card" style="background-color:rgba(196, 236, 247, 0.3)">
-    <img style="width:100%">
-    <h3><a href="/posts/<%= posts[i]._id %>" target="_blank" style="left: 50%">        <%= posts[i].title %></a>
-    </h3>
-    <p style="left: 50%; justify-content: center;">        <%= posts[i].description.substring(0, 50) %></p>
-  </div>
-  </div>
-  <% } %><% } %>
-    <div class="w3-padding-32">
-      <div class="thumbnail card" style="background-color:rgba(196, 236, 247, 0.3)">
-            <img style="width:100%">
-            <h3><a href="/Posts/5dc72c61dbc1da614db44c16" target="_blank">Free Pepperoni Pizze At Blaze Pizza!!!</a></h3>
-            <p>Anyone want to grab a free pizza together tomorrow at 12pm? Blaze Pizza has a... </p>
-          </div>
-          </div>
-    <div class="w3-padding-32">
-      <div class="thumbnail card" style="background-color:rgba(196, 236, 247, 0.3)">
-        <img style="width:100%">
-        <h3><a href="/Posts/5dc72f1ddbc1da614db44c17" target="_blank">Anyone want to go to GreatWall Supermarket in Duluth?</a></h3>
-        <p>Next Sunday 6pm. Anyone wants to uber to... </p>
-      </div>
-      </div>
-
-
-
-    </div>
-  </div>
-  <hr>
 
   <!-- Social Networks -->
+
+<div class="w3-main w3-content w3-padding" style="max-width:1000px;margin-top:100px">
+    
   <footer class="w3-row-padding w3-padding-12">
     <div class="w3-third">
       <h3>FOLLOW US</h3>
       <ul class="w3-ul w3-hoverable">
         <li class="w3-padding-16">
-          <img src="https://qiaolin22.github.io/login/static/image/facebook-icon.svg" alt="Facebook" style="width:10%">
-          <span class="w3-large"><a href="https://Facebook.com" target="_blank">Facebook</a></span><br>
+          <img src="https://qiaolin22.github.io/login/static/image/facebook-icon.svg" alt="Facebook" class="w3-left w3-margin-right" style="width:40px">
+          <span class="w3-large"><a href="https://Facebook.com" target="_blank">Facebook</a></span>
         </li>
         <li class="w3-padding-16">
-          <img src="https://qiaolin22.github.io/login/static/image/Twitter.png" alt="Twitter" style="width:10%">
-          <span class="w3-large"><a href="https://Twitter.com" target="_blank">Twitter</a></span><br>
+          <img src="https://qiaolin22.github.io/login/static/image/Twitter.png" alt="Twitter" class="w3-left w3-margin-right" style="width:40px">
+          <span class="w3-large"><a href="https://Twitter.com" target="_blank">Twitter</a></span>
         </li>
         <li class="w3-padding-16">
-          <img src="https://qiaolin22.github.io/login/static/image/instagram_icon.jpeg" alt="Instagram" style="width:10%">
-          <span class="w3-large"><a href="https://Instagram.com" target="_blank">Instagram</a></span><br>
+          <img src="https://qiaolin22.github.io/login/static/image/instagram_icon.jpeg" alt="Instagram" class="w3-left w3-margin-right" style="width:40px">
+          <span class="w3-large"><a href="https://Instagram.com" target="_blank">Instagram</a></span>
         </li>
       </ul>
       <p>Powered by <a href=/dashboard>Team 0100.0</a></p>
     </div>
-
     <div class="w3-third">
       <h3>BLOG POSTS</h3>
       <ul class="w3-ul w3-hoverable">
@@ -247,32 +311,34 @@ br {
 
     <div class="w3-third w3-serif">
       <h3>POPULAR TAGS</h3>
+      
+
+        
       <p>
-        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Emory">Emory</a> 
         <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Recipe">Recipe</a> 
-        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Pizza">Pizza</a> 
-        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Sauce">Sauce</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Emory">Emory</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Ramen">Ramen</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=smoothie">smoothie</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=banana">banana</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=Japanese">Japanese</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=sandwich">sandwich</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=pork">pork</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=health">health</a> 
+        <a class="w3-tag w3-dark-grey w3-small w3-margin-bottom" href="http://localhost:5000/posts?search=salad">salad</a> 
+
+
+
+
       </p>
     </div>
+    <hr>
 
-    
   </footer>
 
 <!-- End page content -->
 </div>
 </div>
 
-
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
-
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-</script>
 
 </body>
 </html>

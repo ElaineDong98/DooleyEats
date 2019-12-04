@@ -5,26 +5,15 @@
 element.style {
     width: 125px;
 }
-/* .jq-ry-container {
-    position: relative;
-    padding: 0 5px;
-    line-height: 0;
-    display: block;
-    cursor: pointer;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-.jq-ry-container{position:relative;padding:0 5px;line-height:0;display:block;cursor:pointer;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}.jq-ry-container[readonly=readonly]{cursor:default}.jq-ry-container>.jq-ry-group-wrapper{position:relative;width:100%}.jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group{position:relative;line-height:0;z-index:10;white-space:nowrap}.jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group>svg{display:inline-block}.jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group.jq-ry-normal-group{width:100%}.jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group.jq-ry-rated-group{width:0;z-index:11;position:absolute;top:0;left:0;overflow:hidden} */
-
 .jq-ry-container{position:relative;padding:0 5px;line-height:0;display:block;cursor:pointer;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}.jq-ry-container[readonly=readonly]{cursor:default}.jq-ry-container>.jq-ry-group-wrapper{position:relative;width:100%}.jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group{position:relative;line-height:0;z-index:10;white-space:nowrap}.jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group>svg{display:inline-block}.jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group.jq-ry-normal-group{width:100%}.jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group.jq-ry-rated-group{width:0;z-index:11;position:absolute;top:0;left:0;overflow:hidden}
 
 </style>
 
   <div class = "container">
-    <div class = "row">
-    <h1 style = "text-align:center">Add a new comment to <%= post.title %></h1>
+    
+    <h1 style = "text-align:center">Add a New Comment Here:</h1>
     <div style="width: 40%; margin:25px auto;">
+
     <form action="/posts/<%= post._id %>/comments/" method="POST">
         
         <div class = "form-group">
@@ -49,8 +38,8 @@ element.style {
             <button class="btn btn-success btn-block btn-lg">Submit</button>
         </div>
     </form>
-    <a href="/posts//<%=  post._id %>">Back</a>
-    
+    <button class="btn btn-md btn-primary">
+        <a href="/posts//<%=  post._id %>">Back </a> </button>
    </div>
+   
  </div>
-</div>

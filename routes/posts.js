@@ -77,7 +77,7 @@ router.get("/", (req, res) => {
     let numPost;
     const searchQuery = req.query.search,
           regex = new RegExp(escapeRegex(req.query.search), 'gi');
-    Post.find({"$or": [{tags: regex},{title:regex},{postyType:regex}]},(err, allPosts) => {
+    Post.find({"$or": [{tags: regex},{title:regex},{postType:regex}]},(err, allPosts) => {
       if (err) {
         req.flash("error", "Error: Cannot show posts");
         console.log(err);
