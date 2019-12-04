@@ -87,6 +87,7 @@ The numbers of *liked* and *viewed* are calculated
 We also have our newest posts, sorted by the Date. 
 
 
+
 #### 4. Footer
 
 
@@ -101,10 +102,17 @@ Default contents are all three types of posts sorted by Date.
 
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.48.22%37PM.png)
 
+The header enables user to go to their own profile and sign out
+
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.15%20PM.png)
+
+
 #### 2. Sorting 
 
 There is a sorting button here: 
 
+
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.50.18%20PM.png)
 
 
 #### 3. Searching 
@@ -115,11 +123,27 @@ We can search posts by their title, tags, and types.
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.49%20PM.png)
 
 
-![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.15%20PM.png)
+### Create New Posts
 
-![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.50.18%20PM.png)
-![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.50.25%20PM.png)
+
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.50.46%20PM.png)
+
+
+### User Profile
+
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.52.11%20PM.png)
+
+### Post Page
+
+#### Content
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.57.08%20PM.png)
+
+#### Comment area
+
+Under the post details, we also have a comment area. 
+
+You can choose to add *Anonymous* comments and also normal ones. The link to comment author's profile is working. 
+
+You can only delete/edit your comment. 
+
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.57.40%20PM.png)
