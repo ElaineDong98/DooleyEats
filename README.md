@@ -40,25 +40,58 @@ After all these have done, you can **login** now!
 
 ### Main Dashboard
 
-**header** 
+#### 1. header
 
 We have links to our profile, create post, and search bar in our header. 
 
-**content bar**
+#### 2. content bar
 
 We have three types of posts: 
  * Restaurant Review 
  * Recipe
  * Hang Out 
 
-In the **Hang Out** section, users can post various activity notifications. 
+
+
+#### 3. Main Contents
+
+
+We divide the main body into three parts: 
+ * Hang Out
+ * Trending Posts
+ * Newest Posts
+ 
+The last two parts are for the combination of *Restaurant Review* and *Recipe*.
+ 
+**Hang Out**
+
+In the Hang Out section, users can post various activity notifications. These are sorted by Date as a Default. 
 
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.48.06%20PM.png)
 
-For instance, club members can post sales information, users can post discount and free food information
+For instance, club members can post sales information, users can post discount and free food information. 
+
+**Trending Posts**
+
+We also have our trending posts. 
+The sorting of trending post considers: the number of liked, viewed, and commented. It only shows post within that month. 
+
+Each individual post has several links: to tags, to more info, and to author. 
+The numbers of *liked* and *viewed* are calculated
 
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.48.22%20PM.png)
+
+
+**Newest Posts**
+
+We also have our newest posts, sorted by the Date. 
+
+
+### View All Posts
+
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.48.22%37PM.png)
+
+
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.15%20PM.png)
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.49%20PM.png)
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.56%20PM.png)
