@@ -131,6 +131,31 @@ We can search posts by their title, tags, and types.
 
 ### User Profile
 
+User profile is consist of the following components: 
+
+* edit profile
+
+     Users can only change their own profile. 
+     
+* Add friend
+
+     User can add others as friends. There will be a link to his/her Facebook page. 
+     
+* Statistics
+     
+     The total number of posts and likes received. 
+     
+* Demographics 
+
+     Since this is for emory students, we have many related fields like Major and Year. 
+     
+* Users' Posts
+
+* Users' Liked Posts
+
+
+
+    
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.52.11%20PM.png)
 
 ### Post Page
