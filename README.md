@@ -32,7 +32,13 @@ After entered our website, users are required to **register** an account using E
 
 The Registration will send a **veridication email** to your email and give out a token. You have to use that token to complete the registration. 
 
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-04%20at%2012.06.38%20PM.png)
+
+
 You can also **reset** the password. The reset link will also send to your email, and there will be a link to reset it. 
+
+
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-04%20at%2012.15.54%20PM.png)
 
 After all these have done, you can **login** now!
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.47.19%20PM.png)
@@ -87,6 +93,8 @@ The numbers of *liked* and *viewed* are calculated
 We also have our newest posts, sorted by the Date. 
 
 
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-04%20at%2012.16.29%20PM.png)
+
 
 #### 4. Footer
 
@@ -131,6 +139,12 @@ We can search posts by their title, tags, and types.
 
 ### User Profile
 
+
+
+    
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.52.11%20PM.png)
+
+
 User profile is consist of the following components: 
 
 * edit profile
@@ -139,7 +153,12 @@ User profile is consist of the following components:
      
 * Add friend
 
-     User can add others as friends. There will be a link to his/her Facebook page. 
+     There is a **Add friend** button where users can add others as friends. There will be a link to his/her Facebook page. 
+     
+      
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-04%20at%2012.18.17%20PM.png)
+
+
      
 * Statistics
      
@@ -154,9 +173,7 @@ User profile is consist of the following components:
 * Users' Liked Posts
 
 
-
-    
-![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.52.11%20PM.png)
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-04%20at%2012.17.25%20PM.png)
 
 ### Post Page
 
