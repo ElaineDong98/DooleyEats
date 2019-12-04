@@ -89,7 +89,8 @@ We also have our newest posts, sorted by the Date.
 
 #### 4. Footer
 
-![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.49%20PM.png)
+
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.56%20PM.png)
 
 
 ### View All Posts
@@ -105,7 +106,14 @@ Default contents are all three types of posts sorted by Date.
 There is a sorting button here: 
 
 
-![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.56%20PM.png)
+
+#### 3. Searching 
+
+We can search posts by their title, tags, and types. 
+
+
+![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.49%20PM.png)
+
 
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.15%20PM.png)
 
