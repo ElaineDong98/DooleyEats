@@ -98,6 +98,7 @@ We also have our newest posts, sorted by the Date.
 
 #### 4. Footer
 
+In the footer, all the links work well, including the popular tags. 
 
 ![](https://github.com/ElaineDong98/DooleyEats/blob/master/demonstrating%20graphs/Screen%20Shot%202019-12-03%20at%2011.49.56%20PM.png)
 
